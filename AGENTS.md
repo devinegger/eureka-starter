@@ -48,6 +48,29 @@ When working on this project in future Codex sessions:
 5. Use `.gitignore` for folders or files that should not be included in the generated site.
 6. Keep implementation notes and specs in sync when the project direction changes.
 
+## Initial 11ty Setup
+
+Use this section when explaining first-time setup to a future user or agent. Keep the instructions short and practical.
+
+### Setup steps
+
+1. Open a terminal in the project root.
+2. Install dependencies with `npm install`.
+3. Start the local dev server with `npm run serve`.
+4. Open `http://localhost:8080/` in a browser.
+5. Edit Markdown or layout files and let 11ty rebuild automatically in watch mode.
+
+### One-time build
+
+If a static build is needed without the dev server, run `npm run build`.
+
+### Notes for future agents
+
+- Prefer telling the user to use `npm run serve` during normal editing because it watches for changes automatically.
+- Mention that generated output goes to `_site/`.
+- If dependencies are already installed, skip `npm install`.
+- Keep setup guidance friendly and literal so it works for both technical and non-technical users.
+
 ## Content Maintenance Notes
 
 Helpful conventions for this project:
