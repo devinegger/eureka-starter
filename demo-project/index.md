@@ -6,6 +6,8 @@ layout: base.liquid
 
 This folder stands in for the temporary example content and shows the basic pattern for a project section.
 
+![A demo hero image, processed at build time into a responsive picture element.](/images/hero.jpg)
+
 ## What this page demonstrates
 
 - a folder-level landing page

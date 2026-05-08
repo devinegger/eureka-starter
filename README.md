@@ -29,7 +29,8 @@ npm run serve
 - root page at `index.md`
 - worked example at `demo-project/` (a folder landing page with one nested child)
 - stylesheet template at `styles.css.liquid`
-- `static/` directory passed through to the build for images, favicons, and other raw assets
+- `static/` for raw assets (favicons, OG images, downloads — kept as-is)
+- `images/` for content images that should be optimized into responsive `<picture>` elements
 - GitHub Pages deploy workflow at `.github/workflows/deploy.yml`
 
 ## Local Development
@@ -89,6 +90,7 @@ Page content goes here.
 |   |-- meeting-notes/
 |   |   `-- index.md
 |   `-- newpage.md
+|-- images/
 |-- static/
 |-- eleventy.config.mjs
 |-- index.md
@@ -108,4 +110,5 @@ Every site cloned from this template ships with a Pages deploy workflow. To turn
 
 - `AGENTS.md` contains the conventions and guardrails to keep this starter coherent over time.
 - After cloning, replace `demo-project/` with your real content and update the root `index.md` to link to your sections.
-- Drop images, favicons, and other raw assets into `static/`. Reference them as `/static/foo.jpg` from your pages.
+- Drop favicons, OG images, and other raw assets into `static/`. Reference them as `/static/foo.png`. They are passed through unchanged.
+- Drop content images (hero photos, inline figures) into `images/`. Reference them in markdown the normal way: `![alt text](/images/hero.jpg)`. They get auto-transformed at build time into responsive `<picture>` elements with AVIF/WebP/fallback at 400/800/1280 widths via [`@11ty/eleventy-img`](https://www.11ty.dev/docs/plugins/image/).

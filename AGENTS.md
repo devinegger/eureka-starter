@@ -31,9 +31,10 @@ If a feature only matters to one downstream site, it belongs in that site, not i
 - `_includes/base.liquid` — shared Liquid layout
 - `index.md` — root landing page
 - `demo-project/` — a worked example showing a folder landing page with one nested child page
-- `static/` — passthrough directory for images, favicons, and other raw assets (referenced as `/static/...`)
+- `static/` — passthrough directory for raw assets that need exact filenames (favicons, OG images, downloads), referenced as `/static/...`
+- `images/` — source dir for content images. Standard markdown `![alt](/images/foo.jpg)` is auto-transformed at build time into responsive `<picture>` elements (AVIF/WebP/fallback at 400/800/1280 widths) via `@11ty/eleventy-img`. Output goes to `_site/img/`.
 - `styles.css.liquid` — stylesheet template
-- `eleventy.config.mjs` — Eleventy config: registers `HtmlBasePlugin` (so `pathPrefix` rewrites absolute URLs in output) and the `static/` passthrough
+- `eleventy.config.mjs` — Eleventy config: registers `eleventyImageTransformPlugin` (responsive image processing), `HtmlBasePlugin` (rewrites absolute URLs to include `pathPrefix`), and the `static/` passthrough. Plugin order matters: image plugin first, then base plugin.
 - `.github/workflows/deploy.yml` — GitHub Pages deploy via Actions (build + upload artifact + deploy). Sets `PATH_PREFIX=/<repo-name>/` so absolute URLs work on project Pages without a custom domain.
 - `_data/site.json` — global site metadata (`name`, `description`) read by the layout
 - `package.json` — Eleventy as the only runtime dependency
