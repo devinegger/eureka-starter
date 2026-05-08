@@ -2,7 +2,7 @@
 
 import { createInterface } from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
-import { access } from "node:fs/promises";
+import { access, readFile, writeFile } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -28,11 +28,11 @@ export function resolveParent(raw) {
   return cleaned === "." || cleaned === "" ? projectRoot : join(projectRoot, cleaned);
 }
 
-/** Throw if a path already exists. */
+/** Exit if a path already exists. */
 export async function refuseIfExists(filePath, label) {
   try {
     await access(filePath);
-    console.error(`Refused: ${label} already exists.`);
+    console.error(`  Refused: ${label} already exists.`);
     process.exit(1);
   } catch {
     // good — does not exist
@@ -49,7 +49,9 @@ export async function ask(questions) {
   const answers = {};
 
   for (const q of questions) {
-    const hint = q.default ? ` (${q.default})` : q.required ? "" : " (optional, Enter to skip)";
+    const hint = q.default
+      ? ` (${q.default})`
+      : q.required ? "" : " (optional, Enter to skip)";
     const raw = await rl.question(`  ${q.prompt}${hint}: `);
     const val = raw.trim() || q.default || "";
     if (q.required && !val) {
@@ -62,6 +64,60 @@ export async function ask(questions) {
 
   rl.close();
   return answers;
+}
+
+/**
+ * Ask where to include a new page in site navigation.
+ * Only call this when the page is being added at the root level (parent = ".").
+ * Returns { main: bool, footer: bool }.
+ */
+export async function askNavInclusion() {
+  const rl = createInterface({ input, output });
+  const raw = await rl.question(
+    "  Add to navigation? (main / footer / both / no, default: no): "
+  );
+  rl.close();
+
+  const answer = raw.trim().toLowerCase();
+  return {
+    main:   answer === "main"   || answer === "both",
+    footer: answer === "footer" || answer === "both",
+  };
+}
+
+/**
+ * Insert a nav link into _includes/base.liquid at the given marker.
+ * marker: "main-nav" | "footer-nav"
+ * label: display text
+ * url:   href value e.g. "/about/"
+ */
+export async function insertNavLink(marker, label, url) {
+  const layoutPath = join(projectRoot, "_includes", "base.liquid");
+  let src;
+
+  try {
+    src = await readFile(layoutPath, "utf8");
+  } catch {
+    console.warn(`  Warning: could not read _includes/base.liquid — add the nav link manually.`);
+    return;
+  }
+
+  const tag = `<!-- insert:${marker} -->`;
+
+  if (!src.includes(tag)) {
+    console.warn(`  Warning: marker "${tag}" not found in base.liquid — add the nav link manually:`);
+    console.warn(`    <a href="${url}">${label}</a>`);
+    return;
+  }
+
+  // Detect indentation from the marker line.
+  const markerLine = src.split("\n").find((l) => l.includes(tag)) || "";
+  const indent = markerLine.match(/^(\s*)/)?.[1] ?? "          ";
+
+  const link = `${indent}<a href="${url}">${label}</a>\n${indent}${tag}`;
+  const updated = src.replace(`${indent}${tag}`, link);
+
+  await writeFile(layoutPath, updated, "utf8");
 }
 
 /** Front-matter stub. Falls back to TODO if description is empty. */
