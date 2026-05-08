@@ -1,6 +1,6 @@
 ---
-title: Codex Exploration
-description: Start here to browse the demo sections and see how a plain folder tree turns into a simple 11ty site.
+title: Eureka Starter
+description: A minimal Eleventy starter where folders become sections and index.md files become pages.
 layout: base.liquid
 ---
 
@@ -11,26 +11,20 @@ This starter keeps everything close to default 11ty behavior:
 - shared page chrome lives in `_includes/base.liquid`
 - non-site project notes stay out of the build through `.gitignore`
 
-## Demo sections
+## Example section
 
 <ul class="section-list">
   <li>
     <a href="/demo-project/">
       <strong>Demo Project</strong>
-      A small project page with one nested section.
-    </a>
-  </li>
-  <li>
-    <a href="/weekly-notes/">
-      <strong>Weekly Notes</strong>
-      A simple top-level page that reads like a lightweight running log.
+      A small project page with one nested child page.
     </a>
   </li>
 </ul>
 
 ## Update workflow
 
-When you add a new folder page later:
+When you add a new folder page:
 
 1. Create the folder.
 2. Add an `index.md`.

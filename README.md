@@ -1,48 +1,54 @@
-# Codex Exploration 11ty Starter
+# Eureka Starter
 
 A minimal [Eleventy (11ty)](https://www.11ty.dev/) starter for a Markdown-first site.
 
-This project is designed around a simple idea:
+Use this as a GitHub template to spin up new 11ty sites with a consistent shape:
 
 - folders become sections
 - `index.md` files become pages
 - nested folders become nested URLs
 - a shared Liquid layout provides the site shell
-- content stays in Markdown instead of a traditional CMS
+- content stays in Markdown — no traditional CMS
 
-The current version is intentionally close to stock 11ty behavior. It is meant to be easy to understand, easy to edit, and easy to evolve into a reusable template later.
+This stays intentionally close to stock 11ty so it's easy to read, easy to edit, and easy to extend.
 
-## What It Includes
+## Use This Template
 
-- a shared layout at `_includes/base.liquid`
-- a root page at `index.md`
-- a small demo section at `demo-project/`
-- another top-level example at `weekly-notes/`
-- a stylesheet template at `styles.css.liquid`
+Click **Use this template → Create a new repository** on GitHub, or:
+
+```bash
+gh repo create my-new-site --template devinegger/eureka-starter --public --clone
+cd my-new-site
+npm install
+npm run serve
+```
+
+## What's Included
+
+- shared layout at `_includes/base.liquid`
+- root page at `index.md`
+- worked example at `demo-project/` (a folder landing page with one nested child)
+- stylesheet template at `styles.css.liquid`
 
 ## Local Development
 
 Install dependencies:
 
-```powershell
+```bash
 npm install
 ```
 
-Start the local dev server:
+Start the local dev server (watches and rebuilds on change):
 
-```powershell
+```bash
 npm run serve
 ```
 
-Then open:
-
-- [http://localhost:8080/](http://localhost:8080/)
-
-The dev server watches for changes and rebuilds automatically.
+Then open <http://localhost:8080/>.
 
 To run a one-time static build:
 
-```powershell
+```bash
 npm run build
 ```
 
@@ -53,7 +59,7 @@ Generated output is written to `_site/`.
 - Give any folder that should be a page an `index.md`.
 - Use subfolders when a page needs its own nested URL.
 - Add links to new child pages from the relevant parent `index.md`.
-- Use front matter for page metadata such as `title`, `description`, and `layout`.
+- Use front matter for page metadata (`title`, `description`, `layout`).
 
 Example:
 
@@ -77,26 +83,15 @@ Page content goes here.
 |   `-- base.liquid
 |-- demo-project/
 |   |-- index.md
-|   `-- meeting-notes/
-|       `-- index.md
-|-- weekly-notes/
-|   `-- index.md
+|   |-- meeting-notes/
+|   |   `-- index.md
+|   `-- newpage.md
 |-- index.md
 |-- styles.css.liquid
 `-- package.json
 ```
 
-## Notes For Handoff
+## Notes
 
-- `AGENTS.md` contains maintenance guidance and the working roadmap.
-- `11ty-site-spec.md` contains the original v1 spec and design decisions.
-- `docs/` contains implementation planning notes.
-
-## Future Direction
-
-Planned next steps include:
-
-- refining navigation
-- adding GitHub Pages publishing
-- turning this into a reusable starter/template
-- exploring an Obsidian-based editing workflow for client handoff
+- `AGENTS.md` contains the conventions and guardrails to keep this starter coherent over time.
+- After cloning, replace `demo-project/` with your real content and update the root `index.md` to link to your sections.
