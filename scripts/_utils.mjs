@@ -1,5 +1,7 @@
 // Shared utilities for page scaffolding scripts.
 
+import { createInterface } from "node:readline/promises";
+import { stdin as input, stdout as output } from "node:process";
 import { access } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -21,7 +23,6 @@ export function slugify(title) {
 
 /** Resolve and validate a parent directory argument. */
 export function resolveParent(raw) {
-  // Accept ".", "", or a relative path — never allow traversal.
   const cleaned = (raw || ".").replace(/^\/+|\/+$/g, "").replace(/\\/g, "/");
   if (cleaned.includes("..")) throw new Error(`Invalid parent path: "${raw}"`);
   return cleaned === "." || cleaned === "" ? projectRoot : join(projectRoot, cleaned);
@@ -38,11 +39,37 @@ export async function refuseIfExists(filePath, label) {
   }
 }
 
-/** Minimal front-matter stub. */
-export function stub(title) {
+/**
+ * Prompt for a list of questions interactively.
+ * Each question: { name, prompt, default?, required? }
+ * Returns an object of { name: answer }.
+ */
+export async function ask(questions) {
+  const rl = createInterface({ input, output });
+  const answers = {};
+
+  for (const q of questions) {
+    const hint = q.default ? ` (${q.default})` : q.required ? "" : " (optional, Enter to skip)";
+    const raw = await rl.question(`  ${q.prompt}${hint}: `);
+    const val = raw.trim() || q.default || "";
+    if (q.required && !val) {
+      console.error(`\n  "${q.name}" is required. Aborting.`);
+      rl.close();
+      process.exit(1);
+    }
+    answers[q.name] = val;
+  }
+
+  rl.close();
+  return answers;
+}
+
+/** Front-matter stub. Falls back to TODO if description is empty. */
+export function stub(title, description = "") {
+  const desc = description || "TODO — short summary for hero/meta description.";
   return `---
 title: ${title}
-description: TODO — short summary for hero/meta description.
+description: ${desc}
 layout: base.liquid
 ---
 
