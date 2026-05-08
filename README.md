@@ -64,6 +64,20 @@ Generated output is written to `_site/`.
 - Add links to new child pages from the relevant parent `index.md`.
 - Use front matter for page metadata (`title`, `description`, `layout`).
 
+### Scaffolding a new page
+
+Quick stub a page with the right folder shape and front matter:
+
+```bash
+npm run new-page <path> "<title>"
+# examples
+npm run new-page services/ant-control "Ant Control"
+npm run new-page about "About Us"
+npm run new-page services/ant-control/diy-tips "DIY Ant Tips"
+```
+
+Refuses if the page already exists. After it runs, fill in the body and add a link from the parent `index.md`.
+
 Example:
 
 ```md

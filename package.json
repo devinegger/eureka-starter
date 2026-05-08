@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "build": "eleventy",
-    "serve": "eleventy --serve"
+    "serve": "eleventy --serve",
+    "new-page": "node scripts/new-page.mjs"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.5",

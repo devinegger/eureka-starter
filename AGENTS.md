@@ -37,7 +37,8 @@ If a feature only matters to one downstream site, it belongs in that site, not i
 - `eleventy.config.mjs` — Eleventy config: registers `eleventyImageTransformPlugin` (responsive image processing), `HtmlBasePlugin` (rewrites absolute URLs to include `pathPrefix`), and the `static/` passthrough. Plugin order matters: image plugin first, then base plugin.
 - `.github/workflows/deploy.yml` — GitHub Pages deploy via Actions (build + upload artifact + deploy). Sets `PATH_PREFIX=/<repo-name>/` so absolute URLs work on project Pages without a custom domain.
 - `_data/site.json` — global site metadata (`name`, `description`) read by the layout
-- `package.json` — Eleventy as the only runtime dependency
+- `package.json` — Eleventy as the only runtime dependency; defines `npm run build`, `npm run serve`, and `npm run new-page`
+- `scripts/new-page.mjs` — scaffolds a new `<path>/index.md` with stub front matter; refuses if the page already exists
 - `.gitignore` — keeps `_site/`, `node_modules/`, and editor noise out of git
 
 ## Conventions
