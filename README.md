@@ -90,7 +90,7 @@ Page content goes here.
 |   |   `-- index.md
 |   `-- newpage.md
 |-- static/
-|-- .eleventy.js
+|-- eleventy.config.mjs
 |-- index.md
 |-- styles.css.liquid
 `-- package.json

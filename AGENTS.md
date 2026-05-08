@@ -33,8 +33,9 @@ If a feature only matters to one downstream site, it belongs in that site, not i
 - `demo-project/` — a worked example showing a folder landing page with one nested child page
 - `static/` — passthrough directory for images, favicons, and other raw assets (referenced as `/static/...`)
 - `styles.css.liquid` — stylesheet template
-- `.eleventy.js` — minimal Eleventy config (currently only registers the `static/` passthrough)
-- `.github/workflows/deploy.yml` — GitHub Pages deploy via Actions (build + upload artifact + deploy)
+- `eleventy.config.mjs` — Eleventy config: registers `HtmlBasePlugin` (so `pathPrefix` rewrites absolute URLs in output) and the `static/` passthrough
+- `.github/workflows/deploy.yml` — GitHub Pages deploy via Actions (build + upload artifact + deploy). Sets `PATH_PREFIX=/<repo-name>/` so absolute URLs work on project Pages without a custom domain.
+- `_data/site.json` — global site metadata (`name`, `description`) read by the layout
 - `package.json` — Eleventy as the only runtime dependency
 - `.gitignore` — keeps `_site/`, `node_modules/`, and editor noise out of git
 
