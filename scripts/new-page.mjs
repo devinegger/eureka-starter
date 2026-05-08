@@ -1,61 +1,38 @@
 #!/usr/bin/env node
-// Scaffold a new page: creates <path>/index.md with stub front-matter.
-// Usage:
-//   npm run new-page <path> "<title>"
-// Examples:
-//   npm run new-page services/ant-control "Ant Control"
-//   npm run new-page about "About Us"
-//   npm run new-page services/ant-control/diy-tips "DIY Ant Tips"
+// Create a flat leaf page: <parent>/<slug>.md
+//
+// Usage (CLI):
+//   npm run new-page -- "<parent>" "<Title>"
+//   npm run new-page -- services "Ant Control"
+//   npm run new-page -- . "About Us"
+//
+// Obsidian Shell Commands:
+//   npm run new-page -- "{{folder_path:relative}}" "{{value:Page title}}"
 
-import { mkdir, writeFile, access } from "node:fs/promises";
-import { join, dirname } from "node:path";
-import { fileURLToPath } from "node:url";
+import { mkdir, writeFile } from "node:fs/promises";
+import { join } from "node:path";
+import { slugify, resolveParent, refuseIfExists, stub } from "./_utils.mjs";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const projectRoot = join(__dirname, "..");
-
-const [, , rawPath, ...titleParts] = process.argv;
+const [, , rawParent, ...titleParts] = process.argv;
 const title = titleParts.join(" ").trim();
 
-if (!rawPath || !title) {
-  console.error('Usage: npm run new-page <path> "<title>"');
-  console.error('Example: npm run new-page services/ant-control "Ant Control"');
+if (!rawParent || !title) {
+  console.error("Usage: npm run new-page -- \"<parent>\" \"<Title>\"");
+  console.error('Examples:');
+  console.error('  npm run new-page -- services "Ant Control"');
+  console.error('  npm run new-page -- . "About Us"');
   process.exit(1);
 }
 
-// Strip leading/trailing slashes; reject absolute or parent-traversal paths.
-const path = rawPath.replace(/^\/+|\/+$/g, "");
-if (path.includes("..") || path.startsWith("/")) {
-  console.error(`Refused: invalid path "${rawPath}".`);
-  process.exit(1);
-}
+const parentDir = resolveParent(rawParent);
+const slug = slugify(title);
+const targetFile = join(parentDir, `${slug}.md`);
+const displayPath = join(rawParent === "." ? "" : rawParent, `${slug}.md`)
+  .replace(/^\//, "");
 
-const targetDir = join(projectRoot, path);
-const targetFile = join(targetDir, "index.md");
+await refuseIfExists(targetFile, displayPath);
+await mkdir(parentDir, { recursive: true });
+await writeFile(targetFile, stub(title), "utf8");
 
-try {
-  await access(targetFile);
-  console.error(`Refused: ${path}/index.md already exists.`);
-  process.exit(1);
-} catch {
-  // does not exist — proceed
-}
-
-await mkdir(targetDir, { recursive: true });
-
-const body = `---
-title: ${title}
-description: TODO — short summary for hero/meta description.
-layout: base.liquid
----
-
-TODO: page content.
-`;
-
-await writeFile(targetFile, body, "utf8");
-
-const parent = path.includes("/") ? path.split("/").slice(0, -1).join("/") : "";
-const parentLabel = parent ? `${parent}/index.md` : "index.md (root)";
-
-console.log(`Created ${path}/index.md`);
-console.log(`Next: add a link to /${path}/ from ${parentLabel}.`);
+console.log(`Created ${displayPath}`);
+console.log(`Next: add a link to /${displayPath.replace(/\.md$/, "/")} from ${rawParent === "." ? "index.md (root)" : `${rawParent}/index.md`}.`);
