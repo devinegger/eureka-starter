@@ -31,7 +31,10 @@ If a feature only matters to one downstream site, it belongs in that site, not i
 - `_includes/base.liquid` — shared Liquid layout
 - `index.md` — root landing page
 - `demo-project/` — a worked example showing a folder landing page with one nested child page
+- `static/` — passthrough directory for images, favicons, and other raw assets (referenced as `/static/...`)
 - `styles.css.liquid` — stylesheet template
+- `.eleventy.js` — minimal Eleventy config (currently only registers the `static/` passthrough)
+- `.github/workflows/deploy.yml` — GitHub Pages deploy via Actions (build + upload artifact + deploy)
 - `package.json` — Eleventy as the only runtime dependency
 - `.gitignore` — keeps `_site/`, `node_modules/`, and editor noise out of git
 

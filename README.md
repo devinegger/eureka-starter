@@ -29,6 +29,8 @@ npm run serve
 - root page at `index.md`
 - worked example at `demo-project/` (a folder landing page with one nested child)
 - stylesheet template at `styles.css.liquid`
+- `static/` directory passed through to the build for images, favicons, and other raw assets
+- GitHub Pages deploy workflow at `.github/workflows/deploy.yml`
 
 ## Local Development
 
@@ -79,6 +81,7 @@ Page content goes here.
 
 ```text
 .
+|-- .github/workflows/deploy.yml
 |-- _includes/
 |   `-- base.liquid
 |-- demo-project/
@@ -86,12 +89,23 @@ Page content goes here.
 |   |-- meeting-notes/
 |   |   `-- index.md
 |   `-- newpage.md
+|-- static/
+|-- .eleventy.js
 |-- index.md
 |-- styles.css.liquid
 `-- package.json
 ```
 
+## Deploying To GitHub Pages
+
+Every site cloned from this template ships with a Pages deploy workflow. To turn it on for a new site:
+
+1. Push to `main`.
+2. Go to **Settings → Pages → Build and deployment** and set **Source** to **GitHub Actions**.
+3. The next push (or a manual run of the workflow) will build with Eleventy and publish `_site/` to Pages.
+
 ## Notes
 
 - `AGENTS.md` contains the conventions and guardrails to keep this starter coherent over time.
 - After cloning, replace `demo-project/` with your real content and update the root `index.md` to link to your sections.
+- Drop images, favicons, and other raw assets into `static/`. Reference them as `/static/foo.jpg` from your pages.
