@@ -1,0 +1,28 @@
+{
+  "story": {
+    "eyebrow": "About",
+    "title": "A small team that ships, measures, and owns the number.",
+    "sub": "We're not a creative agency that picked up a few trades clients. Eureka was built from the ground up for owner-operators who care about cost-per-lead more than awards."
+  },
+  "values": {
+    "title": "Four things we hold to.",
+    "items": [
+      {
+        "title": "Cost-per-job, always.",
+        "body": "It's the only number that matters to a contractor. Every dashboard, every report, every meeting starts there."
+      },
+      {
+        "title": "Month-to-month after 90 days.",
+        "body": "If we can't hold you with results, no contract should. We give you the tracking we built — even if you leave."
+      },
+      {
+        "title": "Pick up the phone.",
+        "body": "Your dedicated strategist gets a direct line. Not a ticketing system, not an inbox, not a chatbot."
+      },
+      {
+        "title": "No vanity metrics.",
+        "body": "We don't put impressions in reports. We don't put \"engagement rate\" in reports. We put calls, forms, and jobs."
+      }
+    ]
+  }
+}
