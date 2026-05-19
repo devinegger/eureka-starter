@@ -1,0 +1,221 @@
+/* ============================================================================
+   EUREKA — Design tokens
+   ----------------------------------------------------------------------------
+   Two layers:
+     1. PRIMITIVES — raw values, theme-agnostic. Color ramps, spacing scale,
+        type sizes, radii, shadows. Never reference these directly in
+        component CSS.
+     2. SEMANTIC   — meaning-based names that point at primitives. Components
+        reference these only. Swap a theme by re-binding the semantic layer.
+
+   The reference design (see /design-reference/) uses semantic names like
+   --paper, --ink, --teal directly. Eureka keeps those as aliases so existing
+   markup stays valid, but new components should prefer the explicit semantic
+   names (--surface-base, --text-primary, --accent-default).
+   ========================================================================== */
+
+/* ============================================
+   PRIMITIVE TOKENS
+   ============================================ */
+:root {
+  /* --- Neutrals (warm near-black ramp) ---------------------------------- */
+  --color-neutral-0:    #FFFFFF;
+  --color-neutral-50:   #FAFAF7;
+  --color-neutral-100:  #F0F0EC;
+  --color-neutral-200:  #E6E6E2;
+  --color-neutral-300:  #C9D6D1;
+  --color-neutral-400:  #9FB6AE;
+  --color-neutral-500:  #7A8480;
+  --color-neutral-600:  #6B6B68;
+  --color-neutral-700:  #2A2A28;
+  --color-neutral-800:  #1F2624;
+  --color-neutral-850:  #161C1A;
+  --color-neutral-900:  #131A18;
+  --color-neutral-925:  #0E1614;
+  --color-neutral-950:  #0B100E;
+  --color-neutral-980:  #050807;
+  --color-ink-dark:     #0A0A0A;
+  --color-ink-deep:     #0E1A17;
+  --color-ink-deep-2:   #16221E;
+  --color-foreground:   #ECEFEC;
+  --color-foreground-2: #B8C0BC;
+  --color-foreground-3: #EDEDE8;
+
+  /* --- Accent (teal — overridable per brand) ---------------------------- */
+  --color-teal-300:     #14E3AE;  /* hover on dark */
+  --color-teal-500:     #06D6A0;  /* default accent */
+  --color-teal-700:     #04B584;  /* hover on light */
+  --color-teal-ink:     #042F26;  /* text on teal surfaces */
+
+  /* --- Status ----------------------------------------------------------- */
+  --color-good:         #06D6A0;
+  --color-warn:         #F5B400;
+  --color-bad:          #E5484D;
+
+  /* --- Spacing (4-based) ------------------------------------------------ */
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  24px;
+  --space-6:  32px;
+  --space-7:  48px;
+  --space-8:  64px;
+  --space-9:  96px;
+  --space-10: 128px;
+
+  /* --- Radii ------------------------------------------------------------ */
+  --radius-sm:   4px;
+  --radius-md:  10px;
+  --radius-lg:  16px;
+  --radius-full: 999px;
+
+  /* --- Type — system stack only, no web fonts shipped ------------------- */
+  --font-sans:    -apple-system, BlinkMacSystemFont, "Segoe UI",
+                  "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  --font-mono:    ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas,
+                  "Liberation Mono", monospace;
+  --font-display: var(--font-sans);
+
+  /* --- Type sizes ------------------------------------------------------- */
+  --font-size-xs:    12px;
+  --font-size-sm:    14px;
+  --font-size-base:  16px;
+  --font-size-md:    17px;
+  --font-size-lg:    19px;
+  --font-size-xl:    22px;
+  --font-size-2xl:   28px;
+  --font-size-3xl:   44px;
+  --font-size-4xl:   56px;
+  --font-size-5xl:   72px;
+
+  /* --- Layout ----------------------------------------------------------- */
+  --container:       1200px;
+  --container-wide:  1320px;
+
+  /* --- Motion ----------------------------------------------------------- */
+  --duration-fast:    120ms;
+  --duration-base:    150ms;
+  --duration-slow:    500ms;
+  --ease-base:        ease;
+}
+
+/* ============================================
+   SEMANTIC TOKENS — DARK THEME (default)
+   ============================================ */
+:root,
+[data-theme="dark"] {
+  /* Surfaces (layered, from base outward) */
+  --surface-base:     var(--color-neutral-950);
+  --surface-raised:   var(--color-neutral-900);
+  --surface-overlay:  var(--color-neutral-925);
+  --surface-deep:     var(--color-neutral-980);
+  --surface-deep-2:   var(--color-neutral-925);
+
+  /* Text */
+  --text-primary:     var(--color-foreground);
+  --text-secondary:   var(--color-foreground-2);
+  --text-muted:       var(--color-neutral-500);
+  --text-on-deep:     var(--color-neutral-300);
+  --text-on-deep-2:   var(--color-neutral-400);
+  --text-inverse:     var(--color-ink-dark);
+
+  /* Borders / dividers */
+  --border-subtle:    var(--color-neutral-800);
+  --border-default:   var(--color-neutral-500);
+  --border-faint:     var(--color-neutral-850);
+  --border-on-deep:   rgba(255, 255, 255, 0.08);
+  --border-on-deep-2: rgba(255, 255, 255, 0.18);
+
+  /* Accent */
+  --accent-default:   var(--color-teal-500);
+  --accent-hover:     var(--color-teal-300);
+  --accent-contrast:  var(--color-teal-ink);
+  --accent-glow:      rgba(6, 214, 160, 0.18);
+  --accent-glow-soft: rgba(6, 214, 160, 0.08);
+
+  /* Status */
+  --status-success:   var(--color-good);
+  --status-warning:   var(--color-warn);
+  --status-danger:    var(--color-bad);
+
+  /* Form fields on dark surfaces */
+  --field-bg:         rgba(255, 255, 255, 0.04);
+  --field-border:     rgba(255, 255, 255, 0.12);
+
+  /* Component shadows */
+  --shadow-card:      0 30px 80px -32px rgba(0, 0, 0, 0.6);
+  --shadow-button:    0 10px 30px -10px rgba(6, 214, 160, 0.55);
+
+  /* Legacy aliases (match the reference design's token names) */
+  --ink:           var(--text-primary);
+  --ink-2:         var(--text-secondary);
+  --mute:          var(--text-muted);
+  --line:          var(--border-subtle);
+  --line-2:        var(--border-faint);
+  --paper:         var(--surface-base);
+  --paper-2:       var(--surface-raised);
+  --paper-ink:     var(--surface-deep);
+  --paper-ink-2:   var(--surface-overlay);
+  --teal:          var(--accent-default);
+  --teal-2:        var(--accent-hover);
+  --teal-ink:      var(--accent-contrast);
+  --good:          var(--status-success);
+  --warn:          var(--status-warning);
+  --bad:           var(--status-danger);
+  --s-1:  var(--space-1); --s-2:  var(--space-2); --s-3:  var(--space-3);
+  --s-4:  var(--space-4); --s-5:  var(--space-5); --s-6:  var(--space-6);
+  --s-7:  var(--space-7); --s-8:  var(--space-8); --s-9:  var(--space-9);
+  --s-10: var(--space-10);
+  --r-1:  var(--radius-sm); --r-2: var(--radius-md); --r-full: var(--radius-full);
+}
+
+/* ============================================
+   SEMANTIC TOKENS — LIGHT THEME
+   ============================================ */
+[data-theme="light"] {
+  --surface-base:     var(--color-neutral-0);
+  --surface-raised:   var(--color-neutral-50);
+  --surface-overlay:  var(--color-ink-deep-2);
+  --surface-deep:     var(--color-ink-deep);
+  --surface-deep-2:   var(--color-ink-deep-2);
+
+  --text-primary:     var(--color-ink-dark);
+  --text-secondary:   var(--color-neutral-700);
+  --text-muted:       var(--color-neutral-600);
+  --text-on-deep:     var(--color-neutral-300);
+  --text-on-deep-2:   var(--color-neutral-400);
+  --text-inverse:     var(--color-foreground);
+
+  --border-subtle:    var(--color-neutral-200);
+  --border-default:   var(--color-neutral-500);
+  --border-faint:     var(--color-neutral-100);
+  --border-on-deep:   rgba(255, 255, 255, 0.08);
+  --border-on-deep-2: rgba(255, 255, 255, 0.18);
+
+  --accent-default:   var(--color-teal-500);
+  --accent-hover:     var(--color-teal-700);
+  --accent-contrast:  var(--color-teal-ink);
+
+  --field-bg:         var(--color-neutral-0);
+  --field-border:     var(--color-neutral-200);
+
+  --shadow-card:      0 12px 32px -16px rgba(15, 26, 23, 0.18);
+  --shadow-button:    0 10px 30px -10px rgba(6, 214, 160, 0.35);
+}
+
+/* ============================================
+   PER-BRAND OVERRIDES
+   ----------------------------------------------------------------------------
+   A new portfolio brand only needs to override the four accent semantic
+   tokens. Theme structure (dark/light surfaces, text, borders) is preserved.
+
+   Examples (uncomment + tune):
+
+   [data-brand="brand-b"] {
+     --accent-default:  #C2410C;
+     --accent-hover:    #EA580C;
+     --accent-contrast: var(--color-neutral-0);
+     --accent-glow:     rgba(194, 65, 12, 0.20);
+   }
+   ============================================ */
