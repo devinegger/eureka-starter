@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Eureka — Content</title>
+  <meta name="color-scheme" content="dark light">
+  <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+</head>
+<body>
+  <!--
+    Decap CMS shell. Loads the editor bundle from a CDN.
+    Auth uses DecapBridge as a free Git-OAuth provider on the starter plan.
+    TODO: when migrating off the free tier, swap to a Cloudflare Worker
+    that handles OAuth + commits via the GitHub API.
+    See https://decapbridge.com and https://decapcms.org/docs/external-oauth-clients/
+  -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script src="https://unpkg.com/decap-cms-oauth-provider-bridge@^1.0.0/dist/decap-cms-oauth-provider-bridge.js"></script>
+</body>
+</html>

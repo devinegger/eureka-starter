@@ -1,0 +1,151 @@
+# ============================================================================
+# EUREKA — Decap CMS configuration
+# ----------------------------------------------------------------------------
+# Loaded at /admin/. Edits commit to the same repo this site is built from;
+# the next deploy picks them up.
+#
+# Backend auth: starter setup uses DecapBridge (free, no infra).
+# TODO: when traffic justifies it, swap backend to a self-hosted Cloudflare
+# Worker that brokers GitHub OAuth — drop in `auth_endpoint` of the new
+# Worker and remove the DecapBridge script tag from admin/index.html.
+# ============================================================================
+
+backend:
+  name: git-gateway
+  branch: main
+  # For DecapBridge (default), uncomment the next line and replace with your
+  # site key from decapbridge.com:
+  # auth_endpoint: "https://decapbridge.com/oauth"
+
+media_folder: "src/static/uploads"
+public_folder: "/static/uploads"
+
+publish_mode: editorial_workflow
+
+site_url: https://eureka.example.com
+display_url: https://eureka.example.com
+logo_url: /static/favicon.svg
+
+collections:
+
+  # ---- Site config (single file) -----------------------------------------
+  - name: "settings"
+    label: "Site settings"
+    files:
+      - file: "src/_data/site.json"
+        label: "Global site config"
+        name: "site"
+        fields:
+          - { name: name,        label: "Site name",        widget: string }
+          - { name: brandMark,   label: "Brand mark (1-2 chars)", widget: string, pattern: ['^.{1,2}$', "1-2 characters"] }
+          - { name: tagline,     label: "Tagline",          widget: string }
+          - { name: description, label: "Meta description", widget: text }
+          - name: theme
+            label: "Default theme"
+            widget: select
+            options: ["dark", "light"]
+            default: "dark"
+          - { name: brand,       label: "Brand variant slug", widget: string, default: "default", hint: "Matches [data-brand=...] in tokens.css for accent overrides." }
+          - { name: url,         label: "Canonical site URL", widget: string }
+          - { name: phone,       label: "Display phone",    widget: string }
+          - { name: phoneTel,    label: "Tel: link phone",  widget: string, hint: "E.164 e.g. +18885550144" }
+          - { name: email,       label: "Email",            widget: string }
+          - name: address
+            label: "Office address"
+            widget: object
+            fields:
+              - { name: street, label: Street, widget: string }
+              - { name: city,   label: City,   widget: string }
+              - { name: state,  label: State,  widget: string }
+              - { name: zip,    label: ZIP,    widget: string }
+          - { name: tagline_footer, label: "Footer tagline", widget: string, required: false }
+          - { name: turnstileSiteKey, label: "Cloudflare Turnstile site key", widget: string, required: false }
+          - { name: psiApiKey,        label: "PageSpeed Insights API key",    widget: string, required: false }
+
+  # ---- Services -----------------------------------------------------------
+  - name: "services"
+    label: "Services"
+    label_singular: "Service"
+    files:
+      - file: "src/_data/services.json"
+        label: "Services list"
+        name: "services"
+        fields:
+          - name: services
+            label: "Services"
+            label_singular: "Service"
+            widget: list
+            fields:
+              - { name: slug,    label: "URL slug",        widget: string }
+              - { name: index,   label: "Index (01, 02)",  widget: string }
+              - { name: title,   label: "Title",           widget: string }
+              - { name: shortName, label: "Short name",    widget: string }
+              - { name: summary, label: "Card summary",    widget: text }
+              - { name: hero,    label: "Detail-page hero headline", widget: string }
+              - { name: lede,    label: "Detail-page lede",          widget: text }
+              - { name: includes, label: "What's included", widget: list, field: { name: item, label: Item, widget: string } }
+              - name: pricing
+                label: "Pricing"
+                widget: object
+                fields:
+                  - { name: label,  label: Label,  widget: string, default: "From" }
+                  - { name: amount, label: Amount, widget: string }
+                  - { name: note,   label: Note,   widget: text }
+              - name: faq
+                label: "FAQ"
+                widget: list
+                fields:
+                  - { name: q, label: Question, widget: string }
+                  - { name: a, label: Answer,   widget: text }
+
+  # ---- Service areas ------------------------------------------------------
+  - name: "service-areas"
+    label: "Service areas"
+    files:
+      - file: "src/_data/serviceAreas.json"
+        label: "Service areas list"
+        name: "serviceAreas"
+        fields:
+          - name: areas
+            label: "Areas"
+            widget: list
+            fields:
+              - { name: slug,    label: "URL slug",  widget: string }
+              - { name: city,    label: "City",      widget: string }
+              - { name: state,   label: "State",     widget: string }
+              - { name: tagline, label: "Tagline",   widget: string }
+              - { name: intro,   label: "Intro paragraph", widget: text }
+              - { name: highlights, label: "Highlights bullets", widget: list, field: { name: item, label: Item, widget: string } }
+
+  # ---- Testimonials -------------------------------------------------------
+  - name: "testimonials"
+    label: "Testimonials"
+    files:
+      - file: "src/_data/testimonials.json"
+        label: "Testimonials list"
+        name: "testimonials"
+        fields:
+          - name: items
+            label: "Testimonials"
+            widget: list
+            fields:
+              - { name: quote,    label: "Quote",    widget: text }
+              - { name: name,     label: "Name",     widget: string }
+              - { name: role,     label: "Role/company", widget: string }
+              - { name: initials, label: "Initials (avatar)", widget: string, pattern: ['^.{1,3}$', "1-3 characters"] }
+
+  # ---- Blog posts ---------------------------------------------------------
+  - name: "blog"
+    label: "Blog posts"
+    label_singular: "Blog post"
+    folder: "src/pages/blog"
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { name: title,       label: Title,       widget: string }
+      - { name: description, label: Description, widget: text }
+      - { name: date,        label: "Publish date", widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { name: author,      label: Author,      widget: string, default: "Eureka team" }
+      - { name: body,        label: Body,        widget: markdown }

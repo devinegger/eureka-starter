@@ -1,0 +1,73 @@
+---
+layout: layouts/landing.njk
+pagination:
+  data: serviceAreas
+  size: 1
+  alias: area
+permalink: "/service-areas/{{ area.slug }}/"
+eleventyComputed:
+  title: "Digital marketing in {{ area.city }}, {{ area.state }}"
+  description: "{{ area.tagline }}. Eureka helps trades businesses in {{ area.city }} book more jobs through fast websites, local SEO, and ROI-first paid ads."
+hasContactForm: true
+hasPagespeedWidget: true
+widget: pagespeed-checker
+widgetEyebrow: "Free {{ area.city }} site audit"
+widgetTitle: "How fast is your {{ area.city }} site, really?"
+widgetLede: "Drop your URL — we’ll run a live PageSpeed check and tell you what’s costing you jobs in the {{ area.city }} metro."
+widgetMeta: "Live · powered by Google PSI"
+---
+
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">{{ area.state }} · {{ area.city }}</p>
+    <h1 class="page-hero__title">Digital marketing for {{ area.city }} trades businesses.</h1>
+    <p class="page-hero__sub">{{ area.intro }}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="differentiator__grid">
+      <div>
+        <p class="eyebrow">What we do here</p>
+        <h2 class="section-title">{{ area.city }}-specific approach.</h2>
+        <p class="section-lede">Every market has its own quirks. Here’s how we adapt for {{ area.city }} contractors:</p>
+      </div>
+      <div>
+        <ul class="feature-list">
+          {% for h in area.highlights %}
+            <li>{{ h }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% include "partials/widget-slot.njk" %}
+
+<section class="section section--warm testimonials">
+  <div class="container">
+    <p class="eyebrow">Local proof</p>
+    <h2 class="section-title">{{ area.city }} contractors who stopped guessing.</h2>
+    <div class="testimonials__grid">
+      {% for t in testimonials %}
+        {% if loop.index <= 2 %}
+          <figure class="quote-card">
+            <div class="quote-card__mark" aria-hidden="true">&ldquo;</div>
+            <blockquote class="quote-card__body">{{ t.quote }}</blockquote>
+            <figcaption class="quote-card__attr">
+              <div class="quote-card__avatar" aria-hidden="true">{{ t.initials }}</div>
+              <div class="quote-card__attr-info">
+                <span class="quote-card__name">{{ t.name }}</span>
+                <span class="quote-card__role">{{ t.role }}</span>
+              </div>
+            </figcaption>
+          </figure>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% include "partials/cta-block.njk" %}

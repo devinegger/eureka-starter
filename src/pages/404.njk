@@ -1,0 +1,19 @@
+---
+layout: layouts/landing.njk
+title: Page not found
+description: The page you were looking for doesn’t exist or has moved.
+permalink: /404.html
+eleventyExcludeFromCollections: true
+---
+
+<section class="container error-page">
+  <div>
+    <div class="error-page__code">404</div>
+    <h1 class="error-page__title">That page is in another timeline.</h1>
+    <p class="error-page__body">The URL you tried doesn’t exist on this site — either it moved, or the link is broken. Head back to the homepage or get in touch.</p>
+    <div style="display:flex; gap: var(--space-3); justify-content:center; flex-wrap:wrap;">
+      <a href="/" class="btn btn--primary btn--lg">Back home</a>
+      <a href="/contact/" class="btn btn--ghost btn--lg">Tell us what you wanted</a>
+    </div>
+  </div>
+</section>
