@@ -1,0 +1,429 @@
+[
+  {
+    "id": "cap_mpahii62_vxy1i3",
+    "selector": "section.hero",
+    "label": "Digital marketing built for real busines…",
+    "tag": "section",
+    "url": "https://pronghorndigitals.com/",
+    "title": "Home - Pronghorn Digital",
+    "timestamp": "2026-05-18T00:47:27.098Z",
+    "innerText": "Digital marketing built for real businesses\n\nPronghorn Digital helps local and growing brands turn traffic into booked calls, leads, and sales with clear strategy, clean analytics, and campaigns you can actually understand.\n\nExplore Services\nContact Us",
+    "outerHTML": "<section class=\"hero\">\n            <div class=\"container hero-container\">\n                <div class=\"hero-content\">\n                    <h1 class=\"hero-title animate-up is-visible\">Digital marketing built for <span class=\"highlight\">real businesses</span></h1>\n                    <p class=\"hero-subtitle animate-up is-visible\">Pronghorn Digital helps local and growing brands turn traffic into\n                        booked calls, leads, and sales with clear strategy, clean analytics, and campaigns you can actually understand.</p>\n                    <div class=\"hero-buttons animate-up is-visible\">\n                        <a href=\"#services\" class=\"btn btn-primary\">Explore Services</a>\n                        <a href=\"contact.html\" class=\"btn btn-secondary\">Contact Us</a>\n                    </div>\n                </div>\n                <div class=\"hero-visual animate-up is-visible\">\n                    <div class=\"hero-sphere\">\n                        <div class=\"sphere-ring\"></div>\n                        <div class=\"sphere-ring\"></div>\n                        <div class=\"sphere-ring\"></div>\n                        <i class=\"fas fa-rocket sphere-icon\"></i>\n                    </div>\n                </div>\n            </div>\n        </section>",
+    "rect": {
+      "x": 0,
+      "y": 0,
+      "width": 1469,
+      "height": 796
+    },
+    "computedStyles": {
+      "display": "flex",
+      "position": "relative",
+      "top": "0px",
+      "right": "0px",
+      "bottom": "0px",
+      "left": "0px",
+      "width": "1469px",
+      "height": "796px",
+      "padding": "100px 0px 0px",
+      "border": "0px none rgb(229, 231, 235)",
+      "box-sizing": "border-box",
+      "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+      "color": "rgb(229, 231, 235)",
+      "font-family": "\"DM Sans\", sans-serif",
+      "font-size": "16px",
+      "line-height": "26.4px",
+      "text-decoration": "none",
+      "align-items": "center",
+      "transition": "all"
+    },
+    "cssRules": [
+      {
+        "selector": "*, ::before, ::after",
+        "css": "box-sizing: border-box; margin: 0px; padding: 0px;"
+      },
+      {
+        "selector": ".hero",
+        "css": "min-height: 100vh; display: flex; align-items: center; padding-top: calc(var(--header-height) + 1.5rem); position: relative;"
+      },
+      {
+        "selector": ".hero",
+        "css": "min-height: auto; padding: 5rem 0px 3rem;",
+        "media": "(max-width: 576px)"
+      }
+    ]
+  },
+  {
+    "id": "cap_mpahj9hq_i9dumh",
+    "selector": "section#about",
+    "label": "About Pronghorn Digital We’re a digital …",
+    "tag": "section",
+    "url": "https://pronghorndigitals.com/",
+    "title": "Home - Pronghorn Digital",
+    "timestamp": "2026-05-18T00:48:02.510Z",
+    "innerText": "About Pronghorn Digital\n\nWe’re a digital marketing partner for businesses that want clear strategy, honest communication, and campaigns they can actually understand and measure.\n\nWho we work with\n\nLocal and growing brands that care about sustainable growth—whether you’re booking more calls, filling your calendar, or scaling a proven offer.\n\nHow we think\n\nStrategy first, channels second. We start with your numbers, margins, and goals, then design campaigns that actually make sense for your business.\n\nWhat we value\n\nClarity, transparency, and long-term relationships. You’ll always know what we’re testing, why we’re testing it, and what results we’re seeing.",
+    "outerHTML": "<section class=\"section\" id=\"about\">\n            <div class=\"container\">\n                <div class=\"section-header\">\n                    <h2 class=\"section-title animate-up is-visible\">About <span class=\"highlight\">Pronghorn Digital</span></h2>\n                    <p class=\"section-subtitle animate-up is-visible\">We’re a digital marketing partner for businesses that want\n                        clear strategy, honest communication, and campaigns they can actually understand and measure.</p>\n                </div>\n                <div class=\"services-grid\">\n                    <div class=\"service-card animate-up is-visible\">\n                        <div class=\"service-card-icon\"><i class=\"fas fa-user-friends\"></i></div>\n                        <h3 class=\"service-card-title\">Who we work with</h3>\n                        <p class=\"service-card-description\">Local and growing brands that care about sustainable growth—whether\n                            you’re booking more calls, filling your calendar, or scaling a proven offer.</p>\n                    </div>\n                    <div class=\"service-card animate-up is-visible\">\n                        <div class=\"service-card-icon\"><i class=\"fas fa-chart-line\"></i></div>\n                        <h3 class=\"service-card-title\">How we think</h3>\n                        <p class=\"service-card-description\">Strategy first, channels second. We start with your numbers,\n                            margins, and goals, then design campaigns that actually make sense for your business.</p>\n                    </div>\n                    <div class=\"service-card animate-up is-visible\">\n                        <div class=\"service-card-icon\"><i class=\"fas fa-handshake\"></i></div>\n                        <h3 class=\"service-card-title\">What we value</h3>\n                        <p class=\"service-card-description\">Clarity, transparency, and long-term relationships. You’ll always\n                            know what we’re testing, why we’re testing it, and what results we’re seeing.</p>\n                    </div>\n                </div>\n            </div>\n        </section>",
+    "rect": {
+      "x": 0,
+      "y": 14,
+      "width": 1469,
+      "height": 632
+    },
+    "computedStyles": {
+      "display": "block",
+      "width": "1469px",
+      "height": "632.281px",
+      "padding": "88px 0px",
+      "border": "0px none rgb(229, 231, 235)",
+      "box-sizing": "border-box",
+      "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+      "color": "rgb(229, 231, 235)",
+      "font-family": "\"DM Sans\", sans-serif",
+      "font-size": "16px",
+      "line-height": "26.4px",
+      "text-decoration": "none",
+      "transition": "all"
+    },
+    "cssRules": [
+      {
+        "selector": "*, ::before, ::after",
+        "css": "box-sizing: border-box; margin: 0px; padding: 0px;"
+      },
+      {
+        "selector": ".section",
+        "css": "padding: 5.5rem 0px;"
+      },
+      {
+        "selector": ".section",
+        "css": "padding: 3.5rem 0px;",
+        "media": "(max-width: 576px)"
+      }
+    ]
+  },
+  {
+    "id": "cap_mpahjdqq_tku9a4",
+    "selector": "section#about",
+    "label": "About Pronghorn Digital We’re a digital …",
+    "tag": "section",
+    "url": "https://pronghorndigitals.com/",
+    "title": "Home - Pronghorn Digital",
+    "timestamp": "2026-05-18T00:48:08.018Z",
+    "innerText": "About Pronghorn Digital\n\nWe’re a digital marketing partner for businesses that want clear strategy, honest communication, and campaigns they can actually understand and measure.\n\nWho we work with\n\nLocal and growing brands that care about sustainable growth—whether you’re booking more calls, filling your calendar, or scaling a proven offer.\n\nHow we think\n\nStrategy first, channels second. We start with your numbers, margins, and goals, then design campaigns that actually make sense for your business.\n\nWhat we value\n\nClarity, transparency, and long-term relationships. You’ll always know what we’re testing, why we’re testing it, and what results we’re seeing.",
+    "outerHTML": "<section class=\"section\" id=\"about\">\n            <div class=\"container\">\n                <div class=\"section-header\">\n                    <h2 class=\"section-title animate-up is-visible\">About <span class=\"highlight\">Pronghorn Digital</span></h2>\n                    <p class=\"section-subtitle animate-up is-visible\">We’re a digital marketing partner for businesses that want\n                        clear strategy, honest communication, and campaigns they can actually understand and measure.</p>\n                </div>\n                <div class=\"services-grid\">\n                    <div class=\"service-card animate-up is-visible\">\n                        <div class=\"service-card-icon\"><i class=\"fas fa-user-friends\"></i></div>\n                        <h3 class=\"service-card-title\">Who we work with</h3>\n                        <p class=\"service-card-description\">Local and growing brands that care about sustainable growth—whether\n                            you’re booking more calls, filling your calendar, or scaling a proven offer.</p>\n                    </div>\n                    <div class=\"service-card animate-up is-visible\">\n                        <div class=\"service-card-icon\"><i class=\"fas fa-chart-line\"></i></div>\n                        <h3 class=\"service-card-title\">How we think</h3>\n                        <p class=\"service-card-description\">Strategy first, channels second. We start with your numbers,\n                            margins, and goals, then design campaigns that actually make sense for your business.</p>\n                    </div>\n                    <div class=\"service-card animate-up is-visible\">\n                        <div class=\"service-card-icon\"><i class=\"fas fa-handshake\"></i></div>\n                        <h3 class=\"service-card-title\">What we value</h3>\n                        <p class=\"service-card-description\">Clarity, transparency, and long-term relationships. You’ll always\n                            know what we’re testing, why we’re testing it, and what results we’re seeing.</p>\n                    </div>\n                </div>\n            </div>\n        </section>",
+    "rect": {
+      "x": 0,
+      "y": -612,
+      "width": 1469,
+      "height": 632
+    },
+    "computedStyles": {
+      "display": "block",
+      "width": "1469px",
+      "height": "632.281px",
+      "padding": "88px 0px",
+      "border": "0px none rgb(229, 231, 235)",
+      "box-sizing": "border-box",
+      "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+      "color": "rgb(229, 231, 235)",
+      "font-family": "\"DM Sans\", sans-serif",
+      "font-size": "16px",
+      "line-height": "26.4px",
+      "text-decoration": "none",
+      "transition": "all"
+    },
+    "cssRules": [
+      {
+        "selector": "*, ::before, ::after",
+        "css": "box-sizing: border-box; margin: 0px; padding: 0px;"
+      },
+      {
+        "selector": ".section",
+        "css": "padding: 5.5rem 0px;"
+      },
+      {
+        "selector": ".section",
+        "css": "padding: 3.5rem 0px;",
+        "media": "(max-width: 576px)"
+      }
+    ]
+  },
+  {
+    "id": "cap_mpahjmg7_g9qf4i",
+    "selector": "section#our-tech",
+    "label": "Data-driven campaign decisions We combin…",
+    "tag": "section",
+    "url": "https://pronghorndigitals.com/",
+    "title": "Home - Pronghorn Digital",
+    "timestamp": "2026-05-18T00:48:19.303Z",
+    "innerText": "Data-driven campaign decisions\n\nWe combine practical marketing experience with clear analytics so you always know what is working, what is not, and where to invest next:\n\nContinuously optimize ad spend to reduce waste and lower acquisition costs.\nUncover high-intent audiences and keywords that drive stronger leads.\nAlign creative, copy, and offers with the real problems your customers are trying to solve.\nLearn More",
+    "outerHTML": "<section class=\"section tech-section\" id=\"our-tech\">\n            <div class=\"container tech-container\">\n                <div class=\"tech-content animate-up is-visible\">\n                    <h2 class=\"section-title\">Data-driven <span class=\"highlight\">campaign decisions</span></h2>\n                    <p class=\"section-subtitle\">We combine practical marketing experience with clear analytics so you always\n                        know what is working, what is not, and where to invest next:</p>\n                    <ul class=\"tech-list\">\n                        <li><i class=\"fas fa-check-circle\"></i> Continuously optimize ad spend to reduce waste and lower acquisition costs.</li>\n                        <li><i class=\"fas fa-check-circle\"></i> Uncover high-intent audiences and keywords that drive stronger leads.</li>\n                        <li><i class=\"fas fa-check-circle\"></i> Align creative, copy, and offers with the real problems your customers are trying to solve.</li>\n                    </ul>\n                    <a href=\"contact.html\" class=\"btn btn-primary\">Learn More</a>\n                </div>\n                <div class=\"tech-visual animate-up is-visible\">\n                    <div class=\"tech-cube\">\n                        <div class=\"cube-face front\"></div>\n                        <div class=\"cube-face back\"></div>\n                        <div class=\"cube-face right\"></div>\n                        <div class=\"cube-face left\"></div>\n                        <div class=\"cube-face top\"></div>\n                        <div class=\"cube-face bottom\"></div>\n                    </div>\n                </div>\n            </div>\n        </section>",
+    "rect": {
+      "x": 0,
+      "y": -2,
+      "width": 1469,
+      "height": 684
+    },
+    "computedStyles": {
+      "display": "block",
+      "width": "1469px",
+      "height": "683.672px",
+      "padding": "88px 0px",
+      "border": "0px none rgb(229, 231, 235)",
+      "box-sizing": "border-box",
+      "background": "radial-gradient(circle at 100% 0%, rgba(56, 189, 248, 0.16), rgba(0, 0, 0, 0) 60%) repeat scroll 0% 0% / auto padding-box border-box, rgba(0, 0, 0, 0) radial-gradient(circle at 0% 100%, rgba(15, 23, 42, 0.9), rgb(2, 6, 23)) repeat scroll 0% 0% / auto padding-box border-box",
+      "color": "rgb(229, 231, 235)",
+      "font-family": "\"DM Sans\", sans-serif",
+      "font-size": "16px",
+      "line-height": "26.4px",
+      "text-decoration": "none",
+      "transition": "all"
+    },
+    "cssRules": [
+      {
+        "selector": "*, ::before, ::after",
+        "css": "box-sizing: border-box; margin: 0px; padding: 0px;"
+      },
+      {
+        "selector": ".section",
+        "css": "padding: 5.5rem 0px;"
+      },
+      {
+        "selector": ".tech-section",
+        "css": "background: radial-gradient(circle at right top, rgba(56, 189, 248, 0.16), transparent 60%), radial-gradient(circle at left bottom, rgba(15, 23, 42, 0.9), rgb(2, 6, 23));"
+      },
+      {
+        "selector": ".section",
+        "css": "padding: 3.5rem 0px;",
+        "media": "(max-width: 576px)"
+      }
+    ]
+  },
+  {
+    "id": "cap_mpahjsrl_hn0q40",
+    "selector": "section#process",
+    "label": "A simple 3-step process From first call …",
+    "tag": "section",
+    "url": "https://pronghorndigitals.com/",
+    "title": "Home - Pronghorn Digital",
+    "timestamp": "2026-05-18T00:48:27.489Z",
+    "innerText": "A simple 3-step process\n\nFrom first call to ongoing optimization, we keep the process straightforward so you always know what’s happening next.\n\n1. Discovery & audit\n\nWe review your current marketing, analytics, and goals to understand what’s working, what’s broken, and where the biggest opportunities are.\n\n2. Strategy & setup\n\nWe design a focused plan across SEO, ads, and content, then build or rebuild campaigns, tracking, and landing pages so everything is ready to scale.\n\n3. Optimization & reporting\n\nWe monitor performance, test new ideas, and send clear reports that show what you’re getting for your spend—no jargon, no fluff.",
+    "outerHTML": "<section class=\"section\" id=\"process\">\n            <div class=\"container\">\n                <div class=\"section-header\">\n                    <h2 class=\"section-title animate-up is-visible\">A simple <span class=\"highlight\">3-step process</span></h2>\n                    <p class=\"section-subtitle animate-up is-visible\">From first call to ongoing optimization, we keep the process\n                        straightforward so you always know what’s happening next.</p>\n                </div>\n                <div class=\"services-grid\">\n                    <div class=\"service-card animate-up is-visible\">\n                        <div class=\"service-card-icon\"><i class=\"fas fa-comments\"></i></div>\n                        <h3 class=\"service-card-title\">1. Discovery &amp; audit</h3>\n                        <p class=\"service-card-description\">We review your current marketing, analytics, and goals to\n                            understand what’s working, what’s broken, and where the biggest opportunities are.</p>\n                    </div>\n                    <div class=\"service-card animate-up is-visible\">\n                        <div class=\"service-card-icon\"><i class=\"fas fa-bullseye\"></i></div>\n                        <h3 class=\"service-card-title\">2. Strategy &amp; setup</h3>\n                        <p class=\"service-card-description\">We design a focused plan across SEO, ads, and content, then\n                            build or rebuild campaigns, tracking, and landing pages so everything is ready to scale.</p>\n                    </div>\n                    <div class=\"service-card animate-up is-visible\">\n                        <div class=\"service-card-icon\"><i class=\"fas fa-sync-alt\"></i></div>\n                        <h3 class=\"service-card-title\">3. Optimization &amp; reporting</h3>\n                        <p class=\"service-card-description\">We monitor performance, test new ideas, and send clear reports\n                            that show what you’re getting for your spend—no jargon, no fluff.</p>\n                    </div>\n                </div>\n            </div>\n        </section>",
+    "rect": {
+      "x": 0,
+      "y": 160,
+      "width": 1469,
+      "height": 632
+    },
+    "computedStyles": {
+      "display": "block",
+      "width": "1469px",
+      "height": "632.281px",
+      "padding": "88px 0px",
+      "border": "0px none rgb(229, 231, 235)",
+      "box-sizing": "border-box",
+      "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+      "color": "rgb(229, 231, 235)",
+      "font-family": "\"DM Sans\", sans-serif",
+      "font-size": "16px",
+      "line-height": "26.4px",
+      "text-decoration": "none",
+      "transition": "all"
+    },
+    "cssRules": [
+      {
+        "selector": "*, ::before, ::after",
+        "css": "box-sizing: border-box; margin: 0px; padding: 0px;"
+      },
+      {
+        "selector": ".section",
+        "css": "padding: 5.5rem 0px;"
+      },
+      {
+        "selector": ".section",
+        "css": "padding: 3.5rem 0px;",
+        "media": "(max-width: 576px)"
+      }
+    ]
+  },
+  {
+    "id": "cap_mpahjw4r_f2hchl",
+    "selector": "section#process",
+    "label": "A simple 3-step process From first call …",
+    "tag": "section",
+    "url": "https://pronghorndigitals.com/",
+    "title": "Home - Pronghorn Digital",
+    "timestamp": "2026-05-18T00:48:31.851Z",
+    "innerText": "A simple 3-step process\n\nFrom first call to ongoing optimization, we keep the process straightforward so you always know what’s happening next.\n\n1. Discovery & audit\n\nWe review your current marketing, analytics, and goals to understand what’s working, what’s broken, and where the biggest opportunities are.\n\n2. Strategy & setup\n\nWe design a focused plan across SEO, ads, and content, then build or rebuild campaigns, tracking, and landing pages so everything is ready to scale.\n\n3. Optimization & reporting\n\nWe monitor performance, test new ideas, and send clear reports that show what you’re getting for your spend—no jargon, no fluff.",
+    "outerHTML": "<section class=\"section\" id=\"process\">\n            <div class=\"container\">\n                <div class=\"section-header\">\n                    <h2 class=\"section-title animate-up is-visible\">A simple <span class=\"highlight\">3-step process</span></h2>\n                    <p class=\"section-subtitle animate-up is-visible\">From first call to ongoing optimization, we keep the process\n                        straightforward so you always know what’s happening next.</p>\n                </div>\n                <div class=\"services-grid\">\n                    <div class=\"service-card animate-up is-visible\">\n                        <div class=\"service-card-icon\"><i class=\"fas fa-comments\"></i></div>\n                        <h3 class=\"service-card-title\">1. Discovery &amp; audit</h3>\n                        <p class=\"service-card-description\">We review your current marketing, analytics, and goals to\n                            understand what’s working, what’s broken, and where the biggest opportunities are.</p>\n                    </div>\n                    <div class=\"service-card animate-up is-visible\">\n                        <div class=\"service-card-icon\"><i class=\"fas fa-bullseye\"></i></div>\n                        <h3 class=\"service-card-title\">2. Strategy &amp; setup</h3>\n                        <p class=\"service-card-description\">We design a focused plan across SEO, ads, and content, then\n                            build or rebuild campaigns, tracking, and landing pages so everything is ready to scale.</p>\n                    </div>\n                    <div class=\"service-card animate-up is-visible\">\n                        <div class=\"service-card-icon\"><i class=\"fas fa-sync-alt\"></i></div>\n                        <h3 class=\"service-card-title\">3. Optimization &amp; reporting</h3>\n                        <p class=\"service-card-description\">We monitor performance, test new ideas, and send clear reports\n                            that show what you’re getting for your spend—no jargon, no fluff.</p>\n                    </div>\n                </div>\n            </div>\n        </section>",
+    "rect": {
+      "x": 0,
+      "y": -985,
+      "width": 1469,
+      "height": 632
+    },
+    "computedStyles": {
+      "display": "block",
+      "width": "1469px",
+      "height": "632.281px",
+      "padding": "88px 0px",
+      "border": "0px none rgb(229, 231, 235)",
+      "box-sizing": "border-box",
+      "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+      "color": "rgb(229, 231, 235)",
+      "font-family": "\"DM Sans\", sans-serif",
+      "font-size": "16px",
+      "line-height": "26.4px",
+      "text-decoration": "none",
+      "transition": "all"
+    },
+    "cssRules": [
+      {
+        "selector": "*, ::before, ::after",
+        "css": "box-sizing: border-box; margin: 0px; padding: 0px;"
+      },
+      {
+        "selector": ".section",
+        "css": "padding: 5.5rem 0px;"
+      },
+      {
+        "selector": ".section",
+        "css": "padding: 3.5rem 0px;",
+        "media": "(max-width: 576px)"
+      }
+    ]
+  },
+  {
+    "id": "cap_mpahjyb8_euosv7",
+    "selector": "section#process",
+    "label": "A simple 3-step process From first call …",
+    "tag": "section",
+    "url": "https://pronghorndigitals.com/",
+    "title": "Home - Pronghorn Digital",
+    "timestamp": "2026-05-18T00:48:34.676Z",
+    "innerText": "A simple 3-step process\n\nFrom first call to ongoing optimization, we keep the process straightforward so you always know what’s happening next.\n\n1. Discovery & audit\n\nWe review your current marketing, analytics, and goals to understand what’s working, what’s broken, and where the biggest opportunities are.\n\n2. Strategy & setup\n\nWe design a focused plan across SEO, ads, and content, then build or rebuild campaigns, tracking, and landing pages so everything is ready to scale.\n\n3. Optimization & reporting\n\nWe monitor performance, test new ideas, and send clear reports that show what you’re getting for your spend—no jargon, no fluff.",
+    "outerHTML": "<section class=\"section\" id=\"process\">\n            <div class=\"container\">\n                <div class=\"section-header\">\n                    <h2 class=\"section-title animate-up is-visible\">A simple <span class=\"highlight\">3-step process</span></h2>\n                    <p class=\"section-subtitle animate-up is-visible\">From first call to ongoing optimization, we keep the process\n                        straightforward so you always know what’s happening next.</p>\n                </div>\n                <div class=\"services-grid\">\n                    <div class=\"service-card animate-up is-visible\">\n                        <div class=\"service-card-icon\"><i class=\"fas fa-comments\"></i></div>\n                        <h3 class=\"service-card-title\">1. Discovery &amp; audit</h3>\n                        <p class=\"service-card-description\">We review your current marketing, analytics, and goals to\n                            understand what’s working, what’s broken, and where the biggest opportunities are.</p>\n                    </div>\n                    <div class=\"service-card animate-up is-visible\">\n                        <div class=\"service-card-icon\"><i class=\"fas fa-bullseye\"></i></div>\n                        <h3 class=\"service-card-title\">2. Strategy &amp; setup</h3>\n                        <p class=\"service-card-description\">We design a focused plan across SEO, ads, and content, then\n                            build or rebuild campaigns, tracking, and landing pages so everything is ready to scale.</p>\n                    </div>\n                    <div class=\"service-card animate-up is-visible\">\n                        <div class=\"service-card-icon\"><i class=\"fas fa-sync-alt\"></i></div>\n                        <h3 class=\"service-card-title\">3. Optimization &amp; reporting</h3>\n                        <p class=\"service-card-description\">We monitor performance, test new ideas, and send clear reports\n                            that show what you’re getting for your spend—no jargon, no fluff.</p>\n                    </div>\n                </div>\n            </div>\n        </section>",
+    "rect": {
+      "x": 0,
+      "y": -1692,
+      "width": 1469,
+      "height": 632
+    },
+    "computedStyles": {
+      "display": "block",
+      "width": "1469px",
+      "height": "632.281px",
+      "padding": "88px 0px",
+      "border": "0px none rgb(229, 231, 235)",
+      "box-sizing": "border-box",
+      "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+      "color": "rgb(229, 231, 235)",
+      "font-family": "\"DM Sans\", sans-serif",
+      "font-size": "16px",
+      "line-height": "26.4px",
+      "text-decoration": "none",
+      "transition": "all"
+    },
+    "cssRules": [
+      {
+        "selector": "*, ::before, ::after",
+        "css": "box-sizing: border-box; margin: 0px; padding: 0px;"
+      },
+      {
+        "selector": ".section",
+        "css": "padding: 5.5rem 0px;"
+      },
+      {
+        "selector": ".section",
+        "css": "padding: 3.5rem 0px;",
+        "media": "(max-width: 576px)"
+      }
+    ]
+  },
+  {
+    "id": "cap_mpahk29m_ung3ym",
+    "selector": "section.section",
+    "label": "Ready to grow with Pronghorn Digital? If…",
+    "tag": "section",
+    "url": "https://pronghorndigitals.com/",
+    "title": "Home - Pronghorn Digital",
+    "timestamp": "2026-05-18T00:48:39.802Z",
+    "innerText": "Ready to grow with Pronghorn Digital?\n\nIf you’re serious about turning your website traffic and ad spend into consistent leads and sales, let’s map out a plan together.\n\nBook a strategy call\nReview our services",
+    "outerHTML": "<section class=\"section\">\n            <div class=\"container\">\n                <div class=\"section-header\">\n                    <h2 class=\"section-title animate-up is-visible\">Ready to grow with <span class=\"highlight\">Pronghorn Digital</span>?</h2>\n                    <p class=\"section-subtitle animate-up is-visible\">If you’re serious about turning your website traffic and ad spend\n                        into consistent leads and sales, let’s map out a plan together.</p>\n                </div>\n                <div class=\"hero-buttons animate-up is-visible\" style=\"justify-content:center;\">\n                    <a href=\"contact.html\" class=\"btn btn-primary\">Book a strategy call</a>\n                    <a href=\"#services\" class=\"btn btn-secondary\">Review our services</a>\n                </div>\n            </div>\n        </section>",
+    "rect": {
+      "x": 0,
+      "y": 105,
+      "width": 1469,
+      "height": 418
+    },
+    "computedStyles": {
+      "display": "block",
+      "width": "1469px",
+      "height": "418.258px",
+      "padding": "88px 0px",
+      "border": "0px none rgb(229, 231, 235)",
+      "box-sizing": "border-box",
+      "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+      "color": "rgb(229, 231, 235)",
+      "font-family": "\"DM Sans\", sans-serif",
+      "font-size": "16px",
+      "line-height": "26.4px",
+      "text-decoration": "none",
+      "transition": "all"
+    },
+    "cssRules": [
+      {
+        "selector": "*, ::before, ::after",
+        "css": "box-sizing: border-box; margin: 0px; padding: 0px;"
+      },
+      {
+        "selector": ".section",
+        "css": "padding: 5.5rem 0px;"
+      },
+      {
+        "selector": ".section",
+        "css": "padding: 3.5rem 0px;",
+        "media": "(max-width: 576px)"
+      }
+    ]
+  },
+  {
+    "id": "cap_mpahk3uc_k8wnw1",
+    "selector": "footer.footer",
+    "label": "Pronghorn Digital is a digital marketing…",
+    "tag": "footer",
+    "url": "https://pronghorndigitals.com/",
+    "title": "Home - Pronghorn Digital",
+    "timestamp": "2026-05-18T00:48:41.844Z",
+    "innerText": "Pronghorn Digital is a digital marketing partner focused on clear strategy, transparent reporting, and campaigns that turn attention into real business results.\n\nExplore\nServices\nOur Tech\nTestimonials\nContact Us\nLegal\nPrivacy Policy\nTerms & Conditions\nDisclaimer\nPronghorn Digital\n1145 clark ave, billings, mt 59102\n+1 (804) 920-1952\nhi@pronghorndigitals.com\n\n© 2026 Pronghorn Digital. All Rights Reserved.",
+    "outerHTML": "<footer class=\"footer\">\n        <div class=\"container\">\n            <div class=\"footer-grid\">\n                <div class=\"footer-col footer-about\">\n                    <a href=\"index.html\" class=\"footer-logo-link\">\n                        <img src=\"5.png\" alt=\"Pronghorn Digital logo\" class=\"footer-logo\">\n                    </a>\n                    <p class=\"footer-about-text\">Pronghorn Digital is a digital marketing partner focused on clear strategy,\n                        transparent reporting, and campaigns that turn attention into real business results.</p>\n                    <div class=\"social-links\">\n                        <a href=\"#\" aria-label=\"Facebook\"><i class=\"fab fa-facebook-f\"></i></a>\n                        <a href=\"#\" aria-label=\"Twitter\"><i class=\"fab fa-twitter\"></i></a>\n                        <a href=\"#\" aria-label=\"LinkedIn\"><i class=\"fab fa-linkedin-in\"></i></a>\n                        <a href=\"#\" aria-label=\"Instagram\"><i class=\"fab fa-instagram\"></i></a>\n                    </div>\n                </div>\n                <div class=\"footer-col footer-links\">\n                    <h4 class=\"footer-col-title\">Explore</h4>\n                    <ul>\n                        <li><a href=\"#services\">Services</a></li>\n                        <li><a href=\"#our-tech\">Our Tech</a></li>\n                        <li><a href=\"#testimonials\">Testimonials</a></li>\n                        <li><a href=\"contact.html\">Contact Us</a></li>\n                    </ul>\n                </div>\n                <div class=\"footer-col footer-links\">\n                    <h4 class=\"footer-col-title\">Legal</h4>\n                    <ul>\n                        <li><a href=\"privacy.html\">Privacy Policy</a></li>\n                        <li><a href=\"terms.html\">Terms &amp; Conditions</a></li>\n                        <li><a href=\"disclaimer.html\">Disclaimer</a></li>\n                    </ul>\n                </div>\n                <div class=\"footer-col footer-contact\">\n                    <h4 class=\"footer-col-title\">Pronghorn Digital</h4>\n                    <ul>\n                        <li><i class=\"fas fa-map-marker-alt\"></i><span>1145 clark ave, billings, mt 59102</span></li>\n                        <li><i class=\"fas fa-phone\"></i><a href=\"tel:+18049201952\">+1 (804) 920-1952</a></li>\n                        <li><i class=\"fas fa-envelope\"></i><a href=\"mailto:hi@pronghorndigitals.com\">hi@pronghorndigitals.com</a></li>\n                    </ul>\n                </div>\n            </div>\n            <div class=\"footer-bottom\">\n                <p>© <span id=\"current-year\">2026</span> Pronghorn Digital. All Rights Reserved.</p>\n            </div>\n        </div>\n    </footer>",
+    "rect": {
+      "x": 0,
+      "y": 353,
+      "width": 1469,
+      "height": 443
+    },
+    "computedStyles": {
+      "display": "block",
+      "width": "1469px",
+      "height": "443.359px",
+      "padding": "64px 0px 0px",
+      "box-sizing": "border-box",
+      "background": "rgba(0, 0, 0, 0) linear-gradient(rgba(15, 23, 42, 0.98), rgb(2, 6, 23)) repeat scroll 0% 0% / auto padding-box border-box",
+      "color": "rgb(229, 231, 235)",
+      "font-family": "\"DM Sans\", sans-serif",
+      "font-size": "16px",
+      "line-height": "26.4px",
+      "text-decoration": "none",
+      "transition": "all"
+    },
+    "cssRules": [
+      {
+        "selector": "*, ::before, ::after",
+        "css": "box-sizing: border-box; margin: 0px; padding: 0px;"
+      },
+      {
+        "selector": ".footer",
+        "css": "background: linear-gradient(rgba(15, 23, 42, 0.98), rgb(2, 6, 23)); padding-top: 4rem; border-top: 1px solid rgba(148, 163, 184, 0.35);"
+      }
+    ]
+  }
+]

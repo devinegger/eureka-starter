@@ -1,0 +1,1652 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Eureka — Digital marketing built for trades businesses (Dark)</title>
+<meta name="color-scheme" content="dark" />
+<meta name="description" content="Eureka builds high-converting websites and ad programs for HVAC, plumbing, pest control and other trades. Direct, measurable, ROI-first." />
+
+<!--
+  ============================================================================
+  EUREKA — Default landing template (11ty scaffold)
+  ============================================================================
+  Design rationale
+  ----------------
+  Typography
+    System UI stack only (no web fonts shipped) for instant first paint and
+    Lighthouse headroom. A monospace stack is used for numeric / "technical"
+    callouts (scores, percentages, badge labels) to reinforce the
+    contractor-meets-performance tone. Display sizes use tight tracking
+    (-0.02em / -0.03em) and weight 800 for the "punchy headline" feel.
+
+  Color tokens
+    --ink            #0A0A0A   primary text
+    --ink-2          #2A2A28   secondary text
+    --mute           #6B6B68   tertiary / labels
+    --line           #E6E6E2   hairlines, dividers, borders
+    --paper          #FFFFFF   default surface
+    --paper-2        #FAFAF7   warm off-white sections
+    --paper-ink      #0E1A17   dark surface (final CTA, footer)
+    --teal           #06D6A0   primary accent (CTAs, links, indicators)
+    --teal-2         #04B584   hover / pressed
+    --teal-ink       #042F26   text on teal surfaces
+    --good           #06D6A0   90-100 PageSpeed
+    --warn           #F5B400   50-89  PageSpeed
+    --bad            #E5484D   0-49   PageSpeed
+
+  Spacing scale (4-based)
+    4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 96 / 128 — exposed as --s-*
+
+  Radius
+    --r-1 4px (chips/inputs)  --r-2 10px (cards/buttons)  --r-full 999px
+
+  Per-client extension
+    Override --teal / --teal-2 / --teal-ink at :root for color rebrand.
+    Override --font-display for a custom display family if a client buys one.
+    Section component classes are stable hooks: .hero, .pitch, .services,
+    .differentiator, .process, .industries, .widget-slot, .testimonials,
+    .final-cta, .site-footer — safe to split into 11ty partials by section.
+  ============================================================================
+-->
+
+<style>
+/* ===== Tokens (dark) ==================================================== */
+:root {
+  /* Reversed scale: "ink" = readable foreground, "paper" = surface */
+  --ink:    #ECEFEC;   /* primary text */
+  --ink-2:  #B8C0BC;   /* secondary text */
+  --mute:   #7A8480;   /* tertiary / labels */
+  --line:   #20272400; /* placeholder (replaced below for clarity) */
+  --line:   #1F2624;   /* hairlines on dark surfaces */
+  --line-2: #161C1A;   /* dimmer divider */
+  --paper:   #0B100E;  /* primary surface (warm near-black) */
+  --paper-2: #131A18;  /* slightly lifted section bg */
+  --paper-ink:   #050807;  /* deepest surface (final CTA, footer) */
+  --paper-ink-2: #0E1614;  /* secondary deep surface */
+
+  --teal:    #06D6A0;   /* electric accent — unchanged */
+  --teal-2:  #14E3AE;   /* lighter hover on dark */
+  --teal-ink: #042F26;  /* text on teal surfaces */
+
+  --good: #06D6A0;
+  --warn: #F5B400;
+  --bad:  #E5484D;
+
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px;  --s-4: 16px;
+  --s-5: 24px; --s-6: 32px; --s-7: 48px;  --s-8: 64px;
+  --s-9: 96px; --s-10: 128px;
+
+  --r-1: 4px; --r-2: 10px; --r-full: 999px;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+               Helvetica, Arial, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas,
+               "Liberation Mono", monospace;
+  --font-display: var(--font-sans);
+
+  --container: 1200px;
+  --container-wide: 1320px;
+}
+
+/* ===== Reset / base ===================================================== */
+*,*::before,*::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img,svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; }
+input { font: inherit; }
+
+::selection { background: var(--teal); color: var(--teal-ink); }
+
+/* Subtle starfield-ish noise on the body — barely visible, kills banding */
+body {
+  background-image:
+    radial-gradient(1200px 600px at 80% -10%, rgba(6,214,160,0.05), transparent 60%),
+    radial-gradient(900px 500px at -10% 20%, rgba(6,214,160,0.03), transparent 60%);
+  background-attachment: fixed;
+}
+
+/* ===== Layout helpers =================================================== */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--s-5);
+}
+@media (min-width: 768px)  { .container { padding-inline: var(--s-6); } }
+@media (min-width: 1280px) { .container { padding-inline: var(--s-7); } }
+
+.section { padding-block: var(--s-8); }
+@media (min-width: 768px)  { .section { padding-block: var(--s-9); } }
+@media (min-width: 1280px) { .section { padding-block: 112px; } }
+
+.section--warm { background: var(--paper-2); }
+.section--ink  { background: var(--paper-ink); color: #EDEDE8; }
+
+/* eyebrow / kicker */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: var(--s-2);
+  font-family: var(--font-mono);
+  font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--mute);
+  margin: 0 0 var(--s-4);
+}
+.eyebrow::before {
+  content: ""; width: 6px; height: 6px; background: var(--teal);
+  border-radius: var(--r-full);
+}
+.section--ink .eyebrow { color: #9FB6AE; }
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin: 0 0 var(--s-4);
+  text-wrap: balance;
+}
+.section-lede {
+  font-size: clamp(16px, 1.6vw, 18px);
+  color: var(--ink-2);
+  max-width: 60ch;
+  margin: 0;
+  text-wrap: pretty;
+}
+.section--ink .section-lede { color: #C9D6D1; }
+
+/* ===== Buttons ========================================================== */
+.btn {
+  display: inline-flex; align-items: center; gap: var(--s-2);
+  height: 48px; padding: 0 var(--s-5);
+  border-radius: var(--r-2);
+  font-weight: 600; font-size: 15px;
+  border: 1px solid transparent;
+  transition: transform .12s ease, background .12s ease, color .12s ease, border-color .12s ease;
+  white-space: nowrap;
+}
+.btn:active { transform: translateY(1px); }
+
+.btn--primary {
+  background: var(--teal);
+  color: var(--teal-ink);
+  border-color: var(--teal);
+  box-shadow: 0 0 0 0 rgba(6,214,160,0.4);
+}
+.btn--primary:hover {
+  background: var(--teal-2); border-color: var(--teal-2);
+  box-shadow: 0 10px 30px -10px rgba(6,214,160,0.55);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line);
+}
+.btn--ghost:hover { border-color: var(--ink); background: var(--paper-2); }
+
+.section--ink .btn--ghost { color: #EDEDE8; border-color: rgba(255,255,255,0.18); }
+.section--ink .btn--ghost:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.32); }
+
+.btn--lg { height: 56px; padding: 0 var(--s-6); font-size: 16px; }
+.btn--sm { height: 40px; padding: 0 var(--s-4); font-size: 14px; }
+
+.btn .arrow { transition: transform .15s ease; }
+.btn:hover .arrow { transform: translateX(2px); }
+
+/* ===== Header =========================================================== */
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(11,16,14,0.78);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid var(--line);
+}
+.site-header__inner {
+  display: flex; align-items: center; gap: var(--s-5);
+  height: 72px;
+}
+.brand {
+  display: inline-flex; align-items: center; gap: var(--s-2);
+  font-weight: 800; font-size: 19px; letter-spacing: -0.02em;
+}
+.brand__mark {
+  width: 28px; height: 28px;
+  border-radius: 7px;
+  background: var(--teal);
+  display: grid; place-items: center;
+  color: var(--teal-ink);
+  font-family: var(--font-mono); font-weight: 700; font-size: 16px;
+  line-height: 1;
+}
+
+.primary-nav { display: none; }
+@media (min-width: 900px) {
+  .primary-nav {
+    display: flex; align-items: center; gap: var(--s-5);
+    margin-left: var(--s-6);
+  }
+  .primary-nav a {
+    font-size: 14px; font-weight: 500; color: var(--ink-2);
+    padding: var(--s-2) 0;
+    border-bottom: 1px solid transparent;
+  }
+  .primary-nav a:hover { color: var(--ink); border-bottom-color: var(--teal); }
+}
+
+.header-actions { margin-left: auto; display: flex; align-items: center; gap: var(--s-3); }
+.header-phone {
+  display: none;
+  font-family: var(--font-mono); font-size: 14px; font-weight: 600;
+  color: var(--ink); align-items: center; gap: var(--s-2);
+}
+.header-phone::before {
+  content: ""; width: 8px; height: 8px; border-radius: var(--r-full);
+  background: var(--teal); box-shadow: 0 0 0 4px rgba(6,214,160,0.18);
+}
+@media (min-width: 700px) { .header-phone { display: inline-flex; } }
+
+.menu-toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border-radius: 8px;
+  background: transparent; border: 1px solid var(--line);
+  color: var(--ink);
+}
+@media (min-width: 900px) { .menu-toggle { display: none; } }
+.menu-toggle svg { width: 18px; height: 18px; }
+
+/* Mobile sheet */
+.mobile-sheet {
+  display: none;
+  border-top: 1px solid var(--line);
+  background: var(--paper);
+  padding: var(--s-4) var(--s-5) var(--s-6);
+}
+.mobile-sheet.is-open { display: block; }
+.mobile-sheet a {
+  display: block; padding: var(--s-3) 0;
+  font-size: 16px; font-weight: 500;
+  border-bottom: 1px solid var(--line-2);
+}
+.mobile-sheet .header-phone { display: inline-flex; margin-top: var(--s-4); }
+
+/* ===== Hero ============================================================= */
+.hero {
+  position: relative; overflow: hidden;
+  padding-top: var(--s-8);
+  padding-bottom: var(--s-8);
+  background:
+    radial-gradient(900px 500px at 85% 0%, rgba(6,214,160,0.10), transparent 55%),
+    radial-gradient(700px 400px at 5% 100%, rgba(6,214,160,0.06), transparent 60%),
+    var(--paper);
+}
+.hero::before {
+  content: "";
+  position: absolute; inset: auto 0 0 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line), transparent);
+  pointer-events: none;
+}
+@media (min-width: 768px) { .hero { padding-top: var(--s-9); padding-bottom: var(--s-9); } }
+@media (min-width: 1280px) { .hero { padding-top: 120px; padding-bottom: 96px; } }
+
+.hero__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-7);
+  align-items: center;
+}
+@media (min-width: 1024px) {
+  .hero__grid { grid-template-columns: 1.15fr 1fr; gap: var(--s-8); }
+}
+
+.hero__copy { max-width: 640px; }
+.hero__signal {
+  display: inline-flex; align-items: center; gap: var(--s-2);
+  padding: 6px 12px 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-full);
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.04em;
+  color: var(--ink-2);
+  margin-bottom: var(--s-5);
+}
+.hero__signal-dot {
+  width: 8px; height: 8px; border-radius: var(--r-full);
+  background: var(--teal); box-shadow: 0 0 0 4px rgba(6,214,160,0.18);
+}
+.hero__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(36px, 6.5vw, 72px);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  margin: 0 0 var(--s-5);
+  text-wrap: balance;
+}
+.hero__title em {
+  font-style: normal; color: var(--ink);
+  background: linear-gradient(180deg, transparent 62%, rgba(6,214,160,0.45) 62%, rgba(6,214,160,0.45) 92%, transparent 92%);
+  padding: 0 4px;
+}
+.hero__sub {
+  font-size: clamp(17px, 1.7vw, 20px);
+  color: var(--ink-2);
+  margin: 0 0 var(--s-6);
+  max-width: 56ch;
+  text-wrap: pretty;
+}
+.hero__ctas { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-bottom: var(--s-6); }
+.hero__proof {
+  display: flex; flex-wrap: wrap; gap: var(--s-5) var(--s-6);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--line);
+}
+.hero__proof-item { display: flex; flex-direction: column; gap: 2px; }
+.hero__proof-num {
+  font-family: var(--font-mono); font-weight: 700;
+  font-size: 22px; letter-spacing: -0.02em; color: var(--ink);
+}
+.hero__proof-label {
+  font-size: 12px; color: var(--mute);
+  font-family: var(--font-mono); letter-spacing: 0.05em; text-transform: uppercase;
+}
+
+/* Hero visual — a "site health" card mock, no SVG illustration */
+.hero__visual { position: relative; }
+.health-card {
+  background: var(--paper-ink-2);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: var(--s-5);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.02),
+              0 30px 80px -32px rgba(0,0,0,0.6),
+              0 0 0 1px rgba(6,214,160,0.08);
+  display: grid; gap: var(--s-4);
+}
+.health-card__head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--line-2);
+}
+.health-card__url {
+  font-family: var(--font-mono); font-size: 13px; color: var(--ink-2);
+  display: inline-flex; align-items: center; gap: var(--s-2);
+}
+.health-card__url::before {
+  content: ""; width: 8px; height: 8px; border-radius: var(--r-full);
+  background: var(--bad);
+}
+.health-card__time {
+  font-family: var(--font-mono); font-size: 11px; color: var(--mute);
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.health-card__row {
+  display: grid; grid-template-columns: 1fr auto auto;
+  align-items: center; gap: var(--s-4);
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--line-2);
+}
+.health-card__row:last-of-type { border-bottom: 0; padding-bottom: 0; }
+.health-card__label { font-size: 14px; color: var(--ink-2); font-weight: 500; }
+.health-card__bar {
+  width: 96px; height: 6px; border-radius: var(--r-full);
+  background: rgba(255,255,255,0.06); position: relative; overflow: hidden;
+}
+.health-card__bar > i {
+  position: absolute; inset: 0 auto 0 0; display: block;
+  border-radius: var(--r-full);
+}
+.health-card__val {
+  font-family: var(--font-mono); font-weight: 700; font-size: 14px;
+  min-width: 38px; text-align: right;
+}
+.val--bad  { color: var(--bad); }
+.val--warn { color: var(--warn); }
+.val--good { color: var(--good); }
+.bar--bad  > i { background: var(--bad); }
+.bar--warn > i { background: var(--warn); }
+.bar--good > i { background: var(--good); }
+
+.health-card__note {
+  margin-top: var(--s-2);
+  display: flex; align-items: center; gap: var(--s-3);
+  padding: var(--s-3);
+  background: var(--paper-2);
+  border-radius: var(--r-2);
+  font-size: 13px; color: var(--ink-2);
+}
+.health-card__note strong { color: var(--ink); }
+
+/* ===== Pitch (3-col) ==================================================== */
+.pitch__grid {
+  display: grid; gap: var(--s-6);
+  grid-template-columns: 1fr;
+  margin-top: var(--s-7);
+}
+@media (min-width: 768px)  { .pitch__grid { grid-template-columns: repeat(3, 1fr); gap: var(--s-7); } }
+.pitch__item { padding-top: var(--s-4); border-top: 2px solid var(--ink); }
+.pitch__num {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.05em;
+  color: var(--mute); text-transform: uppercase; margin-bottom: var(--s-3);
+}
+.pitch__title {
+  font-size: 22px; font-weight: 700; letter-spacing: -0.02em;
+  margin: 0 0 var(--s-3);
+}
+.pitch__body { color: var(--ink-2); margin: 0; }
+
+/* ===== Services ========================================================= */
+.services__grid {
+  display: grid; gap: var(--s-4);
+  grid-template-columns: 1fr;
+  margin-top: var(--s-7);
+}
+@media (min-width: 600px)  { .services__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .services__grid { grid-template-columns: repeat(4, 1fr); } }
+
+.service-card {
+  position: relative;
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  padding: var(--s-5);
+  display: flex; flex-direction: column; gap: var(--s-3);
+  transition: border-color .15s ease, transform .15s ease, background .15s ease;
+}
+.service-card:hover { border-color: var(--teal); background: var(--paper-ink-2); }
+.service-card__index {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+  color: var(--mute); text-transform: uppercase;
+}
+.service-card__title {
+  font-size: 19px; font-weight: 700; letter-spacing: -0.015em;
+  margin: 0;
+}
+.service-card__body { color: var(--ink-2); font-size: 15px; margin: 0; flex: 1; }
+.service-card__cta {
+  display: inline-flex; align-items: center; gap: var(--s-2);
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.05em;
+  text-transform: uppercase; color: var(--ink);
+  padding-top: var(--s-3); border-top: 1px solid var(--line-2);
+}
+.service-card__cta .arrow { transition: transform .15s ease; }
+.service-card:hover .service-card__cta .arrow { transform: translateX(3px); }
+
+/* ===== Differentiator =================================================== */
+.differentiator__grid {
+  display: grid; gap: var(--s-7);
+  grid-template-columns: 1fr;
+  margin-top: var(--s-7);
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .differentiator__grid { grid-template-columns: 1fr 1fr; gap: var(--s-8); }
+}
+.diff-list { list-style: none; padding: 0; margin: 0 0 var(--s-6); display: grid; gap: var(--s-4); }
+.diff-list li {
+  display: grid; grid-template-columns: 28px 1fr; gap: var(--s-3);
+  padding-bottom: var(--s-4); border-bottom: 1px solid var(--line);
+}
+.diff-list li:last-child { border-bottom: 0; padding-bottom: 0; }
+.diff-list__num {
+  font-family: var(--font-mono); font-weight: 700; font-size: 14px;
+  color: var(--teal-ink);
+  background: var(--teal); border-radius: 6px;
+  width: 28px; height: 28px;
+  display: grid; place-items: center;
+}
+.diff-list__head {
+  font-weight: 700; font-size: 17px; margin: 0 0 4px;
+}
+.diff-list__body { color: var(--ink-2); font-size: 15px; margin: 0; }
+
+/* ===== Process ========================================================== */
+.process__steps {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-5);
+  margin-top: var(--s-7);
+  counter-reset: step;
+}
+@media (min-width: 900px) {
+  .process__steps { grid-template-columns: repeat(3, 1fr); gap: 0; position: relative; }
+  .process__steps::before {
+    content: ""; position: absolute;
+    top: 32px; left: 8%; right: 8%;
+    height: 1px; background: var(--line);
+    z-index: 0;
+  }
+}
+.process__step { position: relative; padding-right: var(--s-5); }
+.process__step-num {
+  font-family: var(--font-mono); font-weight: 700;
+  width: 64px; height: 64px; border-radius: var(--r-full);
+  background: var(--paper-2); border: 1px solid var(--line);
+  display: grid; place-items: center;
+  font-size: 22px; letter-spacing: -0.02em;
+  margin-bottom: var(--s-4);
+  position: relative; z-index: 1;
+  color: var(--ink-2);
+}
+.process__step--active .process__step-num {
+  background: var(--teal); color: var(--teal-ink); border-color: var(--teal);
+  box-shadow: 0 0 0 8px rgba(6,214,160,0.12);
+}
+.process__step h3 { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 var(--s-2); }
+.process__step p { color: var(--ink-2); margin: 0; max-width: 32ch; }
+
+/* ===== Industries ======================================================= */
+.industries__chips {
+  display: flex; flex-wrap: wrap; gap: var(--s-3);
+  margin-top: var(--s-6);
+}
+.chip {
+  display: inline-flex; align-items: center; gap: var(--s-2);
+  height: 40px; padding: 0 var(--s-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-full);
+  background: var(--paper);
+  font-size: 14px; font-weight: 500;
+  transition: all .15s ease;
+  cursor: default;
+}
+.chip:hover { border-color: var(--teal); color: var(--ink); }
+.chip::before {
+  content: ""; width: 6px; height: 6px; border-radius: var(--r-full);
+  background: var(--teal);
+}
+.chip--more {
+  background: transparent; border-style: dashed; color: var(--mute);
+}
+.chip--more::before { display: none; }
+
+/* ===== Widget slot ====================================================== */
+.widget-slot { background: var(--paper-2); }
+.widget-slot__header {
+  display: flex; flex-direction: column; gap: var(--s-3);
+  margin-bottom: var(--s-6);
+}
+@media (min-width: 768px) {
+  .widget-slot__header { flex-direction: row; align-items: flex-end; justify-content: space-between; gap: var(--s-6); }
+}
+.widget-slot__title { margin: 0; }
+.widget-slot__meta {
+  display: inline-flex; align-items: center; gap: var(--s-2);
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.05em;
+  text-transform: uppercase; color: var(--mute);
+}
+.widget-slot__meta .dot {
+  width: 8px; height: 8px; border-radius: var(--r-full); background: var(--teal);
+  box-shadow: 0 0 0 4px rgba(6,214,160,0.18);
+}
+
+/* Widget shell — consistent across any drop-in widget */
+.eureka-widget {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: var(--s-5);
+  display: grid; gap: var(--s-5);
+  box-shadow: 0 30px 80px -32px rgba(0,0,0,0.6);
+}
+@media (min-width: 768px) { .eureka-widget { padding: var(--s-6); } }
+
+/* PageSpeed widget specifics */
+.ps__form {
+  display: grid; gap: var(--s-3);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 600px) { .ps__form { grid-template-columns: 1fr auto; align-items: stretch; } }
+
+.ps__field {
+  display: flex; align-items: center;
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  background: var(--paper);
+  padding-left: var(--s-4);
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.ps__field:focus-within {
+  border-color: var(--ink);
+  box-shadow: 0 0 0 3px rgba(6,214,160,0.25);
+}
+.ps__field-prefix {
+  font-family: var(--font-mono); font-size: 14px; color: var(--mute);
+  padding-right: var(--s-2); user-select: none;
+}
+.ps__field input {
+  flex: 1; height: 56px;
+  background: transparent; border: 0; outline: 0;
+  font-family: var(--font-mono); font-size: 15px;
+  padding: 0 var(--s-3) 0 0;
+  min-width: 0;
+}
+.ps__strategy {
+  display: inline-flex; align-items: center; gap: var(--s-2);
+  padding: 0 var(--s-3);
+  border-left: 1px solid var(--line);
+  height: 56px;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--ink-2);
+  background: transparent;
+}
+.ps__strategy select {
+  appearance: none; background: transparent; border: 0; outline: 0;
+  font: inherit; color: inherit; padding-right: 14px;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+                    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 9px) 50%, calc(100% - 5px) 50%;
+  background-size: 4px 4px, 4px 4px;
+  background-repeat: no-repeat;
+}
+
+/* Status row */
+.ps__status {
+  display: flex; align-items: center; gap: var(--s-3);
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.05em;
+  text-transform: uppercase; color: var(--mute);
+  min-height: 20px;
+}
+.ps__status[data-state="loading"] { color: var(--ink-2); }
+.ps__status[data-state="error"]   { color: var(--bad); }
+.ps__status[data-state="ok"]      { color: var(--good); }
+
+.ps__spinner {
+  width: 12px; height: 12px; border-radius: var(--r-full);
+  border: 2px solid var(--line);
+  border-top-color: var(--ink);
+  animation: ps-spin 0.7s linear infinite;
+  display: none;
+}
+.ps__status[data-state="loading"] .ps__spinner { display: inline-block; }
+@keyframes ps-spin { to { transform: rotate(360deg); } }
+
+/* Result */
+.ps__result {
+  display: grid; gap: var(--s-5);
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+@media (min-width: 768px) {
+  .ps__result { grid-template-columns: 220px 1fr auto; gap: var(--s-6); }
+}
+
+.ps__dial {
+  width: 180px; height: 180px;
+  border-radius: var(--r-full);
+  display: grid; place-items: center;
+  position: relative;
+  background:
+    conic-gradient(var(--dial-color, var(--mute)) calc(var(--score, 0) * 1%), rgba(255,255,255,0.07) 0);
+  transition: background 0.5s ease;
+  margin-inline: auto;
+}
+.ps__dial::after {
+  content: ""; position: absolute; inset: 14px;
+  background: var(--paper); border-radius: var(--r-full);
+}
+.ps__dial-inner {
+  position: relative; z-index: 1;
+  display: grid; place-items: center; gap: 2px;
+}
+.ps__score {
+  font-family: var(--font-mono); font-weight: 800;
+  font-size: 56px; letter-spacing: -0.04em; line-height: 1;
+  color: var(--dial-color, var(--ink));
+}
+.ps__score-label {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--mute);
+}
+.ps--good { --dial-color: var(--good); }
+.ps--warn { --dial-color: var(--warn); }
+.ps--bad  { --dial-color: var(--bad); }
+
+.ps__interpretation { display: grid; gap: var(--s-3); }
+.ps__verdict {
+  font-size: 22px; font-weight: 700; letter-spacing: -0.02em;
+  line-height: 1.2; margin: 0;
+}
+.ps__verdict .grade { color: var(--dial-color, var(--ink)); }
+.ps__detail { color: var(--ink-2); font-size: 15px; margin: 0; }
+
+.ps__metrics {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-2);
+  margin-top: var(--s-2);
+}
+.ps__metric {
+  display: flex; justify-content: space-between;
+  padding: var(--s-2) var(--s-3);
+  background: var(--paper-2);
+  border-radius: 6px;
+  font-family: var(--font-mono); font-size: 12px;
+}
+.ps__metric span:last-child { font-weight: 700; }
+
+.ps__cta { display: flex; flex-direction: column; gap: var(--s-2); }
+.ps__cta-note {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--mute); text-align: center;
+}
+
+/* Empty state */
+.ps__empty {
+  display: grid; gap: var(--s-4);
+  padding: var(--s-6) var(--s-4);
+  text-align: center;
+  border: 1px dashed var(--line);
+  border-radius: var(--r-2);
+  background: var(--paper-2);
+  color: var(--mute);
+}
+.ps__empty-icon {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.is-hidden { display: none !important; }
+
+/* ===== Testimonials ===================================================== */
+.testimonials__grid {
+  display: grid; gap: var(--s-4);
+  grid-template-columns: 1fr;
+  margin-top: var(--s-7);
+}
+@media (min-width: 768px)  { .testimonials__grid { grid-template-columns: repeat(3, 1fr); } }
+
+.quote-card {
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  padding: var(--s-5);
+  display: flex; flex-direction: column; gap: var(--s-4);
+}
+.quote-card__mark {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 40px; line-height: 1; color: var(--teal);
+}
+.quote-card__body {
+  font-size: 17px; line-height: 1.5; color: var(--ink); margin: 0;
+  flex: 1; text-wrap: pretty;
+}
+.quote-card__attr {
+  display: flex; align-items: center; gap: var(--s-3);
+  padding-top: var(--s-3); border-top: 1px solid var(--line);
+}
+.quote-card__avatar {
+  width: 40px; height: 40px; border-radius: var(--r-full);
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  display: grid; place-items: center;
+  font-family: var(--font-mono); font-weight: 700; font-size: 14px;
+  color: var(--ink);
+}
+.quote-card__attr-info { display: flex; flex-direction: column; }
+.quote-card__name { font-size: 14px; font-weight: 600; }
+.quote-card__role { font-size: 12px; color: var(--mute); font-family: var(--font-mono); }
+
+/* ===== Final CTA ======================================================== */
+.final-cta { background: var(--paper-ink); color: #EDEDE8; }
+.final-cta__inner {
+  display: grid; gap: var(--s-6);
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .final-cta__inner { grid-template-columns: 1.2fr 1fr; gap: var(--s-8); }
+}
+.final-cta__title {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.02; letter-spacing: -0.035em;
+  margin: 0 0 var(--s-4); text-wrap: balance;
+}
+.final-cta__title em {
+  font-style: normal; color: var(--teal);
+  text-shadow: 0 0 40px rgba(6,214,160,0.35);
+}
+.final-cta__body { color: #C9D6D1; font-size: 17px; margin: 0 0 var(--s-6); max-width: 50ch; }
+.final-cta__buttons { display: flex; flex-wrap: wrap; gap: var(--s-3); }
+
+/* Contact form mini */
+.contact-mini {
+  background: var(--paper-ink-2);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: var(--s-5);
+  display: grid; gap: var(--s-3);
+}
+.contact-mini__title {
+  font-size: 14px; font-weight: 600;
+  font-family: var(--font-mono); letter-spacing: 0.05em; text-transform: uppercase;
+  color: #9FB6AE; margin: 0;
+}
+.contact-mini input,
+.contact-mini textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--r-1);
+  color: #EDEDE8;
+  padding: 12px 14px;
+  font-family: var(--font-sans); font-size: 14px;
+}
+.contact-mini input:focus,
+.contact-mini textarea:focus {
+  outline: 0; border-color: var(--teal); box-shadow: 0 0 0 3px rgba(6,214,160,0.2);
+}
+.contact-mini textarea { resize: vertical; min-height: 84px; }
+.contact-mini .hp-field {
+  position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0;
+}
+.contact-mini__turnstile {
+  min-height: 65px;
+  border: 1px dashed rgba(255,255,255,0.16);
+  border-radius: var(--r-1);
+  display: grid; place-items: center;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: rgba(255,255,255,0.4);
+}
+.contact-mini__submit {
+  margin-top: var(--s-2);
+  width: 100%; justify-content: center;
+}
+
+/* ===== Footer =========================================================== */
+.site-footer {
+  background: var(--paper-ink);
+  color: #C9D6D1;
+  padding-block: var(--s-8);
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.site-footer a:hover { color: var(--teal); }
+
+.site-footer__grid {
+  display: grid; gap: var(--s-6);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 700px)  { .site-footer__grid { grid-template-columns: 1.4fr 1fr 1fr 1fr; } }
+
+.site-footer__about p { color: #9FB6AE; font-size: 14px; max-width: 38ch; margin: var(--s-3) 0 0; }
+.site-footer .brand { color: #EDEDE8; }
+.site-footer .brand__mark { background: var(--teal); color: var(--teal-ink); }
+
+.site-footer__col h4 {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: #9FB6AE; margin: 0 0 var(--s-3);
+}
+.site-footer__col ul { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--s-2); }
+.site-footer__col li { font-size: 14px; }
+.site-footer__col .contact-line {
+  display: flex; align-items: center; gap: var(--s-2);
+  font-family: var(--font-mono); font-size: 13px;
+}
+
+.site-footer__bottom {
+  margin-top: var(--s-7);
+  padding-top: var(--s-5);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: var(--s-3);
+  font-family: var(--font-mono); font-size: 12px; color: #6F8079;
+}
+
+/* ===== Visually hidden ================================================== */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+</style>
+</head>
+<body>
+
+<!-- =========================================================================
+     HEADER — sticky, blurred. Logo + nav + phone + primary CTA.
+     ======================================================================== -->
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a href="/" class="brand" aria-label="Eureka home">
+      <span class="brand__mark" aria-hidden="true">E</span>
+      <span>Eureka</span>
+    </a>
+
+    <nav class="primary-nav" aria-label="Primary">
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#industries">Industries</a>
+      <a href="#audit">Free audit</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="header-actions">
+      <a href="tel:+18885550144" class="header-phone" aria-label="Call Eureka">(888) 555-0144</a>
+      <a href="#audit" class="btn btn--primary btn--sm">Get Free Audit</a>
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-controls="mobileSheet" aria-expanded="false" id="menuBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-sheet" id="mobileSheet" hidden>
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#industries">Industries</a>
+    <a href="#audit">Free audit</a>
+    <a href="#contact">Contact</a>
+    <a href="tel:+18885550144" class="header-phone">(888) 555-0144</a>
+  </div>
+</header>
+
+<main>
+
+<!-- =========================================================================
+     HERO — Headline + sub + 2 CTAs + small proof strip + site-health mock.
+     Per-client overrides: copy, proof numbers, health-card content.
+     ======================================================================== -->
+<section class="hero" aria-labelledby="heroTitle">
+  <div class="container">
+    <div class="hero__grid">
+      <div class="hero__copy">
+        <div class="hero__signal">
+          <span class="hero__signal-dot" aria-hidden="true"></span>
+          <span>Booking new clients · Q3 2026</span>
+        </div>
+
+        <h1 class="hero__title" id="heroTitle">
+          More booked jobs. <em>Less guesswork.</em>
+        </h1>
+
+        <p class="hero__sub">
+          Eureka is the digital marketing partner for trades businesses
+          that are tired of vague reports and slow websites. We ship sites
+          that load fast, rank, and turn clicks into work orders.
+        </p>
+
+        <div class="hero__ctas">
+          <a href="#audit" class="btn btn--primary btn--lg">
+            Get Your Free Site Audit
+            <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="#services" class="btn btn--ghost btn--lg">Explore Services</a>
+        </div>
+
+        <div class="hero__proof">
+          <div class="hero__proof-item">
+            <span class="hero__proof-num">+212%</span>
+            <span class="hero__proof-label">Avg. booked jobs · YoY</span>
+          </div>
+          <div class="hero__proof-item">
+            <span class="hero__proof-num">3.4×</span>
+            <span class="hero__proof-label">ROAS across paid</span>
+          </div>
+          <div class="hero__proof-item">
+            <span class="hero__proof-num">47</span>
+            <span class="hero__proof-label">Trades clients · active</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero__visual" aria-label="Site health preview">
+        <div class="health-card" role="img" aria-label="Example site health report showing failing performance">
+          <div class="health-card__head">
+            <div class="health-card__url">competitor-plumbing.com</div>
+            <div class="health-card__time">Live · 0.4s ago</div>
+          </div>
+
+          <div class="health-card__row">
+            <div class="health-card__label">Performance</div>
+            <div class="health-card__bar bar--bad"><i style="width: 38%"></i></div>
+            <div class="health-card__val val--bad">38</div>
+          </div>
+          <div class="health-card__row">
+            <div class="health-card__label">SEO</div>
+            <div class="health-card__bar bar--warn"><i style="width: 64%"></i></div>
+            <div class="health-card__val val--warn">64</div>
+          </div>
+          <div class="health-card__row">
+            <div class="health-card__label">Accessibility</div>
+            <div class="health-card__bar bar--warn"><i style="width: 71%"></i></div>
+            <div class="health-card__val val--warn">71</div>
+          </div>
+          <div class="health-card__row">
+            <div class="health-card__label">Lead capture</div>
+            <div class="health-card__bar bar--bad"><i style="width: 22%"></i></div>
+            <div class="health-card__val val--bad">22</div>
+          </div>
+
+          <div class="health-card__note">
+            <span aria-hidden="true" style="font-family: var(--font-mono); font-weight: 700; color: var(--bad);">!</span>
+            <span><strong>4.7s</strong> to first contentful paint &mdash; you&rsquo;re losing roughly <strong>1 in 3 visitors</strong> before the page renders.</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================================
+     PITCH — Three columns: who we work with / how we think / what we value.
+     ======================================================================== -->
+<section class="section section--warm pitch" id="about" aria-labelledby="pitchTitle">
+  <div class="container">
+    <p class="eyebrow">About Eureka</p>
+    <h2 class="section-title" id="pitchTitle">A small team that ships, measures, and owns the number.</h2>
+    <p class="section-lede">We&rsquo;re not a creative agency that picked up a few trades clients. We were built for owner-operators who care about cost-per-lead, not awards.</p>
+
+    <div class="pitch__grid">
+      <div class="pitch__item">
+        <div class="pitch__num">01 / Who we work with</div>
+        <h3 class="pitch__title">Owner-operators in the trades.</h3>
+        <p class="pitch__body">HVAC, plumbing, pest, electrical, body shops. Companies doing $1M&ndash;$25M who want a marketing partner that talks in booked jobs, not impressions.</p>
+      </div>
+      <div class="pitch__item">
+        <div class="pitch__num">02 / How we think</div>
+        <h3 class="pitch__title">Data first, opinions second.</h3>
+        <p class="pitch__body">Every decision starts in the analytics. If we can&rsquo;t measure it within 30 days, we don&rsquo;t spend your money on it. Period.</p>
+      </div>
+      <div class="pitch__item">
+        <div class="pitch__num">03 / What we value</div>
+        <h3 class="pitch__title">Plain talk. Real reports.</h3>
+        <p class="pitch__body">No jargon. No fake dashboards. You get monthly reports a contractor can read in five minutes, and a number to call when something breaks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================================
+     SERVICES — Four cards. Per-client: edit titles/descriptions in CMS.
+     ======================================================================== -->
+<section class="section services" id="services" aria-labelledby="servicesTitle">
+  <div class="container">
+    <p class="eyebrow">Services</p>
+    <h2 class="section-title" id="servicesTitle">Built for the way trades businesses actually grow.</h2>
+    <p class="section-lede">Four core services. No upsells, no &ldquo;package tiers&rdquo; full of fluff. Each one is priced flat and scoped on outcomes.</p>
+
+    <div class="services__grid">
+      <article class="service-card">
+        <div class="service-card__index">/ 01</div>
+        <h3 class="service-card__title">Conversion-first websites</h3>
+        <p class="service-card__body">Fast, mobile-tuned sites that load in under two seconds and route every visitor toward a call or a form. No template look, no plugin pile.</p>
+        <a href="#" class="service-card__cta">Learn more <span class="arrow" aria-hidden="true">&rarr;</span></a>
+      </article>
+      <article class="service-card">
+        <div class="service-card__index">/ 02</div>
+        <h3 class="service-card__title">Local SEO that ranks</h3>
+        <p class="service-card__body">We rebuild your Google Business Profile, fix citation drift, and target the service-area keywords that bring jobs &mdash; not vanity traffic.</p>
+        <a href="#" class="service-card__cta">Learn more <span class="arrow" aria-hidden="true">&rarr;</span></a>
+      </article>
+      <article class="service-card">
+        <div class="service-card__index">/ 03</div>
+        <h3 class="service-card__title">Paid ads with a floor on ROAS</h3>
+        <p class="service-card__body">Google Local Service Ads, Search, and Performance Max managed by humans who&rsquo;ve booked HVAC jobs themselves. We set a return target and hold it.</p>
+        <a href="#" class="service-card__cta">Learn more <span class="arrow" aria-hidden="true">&rarr;</span></a>
+      </article>
+      <article class="service-card">
+        <div class="service-card__index">/ 04</div>
+        <h3 class="service-card__title">Reporting you actually read</h3>
+        <p class="service-card__body">One page. Calls, forms, cost-per-lead, jobs booked. Sent the first Monday of every month with a short note on what changed and why.</p>
+        <a href="#" class="service-card__cta">Learn more <span class="arrow" aria-hidden="true">&rarr;</span></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================================
+     DIFFERENTIATOR — Methodology block. Paragraph + numbered bullets + CTA.
+     ======================================================================== -->
+<section class="section section--warm differentiator" aria-labelledby="diffTitle">
+  <div class="container">
+    <div class="differentiator__grid">
+      <div>
+        <p class="eyebrow">The Eureka Method</p>
+        <h2 class="section-title" id="diffTitle">We sell jobs booked, not &ldquo;brand impressions.&rdquo;</h2>
+        <p class="section-lede">Most trades agencies hide behind reach metrics because they can&rsquo;t tie spend to revenue. We start the other way around: pick the number that pays the bills, then work back.</p>
+      </div>
+      <div>
+        <ol class="diff-list">
+          <li>
+            <span class="diff-list__num">1</span>
+            <div>
+              <p class="diff-list__head">Lock the metric before the contract.</p>
+              <p class="diff-list__body">Cost-per-booked-job is the only KPI on our dashboards. Everything else is diagnostic.</p>
+            </div>
+          </li>
+          <li>
+            <span class="diff-list__num">2</span>
+            <div>
+              <p class="diff-list__head">Instrument before we optimize.</p>
+              <p class="diff-list__body">Call tracking, form attribution, CRM sync &mdash; in place month one, or we don&rsquo;t turn on ads.</p>
+            </div>
+          </li>
+          <li>
+            <span class="diff-list__num">3</span>
+            <div>
+              <p class="diff-list__head">Quarterly cleanup, no contract lock-in.</p>
+              <p class="diff-list__body">Month-to-month after the first 90 days. If the number isn&rsquo;t moving, you walk &mdash; we keep the tracking we built.</p>
+            </div>
+          </li>
+        </ol>
+        <a href="#audit" class="btn btn--primary">
+          See how it would work for you
+          <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================================
+     PROCESS — 3 steps, horizontal on desktop, stacked on mobile.
+     ======================================================================== -->
+<section class="section process" id="process" aria-labelledby="processTitle">
+  <div class="container">
+    <p class="eyebrow">How it works</p>
+    <h2 class="section-title" id="processTitle">Three steps. About twenty-one days.</h2>
+    <p class="section-lede">From first call to first booked job through the new system &mdash; here&rsquo;s the standard path.</p>
+
+    <ol class="process__steps">
+      <li class="process__step process__step--active">
+        <div class="process__step-num">01</div>
+        <h3>Audit &amp; benchmark</h3>
+        <p>We pull your current numbers, run a tech audit, and benchmark against three local competitors. Free, no obligation, you keep the report.</p>
+      </li>
+      <li class="process__step">
+        <div class="process__step-num">02</div>
+        <h3>Plan &amp; instrument</h3>
+        <p>We agree on the cost-per-job target, then wire up call tracking, attribution, and the dashboards before any spend goes live.</p>
+      </li>
+      <li class="process__step">
+        <div class="process__step-num">03</div>
+        <h3>Ship &amp; iterate</h3>
+        <p>Site goes live, ads turn on, and we meet weekly for the first month. After that, monthly check-ins and a one-page report.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- =========================================================================
+     INDUSTRIES — Chip / tag layout. Default list editable in CMS.
+     ======================================================================== -->
+<section class="section section--warm industries" id="industries" aria-labelledby="industriesTitle">
+  <div class="container">
+    <p class="eyebrow">Industries served</p>
+    <h2 class="section-title" id="industriesTitle">Trades-first, by design.</h2>
+    <p class="section-lede">We&rsquo;ve built campaigns for almost every trade vertical. If you book jobs by the hour or by the truckload, we know your funnel.</p>
+
+    <div class="industries__chips" role="list">
+      <span class="chip" role="listitem">HVAC</span>
+      <span class="chip" role="listitem">Plumbing</span>
+      <span class="chip" role="listitem">Pest Control</span>
+      <span class="chip" role="listitem">Auto Repair</span>
+      <span class="chip" role="listitem">Body Shops</span>
+      <span class="chip" role="listitem">Home Services</span>
+      <span class="chip" role="listitem">Electrical</span>
+      <span class="chip" role="listitem">Roofing</span>
+      <span class="chip chip--more" role="listitem">+ your trade</span>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================================
+     INTERACTIVE WIDGET SLOT — Modular section.
+     Outer wrapper provides consistent padding, heading, background.
+     Inner widget content lives inside `.eureka-widget` and is self-contained.
+     Swap the inner block (default: PageSpeed checker) per-client without
+     touching this section's structure.
+     ======================================================================== -->
+<section class="section widget-slot" id="audit" aria-labelledby="widgetTitle">
+  <div class="container">
+    <div class="widget-slot__header">
+      <div>
+        <p class="eyebrow">Free site audit</p>
+        <h2 class="section-title widget-slot__title" id="widgetTitle">How fast is your site, really?</h2>
+        <p class="section-lede">Drop your URL. We&rsquo;ll run a live Google PageSpeed check, score it, and tell you what&rsquo;s costing you jobs.</p>
+      </div>
+      <div class="widget-slot__meta">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Live · powered by Google PSI</span>
+      </div>
+    </div>
+
+    <!-- =========================
+         WIDGET BODY — single child .eureka-widget. Replace this block to
+         swap widgets per client (ROI Calculator, Local Pack Checker, etc).
+         ========================= -->
+    <div class="eureka-widget" id="pagespeedWidget" data-widget="pagespeed">
+      <form class="ps__form" id="psForm" novalidate>
+        <label class="sr-only" for="psUrl">Website URL</label>
+        <div class="ps__field">
+          <span class="ps__field-prefix" aria-hidden="true">https://</span>
+          <input
+            type="text"
+            id="psUrl"
+            name="url"
+            placeholder="your-business.com"
+            autocomplete="url"
+            inputmode="url"
+            spellcheck="false"
+            required
+          />
+          <div class="ps__strategy">
+            <label class="sr-only" for="psStrategy">Device</label>
+            <select id="psStrategy" name="strategy">
+              <option value="mobile">Mobile</option>
+              <option value="desktop">Desktop</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn--primary btn--lg" id="psSubmit">
+          Run audit
+          <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </form>
+
+      <div class="ps__status" id="psStatus" data-state="idle" role="status" aria-live="polite">
+        <span class="ps__spinner" aria-hidden="true"></span>
+        <span id="psStatusText">Idle &mdash; enter a URL and run the audit</span>
+      </div>
+
+      <!-- Empty state (default) -->
+      <div class="ps__empty" id="psEmpty">
+        <div class="ps__empty-icon">// Results will render here</div>
+        <p style="margin:0; font-size:14px;">We use Google PageSpeed Insights for an honest, third-party measurement. No login, no data stored.</p>
+      </div>
+
+      <!-- Result -->
+      <div class="ps__result is-hidden" id="psResult">
+        <div class="ps__dial" id="psDial" style="--score: 0;">
+          <div class="ps__dial-inner">
+            <div class="ps__score" id="psScore">--</div>
+            <div class="ps__score-label">/ 100</div>
+          </div>
+        </div>
+        <div class="ps__interpretation">
+          <h3 class="ps__verdict" id="psVerdict">
+            <span class="grade">--</span> &middot; <span id="psVerdictLabel">awaiting result</span>
+          </h3>
+          <p class="ps__detail" id="psDetail">Run the audit to see a one-line diagnosis here.</p>
+          <div class="ps__metrics" id="psMetrics" aria-label="Core Web Vitals"></div>
+        </div>
+        <div class="ps__cta">
+          <a href="#contact" class="btn btn--primary btn--lg">We can fix this</a>
+          <div class="ps__cta-note">Free strategy call · 20 min</div>
+        </div>
+      </div>
+    </div>
+    <!-- END WIDGET BODY -->
+
+  </div>
+</section>
+
+<!-- =========================================================================
+     TESTIMONIALS — Three quote cards. Placeholders editable per-client.
+     ======================================================================== -->
+<section class="section testimonials" aria-labelledby="testimonialsTitle">
+  <div class="container">
+    <p class="eyebrow">What clients say</p>
+    <h2 class="section-title" id="testimonialsTitle">Owners who stopped guessing.</h2>
+
+    <div class="testimonials__grid">
+      <figure class="quote-card">
+        <div class="quote-card__mark" aria-hidden="true">&ldquo;</div>
+        <blockquote class="quote-card__body">They cut our cost-per-lead almost in half in the first quarter. First agency we&rsquo;ve had that actually picks up the phone.</blockquote>
+        <figcaption class="quote-card__attr">
+          <div class="quote-card__avatar" aria-hidden="true">RM</div>
+          <div class="quote-card__attr-info">
+            <span class="quote-card__name">Ray Marquez</span>
+            <span class="quote-card__role">Owner · Marquez HVAC</span>
+          </div>
+        </figcaption>
+      </figure>
+      <figure class="quote-card">
+        <div class="quote-card__mark" aria-hidden="true">&ldquo;</div>
+        <blockquote class="quote-card__body">I finally know what every marketing dollar does. The monthly report is one page. That alone is worth what we pay them.</blockquote>
+        <figcaption class="quote-card__attr">
+          <div class="quote-card__avatar" aria-hidden="true">TS</div>
+          <div class="quote-card__attr-info">
+            <span class="quote-card__name">Tara Schultz</span>
+            <span class="quote-card__role">GM · Schultz Plumbing &amp; Drain</span>
+          </div>
+        </figcaption>
+      </figure>
+      <figure class="quote-card">
+        <div class="quote-card__mark" aria-hidden="true">&ldquo;</div>
+        <blockquote class="quote-card__body">Our new site loads before the old one&rsquo;s logo even appeared. We&rsquo;re booking jobs from organic search again. It works.</blockquote>
+        <figcaption class="quote-card__attr">
+          <div class="quote-card__avatar" aria-hidden="true">DK</div>
+          <div class="quote-card__attr-info">
+            <span class="quote-card__name">Devon Klein</span>
+            <span class="quote-card__role">Founder · Klein Pest Solutions</span>
+          </div>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================================
+     FINAL CTA — Dark surface. Headline + paragraph + dual button +
+     compact contact form (honeypot + Turnstile placeholder).
+     ======================================================================== -->
+<section class="section final-cta" id="contact" aria-labelledby="finalCtaTitle">
+  <div class="container final-cta__inner">
+    <div>
+      <p class="eyebrow">Let&rsquo;s talk numbers</p>
+      <h2 class="final-cta__title" id="finalCtaTitle">
+        Show us your funnel.<br/><em>We&rsquo;ll show you the leak.</em>
+      </h2>
+      <p class="final-cta__body">
+        Twenty minutes on the phone. We&rsquo;ll pull your current data live,
+        flag the three biggest issues, and tell you straight whether
+        we&rsquo;re a fit. No deck, no pitch, no sales rep.
+      </p>
+      <div class="final-cta__buttons">
+        <a href="tel:+18885550144" class="btn btn--primary btn--lg">Call (888) 555-0144</a>
+        <a href="#audit" class="btn btn--ghost btn--lg">Run the free audit first</a>
+      </div>
+    </div>
+
+    <form class="contact-mini" id="contactForm" novalidate>
+      <p class="contact-mini__title">// Book a 20-min call</p>
+      <label class="sr-only" for="cfName">Name</label>
+      <input id="cfName" name="name" type="text" placeholder="Your name" autocomplete="name" required />
+      <label class="sr-only" for="cfEmail">Email</label>
+      <input id="cfEmail" name="email" type="email" placeholder="Work email" autocomplete="email" required />
+      <label class="sr-only" for="cfBiz">Business</label>
+      <input id="cfBiz" name="business" type="text" placeholder="Business name &amp; trade" autocomplete="organization" required />
+      <label class="sr-only" for="cfNotes">What you want help with</label>
+      <textarea id="cfNotes" name="notes" placeholder="One sentence: what&rsquo;s the goal?"></textarea>
+
+      <!-- Honeypot: real users never fill this -->
+      <label class="hp-field" aria-hidden="true" tabindex="-1">
+        Leave this field empty
+        <input type="text" name="company_website" tabindex="-1" autocomplete="off" />
+      </label>
+
+      <!-- Cloudflare Turnstile mount point -->
+      <div class="contact-mini__turnstile" id="turnstileMount" data-turnstile>
+        // turnstile loads here
+      </div>
+
+      <button type="submit" class="btn btn--primary contact-mini__submit">Request my call</button>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- =========================================================================
+     FOOTER — Logo + agency description + 3-col nav (Explore / Legal /
+     Contact) + copyright. Phone is a tel: link, prominent.
+     ======================================================================== -->
+<footer class="site-footer" aria-label="Footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div class="site-footer__about">
+        <a href="/" class="brand" aria-label="Eureka home">
+          <span class="brand__mark" aria-hidden="true">E</span>
+          <span>Eureka</span>
+        </a>
+        <p>The digital marketing partner for trades businesses that want a straight number, a fast site, and a partner that picks up the phone.</p>
+      </div>
+
+      <div class="site-footer__col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#process">Process</a></li>
+          <li><a href="#industries">Industries</a></li>
+          <li><a href="#audit">Free audit</a></li>
+          <li><a href="#">Case studies</a></li>
+        </ul>
+      </div>
+
+      <div class="site-footer__col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy policy</a></li>
+          <li><a href="#">Terms of service</a></li>
+          <li><a href="#">Accessibility</a></li>
+          <li><a href="#">Cookie settings</a></li>
+        </ul>
+      </div>
+
+      <div class="site-footer__col">
+        <h4>Contact</h4>
+        <ul>
+          <li class="contact-line"><a href="tel:+18885550144">(888) 555-0144</a></li>
+          <li class="contact-line"><a href="mailto:hello@eureka.agency">hello@eureka.agency</a></li>
+          <li style="font-size:13px; color:#9FB6AE; font-family: var(--font-mono);">412 W Main St, Suite 220<br/>Boise, ID 83702</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <span>&copy; <span id="copyYear">2026</span> Eureka Digital, LLC. All rights reserved.</span>
+      <span>Built in Boise. Booking nationwide.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- =========================================================================
+     SCRIPTS
+     - Header mobile menu toggle
+     - PageSpeed widget: live PSI fetch with graceful demo fallback
+     - Contact form: honeypot check + Turnstile placeholder mount log
+     ======================================================================== -->
+<script>
+(function () {
+  'use strict';
+
+  /* ---------- Year ------------------------------------------------------- */
+  var yr = document.getElementById('copyYear');
+  if (yr) yr.textContent = String(new Date().getFullYear());
+
+  /* ---------- Mobile menu ------------------------------------------------ */
+  var btn = document.getElementById('menuBtn');
+  var sheet = document.getElementById('mobileSheet');
+  if (btn && sheet) {
+    btn.addEventListener('click', function () {
+      var open = sheet.classList.toggle('is-open');
+      sheet.hidden = !open;
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    // Close on link tap
+    sheet.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') {
+        sheet.classList.remove('is-open');
+        sheet.hidden = true;
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  /* ---------- PageSpeed widget ------------------------------------------ */
+  var form = document.getElementById('psForm');
+  var urlInput = document.getElementById('psUrl');
+  var strategyInput = document.getElementById('psStrategy');
+  var statusEl = document.getElementById('psStatus');
+  var statusText = document.getElementById('psStatusText');
+  var emptyEl = document.getElementById('psEmpty');
+  var resultEl = document.getElementById('psResult');
+  var dialEl = document.getElementById('psDial');
+  var scoreEl = document.getElementById('psScore');
+  var verdictGrade = document.querySelector('#psVerdict .grade');
+  var verdictLabel = document.getElementById('psVerdictLabel');
+  var detailEl = document.getElementById('psDetail');
+  var metricsEl = document.getElementById('psMetrics');
+
+  if (!form) return;
+
+  function setStatus(state, msg) {
+    statusEl.dataset.state = state;
+    statusText.textContent = msg;
+  }
+
+  function gradeFor(score) {
+    if (score >= 90) return { cls: 'ps--good', label: 'Fast', detail: 'You\u2019re in the top tier. Holding this is mostly about not breaking it.' };
+    if (score >= 50) return { cls: 'ps--warn', label: 'Needs work', detail: 'You\u2019re leaving jobs on the table. Most fixes are server config and image weight \u2014 we can ship them in a week.' };
+    return { cls: 'ps--bad', label: 'Costing you jobs', detail: 'You\u2019re losing roughly 1 in 3 visitors before the page even renders. This is fixable, and it\u2019s where we usually start.' };
+  }
+
+  function fmtMs(v) {
+    if (v == null) return '\u2014';
+    var n = Number(v);
+    if (!isFinite(n)) return String(v);
+    if (n >= 1000) return (n / 1000).toFixed(1) + 's';
+    return Math.round(n) + 'ms';
+  }
+
+  function normalizeUrl(raw) {
+    if (!raw) return '';
+    raw = raw.trim();
+    if (!/^https?:\/\//i.test(raw)) raw = 'https://' + raw;
+    return raw;
+  }
+
+  function renderResult(score, metrics) {
+    var pct = Math.max(0, Math.min(100, Math.round(score)));
+    var g = gradeFor(pct);
+
+    // Reset grade classes
+    dialEl.classList.remove('ps--good', 'ps--warn', 'ps--bad');
+    document.getElementById('psVerdict').classList.remove('ps--good', 'ps--warn', 'ps--bad');
+    dialEl.classList.add(g.cls);
+    document.getElementById('psVerdict').classList.add(g.cls);
+
+    dialEl.style.setProperty('--score', pct);
+    scoreEl.textContent = pct;
+    verdictGrade.textContent = pct;
+    verdictLabel.textContent = g.label;
+    detailEl.textContent = g.detail;
+
+    // Metrics
+    metricsEl.innerHTML = '';
+    var rows = [
+      ['LCP', fmtMs(metrics.lcp)],
+      ['CLS', metrics.cls != null ? Number(metrics.cls).toFixed(2) : '\u2014'],
+      ['TBT', fmtMs(metrics.tbt)],
+      ['FCP', fmtMs(metrics.fcp)]
+    ];
+    rows.forEach(function (r) {
+      var div = document.createElement('div');
+      div.className = 'ps__metric';
+      div.innerHTML = '<span>' + r[0] + '</span><span>' + r[1] + '</span>';
+      metricsEl.appendChild(div);
+    });
+
+    emptyEl.classList.add('is-hidden');
+    resultEl.classList.remove('is-hidden');
+  }
+
+  /* Demo fallback when the API isn't reachable from the preview (no key
+     configured, CSP, offline, etc). Deterministic-ish: hash the URL so a
+     given input always returns the same demo score. Visually exercises
+     the same render path. */
+  function demoResult(url) {
+    var h = 0;
+    for (var i = 0; i < url.length; i++) {
+      h = (h * 31 + url.charCodeAt(i)) | 0;
+    }
+    var seed = Math.abs(h);
+    var score = 32 + (seed % 60); // 32 - 91
+    var metrics = {
+      lcp: 1800 + (seed % 4200),
+      cls: ((seed % 27) / 100),
+      tbt: 50 + (seed % 950),
+      fcp: 900 + (seed % 2400)
+    };
+    return { score: score, metrics: metrics, demo: true };
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var raw = urlInput.value.trim();
+    if (!raw) {
+      setStatus('error', 'Enter a URL to audit');
+      urlInput.focus();
+      return;
+    }
+    var url = normalizeUrl(raw);
+    var strategy = strategyInput.value || 'mobile';
+
+    setStatus('loading', 'Calling Google PageSpeed Insights\u2026');
+    emptyEl.classList.add('is-hidden');
+
+    var endpoint = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed'
+      + '?url=' + encodeURIComponent(url)
+      + '&strategy=' + encodeURIComponent(strategy)
+      + '&category=PERFORMANCE';
+
+    /* PSI's anonymous tier works without an API key but is rate-limited.
+       Production should add &key=YOUR_KEY via 11ty env. */
+    fetch(endpoint, { method: 'GET' })
+      .then(function (r) {
+        if (!r.ok) throw new Error('PSI HTTP ' + r.status);
+        return r.json();
+      })
+      .then(function (data) {
+        var lh = data.lighthouseResult || {};
+        var cats = lh.categories || {};
+        var perf = cats.performance || {};
+        var audits = lh.audits || {};
+        var score = Math.round((perf.score || 0) * 100);
+        var metrics = {
+          lcp: audits['largest-contentful-paint'] && audits['largest-contentful-paint'].numericValue,
+          cls: audits['cumulative-layout-shift'] && audits['cumulative-layout-shift'].numericValue,
+          tbt: audits['total-blocking-time'] && audits['total-blocking-time'].numericValue,
+          fcp: audits['first-contentful-paint'] && audits['first-contentful-paint'].numericValue
+        };
+        renderResult(score, metrics);
+        setStatus('ok', 'Result ready \u2014 audit complete');
+      })
+      .catch(function (err) {
+        console.warn('[Eureka] PSI fetch failed, using demo fallback:', err);
+        var d = demoResult(url);
+        renderResult(d.score, d.metrics);
+        setStatus('ok', 'Demo result shown \u2014 wire a PSI API key for live data');
+      });
+  });
+
+  /* ---------- Contact form: honeypot + submit -------------------------- */
+  var contact = document.getElementById('contactForm');
+  if (contact) {
+    contact.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var hp = contact.querySelector('.hp-field input');
+      if (hp && hp.value) {
+        // Honeypot filled \u2014 silently drop the submission
+        console.warn('[Eureka] honeypot triggered, dropping submission');
+        return;
+      }
+      // Real submission wiring goes here \u2014 e.g. fetch('/api/lead', ...)
+      var submitBtn = contact.querySelector('button[type="submit"]');
+      if (submitBtn) {
+        submitBtn.textContent = 'Thanks \u2014 we\u2019ll be in touch';
+        submitBtn.disabled = true;
+      }
+    });
+  }
+
+  /* ---------- Turnstile placeholder note -------------------------------
+     The .contact-mini__turnstile div is where Cloudflare Turnstile mounts.
+     Production: render with the Cloudflare Turnstile loader
+     (challenges.cloudflare.com/turnstile/v0/api.js) and pass
+     data-sitekey via 11ty env.
+  ----------------------------------------------------------------------- */
+})();
+</script>
+
+</body>
+</html>
