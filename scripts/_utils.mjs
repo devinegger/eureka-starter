@@ -1,7 +1,8 @@
 // Shared utilities for page scaffolding scripts.
 //
-// Pages now live under src/pages/. Navigation is data-driven via
-// src/_data/nav.json — scaffolding no longer patches a layout file.
+// Pages live under src/pages/ as markdown with a `sections` array in
+// frontmatter. The scaffolder writes a stub that references existing
+// section partials so a new page is usable immediately.
 
 import { createInterface } from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
@@ -70,17 +71,24 @@ export async function ask(questions) {
   return answers;
 }
 
-/** Front-matter stub for a generic content page. */
+/** Front-matter stub for a generic page using the landing layout. */
 export function stub(title, description = "") {
   const desc = description || "TODO — short summary for hero/meta description.";
   return `---
+layout: layouts/landing.hbs
 title: ${title}
 description: ${desc}
-layout: layouts/page.njk
+pageHero:
+  eyebrow: ${title}
+  title: ${title}
+  sub: ${desc}
+sections:
+  - page-hero
+  - body
+  - cta-block
 ---
 
-TODO: page content. Markdown is processed as Nunjucks, so partials work too:
-
-{% include "partials/cta-block.njk" %}
+TODO: page content in markdown. Drop in any handlebars partial reference
+or section name in the \`sections\` list above.
 `;
 }

@@ -1,16 +1,36 @@
 # Eureka Starter
 
-The agency template used to spin up a new client site in 30 minutes. Built with [Eleventy (11ty)](https://www.11ty.dev/), zero JavaScript frameworks, and a token-based design system that swaps between dark and light themes and per-brand accent palettes from a single line of CSS.
+The agency template used to spin up a new client site in 30 minutes. Built with [Eleventy (11ty)](https://www.11ty.dev/) on **markdown content + Handlebars templates**. Token-based design system, dark/light themes, per-brand accent colors. Zero JavaScript frameworks, no bundler, no build step beyond 11ty itself.
+
+## The shape
+
+- **Every page is a `.md` file** under `src/pages/`. Frontmatter declares which layout to use and what sections to compose.
+- **Layouts and partials are `.hbs`** under `src/_includes/`. Content editors never open one.
+- **All copy lives in `src/_data/*.json`.** A new client site is mostly JSON edits.
+- **Pages compose by declaring a section list**, not by editing templates:
+
+  ```yaml
+  ---
+  layout: layouts/landing.hbs
+  sections:
+    - page-hero
+    - body          # ← markdown body renders here
+    - about-values
+    - cta-block
+  ---
+
+  ## Markdown body
+  ```
 
 ## What ships in the box
 
-- **Complete dark/light design system** — a two-layer token architecture (primitive colors, spacing, type → semantic surfaces, text, accents) defined in [tokens.css](src/assets/css/tokens.css). Components reference semantic tokens only; new brands override 4 lines of CSS.
-- **10 production page templates** — home (landing), about, services overview + paginated detail, service-areas overview + paginated detail, contact (with honeypot + Turnstile slot), blog index + posts, 404.
-- **Modular section partials** — hero, pitch, services-grid, differentiator, process-steps, industries-chips, testimonials, cta-block, widget-slot, plus nav and footer.
-- **A widget slot pattern** — drop any self-contained widget into a consistent section wrapper. Includes a live PageSpeed Insights checker out of the box and a stub ROI calculator ready to flesh out.
+- **Complete dark/light design system** — two-layer token architecture (primitive colors, spacing, type → semantic surfaces, text, accents) in [tokens.css](src/assets/css/tokens.css). Components reference semantic tokens only; new brands override 4 lines of CSS.
+- **10 production page templates** — home, about, services overview + paginated detail, service-areas overview + paginated detail, contact (with honeypot + Turnstile slot), blog index + posts, 404. All driven from data files.
+- **18 section partials** — `hero`, `pitch`, `services-grid`, `differentiator`, `process-steps`, `industries-chips`, `widget-slot`, `testimonials`, `cta-block`, `page-hero`, `about-values`, `contact-info-form`, `service-areas-grid`, `blog-listing`, `error-404`, plus shared `nav` and `footer`.
+- **Widget slot pattern** — drop any self-contained widget into a consistent section wrapper. PageSpeed Insights checker functional out of the box, ROI calculator stub ready to flesh out.
 - **Decap CMS** wired at `/admin` with editorial workflow and collections for site config, services, service-areas, testimonials, and blog posts.
 - **Responsive image pipeline** via [@11ty/eleventy-img](https://www.11ty.dev/docs/plugins/image/) (AVIF/WebP/fallback at 400/800/1280 widths).
-- **GitHub Pages deploy** via Actions (already wired up).
+- **GitHub Pages deploy** via Actions.
 - **Page scaffolders** — `npm run new-page`, `new-folder`, `convert-page`.
 
 ## Quick start
@@ -32,48 +52,149 @@ npm run build
 ```
 .
 ├── design-reference/              # canonical design source (HTML + README); never deleted
-├── eleventy.config.mjs            # 11ty config, ESM
+├── eleventy.config.mjs            # 11ty config, ESM, Handlebars as custom extension
 ├── scripts/                       # page scaffolders
 ├── src/
-│   ├── _data/                     # site config + content for partials
+│   ├── _data/                     # site config + section content
 │   │   ├── site.json              # brand, contact, theme, brand variant
 │   │   ├── nav.json               # primary + footer menus
 │   │   ├── services.json          # 4 services, used by grid + paginated detail pages
 │   │   ├── serviceAreas.json      # cities, used by paginated detail pages
-│   │   ├── industries.json        # chip cloud
+│   │   ├── industries.json
 │   │   ├── testimonials.json
-│   │   ├── hero.json              # home page hero content + health-card mock
+│   │   ├── about.json             # values grid content
+│   │   ├── hero.json
 │   │   ├── pitch.json
 │   │   ├── differentiator.json
 │   │   ├── process.json
-│   │   └── finalCta.json          # final CTA block + mini contact form
+│   │   └── finalCta.json
 │   ├── _includes/
-│   │   ├── layouts/               # base, page, post, landing
-│   │   ├── partials/              # section components (nav, footer, hero, etc.)
+│   │   ├── layouts/               # base.hbs, landing.hbs, page.hbs, post.hbs,
+│   │   │                          # service.hbs (paginated), area.hbs (paginated)
+│   │   ├── partials/              # 18 section components — referenceable by name
+│   │   │                          # from any page's `sections:` frontmatter
 │   │   └── widgets/               # pagespeed-checker, roi-calculator
 │   ├── admin/                     # Decap CMS shell + config.yml
 │   ├── assets/
-│   │   ├── css/                   # tokens / base / components / utilities (+ main.css imports them)
+│   │   ├── css/                   # tokens / base / components / utilities (+ main.css)
 │   │   └── js/                    # nav-mobile, pagespeed-widget, contact-form
 │   ├── images/                    # source content images (processed responsive)
-│   ├── pages/                     # all routable pages
-│   │   ├── index.njk              # /
-│   │   ├── about.njk
-│   │   ├── contact.njk
-│   │   ├── 404.njk
+│   ├── pages/                     # every routable page is .md here
+│   │   ├── index.md               # home landing
+│   │   ├── about.md
+│   │   ├── contact.md
+│   │   ├── 404.md
 │   │   ├── services/
-│   │   │   ├── index.njk          # /services/
-│   │   │   └── service.njk        # /services/[slug]/ (paginated)
+│   │   │   ├── index.md
+│   │   │   └── service.md         # paginated over services.json
 │   │   ├── service-areas/
-│   │   │   ├── index.njk
-│   │   │   └── area.njk           # paginated
+│   │   │   ├── index.md
+│   │   │   └── area.md            # paginated over serviceAreas.json
 │   │   └── blog/
 │   │       ├── blog.json          # directory-data: layout + post tag
-│   │       ├── index.njk
+│   │       ├── index.md
 │   │       └── *.md               # one file per post
 │   └── static/                    # raw passthrough (favicons, OG images, uploads)
 └── _site/                         # build output, git-ignored
 ```
+
+## Authoring a page
+
+### A landing page (composed sections, no body)
+
+```yaml
+---
+layout: layouts/landing.hbs
+title: My Page
+permalink: /my-page/
+sections:
+  - page-hero
+  - services-grid
+  - process-steps
+  - cta-block
+pageHero:
+  eyebrow: Section
+  title: Page heading
+  sub: Supporting paragraph.
+hasContactForm: true     # loads contact-form.js + Turnstile script
+---
+```
+
+That's the whole page. Save it as `src/pages/my-page.md` and you have a new route.
+
+### A landing page with markdown prose between sections
+
+Use the special `body` sentinel in the sections list. The markdown body renders inline at that point:
+
+```yaml
+---
+layout: layouts/landing.hbs
+title: About
+sections:
+  - page-hero
+  - body          # ← markdown renders here, wrapped in .prose
+  - about-values
+  - cta-block
+---
+
+## The story
+
+Write markdown here. Headings, links, lists — anything Markdown supports.
+```
+
+### A pure prose page (no composed sections)
+
+Use `layouts/page.hbs` — it provides a hero from your frontmatter and renders the markdown body as a `.prose` block, then a closing CTA.
+
+```yaml
+---
+layout: layouts/page.hbs
+title: Privacy policy
+description: How we handle your data.
+---
+
+## Markdown body goes here
+```
+
+### A blog post
+
+Drop a `.md` file in `src/pages/blog/`. The blog directory data file applies `layout: layouts/post.hbs` and the `post` tag automatically:
+
+```yaml
+---
+title: Post title
+description: One-line summary, shown on the index card.
+date: 2026-05-17
+author: Eureka team
+---
+
+Post body in Markdown.
+```
+
+It'll appear on `/blog/` (most recent first) and at `/blog/<slug>/`.
+
+## Available sections
+
+Every name below is a partial under `src/_includes/partials/<name>.hbs` — reference it directly in any page's `sections:` array.
+
+| Section | What it renders | Data source |
+|---|---|---|
+| `hero` | Home hero with proof strip + health card visual | `_data/hero.json` |
+| `page-hero` | Generic interior page hero | page frontmatter `pageHero` |
+| `pitch` | Three-column intro band | `_data/pitch.json` |
+| `services-grid` | Service cards (4-up or 2-up wide) | `_data/services.json` |
+| `differentiator` | Methodology block with numbered list | `_data/differentiator.json` |
+| `process-steps` | Three-step horizontal stepper | `_data/process.json` |
+| `industries-chips` | Industry chip cloud | `_data/industries.json` |
+| `widget-slot` | Section wrapper around any widget | page frontmatter `widget`, `widgetEyebrow`, etc. |
+| `testimonials` | Three-card testimonial grid | `_data/testimonials.json` |
+| `cta-block` | Final CTA section with mini contact form | `_data/finalCta.json` |
+| `about-values` | Two-by-two values grid | `_data/about.json` |
+| `service-areas-grid` | Service-area cards | `_data/serviceAreas.json` |
+| `blog-listing` | Reverse-chronological post list | `collections.post` |
+| `contact-info-form` | Full contact form with three contact methods | `_data/site.json` |
+| `error-404` | 404 page body | — |
+| `body` | Special sentinel — renders the page's markdown body | the page itself |
 
 ## The design system
 
@@ -95,126 +216,89 @@ npm run build
 The semantic layer is bound twice — once for the dark theme (default), once for light:
 
 ```css
-:root, [data-theme="dark"] {
-  --surface-base: var(--color-neutral-950);
-  --text-primary: var(--color-foreground);
-  --accent-default: var(--color-teal-500);
-  /* ... */
-}
-
-[data-theme="light"] {
-  --surface-base: var(--color-neutral-0);
-  --text-primary: var(--color-ink-dark);
-  --accent-default: var(--color-teal-500);
-  /* ... */
-}
+:root, [data-theme="dark"] { /* dark bindings */ }
+[data-theme="light"]       { /* light bindings */ }
 ```
 
 Legacy aliases (`--paper`, `--ink`, `--teal`, etc.) match the original design-reference names so any markup you copy from `design-reference/` still works.
 
 ### Theming a site
 
-Set `theme` in `src/_data/site.json`:
-
 ```json
-{ "theme": "dark" }   // or "light"
+// src/_data/site.json
+{ "theme": "dark" }     // or "light"
 ```
 
-That writes `data-theme="dark"` onto the root `<html>` element. To override per-section, wrap with `data-theme="light"` on any element.
+To override per-section, wrap with `data-theme="light"` on any element.
 
 ### Per-brand accent override
 
-A new portfolio brand only needs to override the four accent semantic tokens. Add to `src/assets/css/tokens.css`:
+A new portfolio brand only needs to override the four accent semantic tokens:
 
 ```css
+/* in src/assets/css/tokens.css */
 [data-brand="brand-b"] {
-  --accent-default:  #C2410C;        /* terracotta */
+  --accent-default:  #C2410C;
   --accent-hover:    #EA580C;
   --accent-contrast: var(--color-neutral-0);
   --accent-glow:     rgba(194, 65, 12, 0.20);
 }
 ```
 
-Then set `"brand": "brand-b"` in `site.json`. The whole site re-accent without touching a single component.
+Then set `"brand": "brand-b"` in `site.json`. The whole site re-accents.
 
-## Pages and partials
+## Handlebars conventions
 
-Every page is data-driven — edit JSON in `src/_data/` and the templates update. The home page (`src/pages/index.njk`) is the canonical example: it composes 9 partials in sequence and pulls all copy from data files.
+11ty v3 doesn't ship Handlebars natively, so we register it as a custom extension in `eleventy.config.mjs`. Every `.hbs` file under `src/_includes/` is automatically registered as a partial, named by its path relative to `_includes/` (without extension):
 
-### Adding a service
+- `_includes/partials/nav.hbs` → `{{> partials/nav}}`
+- `_includes/widgets/pagespeed-checker.hbs` → `{{> widgets/pagespeed-checker}}`
 
-Append an object to `src/_data/services.json`. A new `/services/<slug>/` page is generated automatically (paginated via `src/pages/services/service.njk`) and a new card appears on the home and services index pages.
+The dynamic partial syntax in `landing.hbs` looks up partials by section name:
 
-### Adding a service area
-
-Same pattern — append to `src/_data/serviceAreas.json`.
-
-### Adding a blog post
-
-Drop a `.md` file in `src/pages/blog/`:
-
-```md
----
-title: Post title
-description: One-line summary, shown on the index card.
-date: 2026-05-17
-author: Eureka team
----
-
-Post body in Markdown.
+```hbs
+{{#each sections}}
+  {{> (section this) @root}}
+{{/each}}
 ```
 
-It'll appear on `/blog/` automatically (most recent first) and at `/blog/<slug>/`.
+The `section` helper just prepends `partials/`; passing `@root` ensures each partial sees the full page scope rather than the current loop's string value.
 
-### Adding a new top-level page
+### Custom helpers
 
-Quickest: use the scaffolder.
+Defined in `eleventy.config.mjs`:
 
-```bash
-npm run new-page services/diagnostics "Free Diagnostics"
-npm run new-page about-the-team "About The Team"
-```
-
-Then add a nav entry in `src/_data/nav.json` if you want it in the menu.
-
-## The widget slot
-
-A widget is any self-contained interactive element that drops into a section with consistent padding, eyebrow, heading, and meta line.
-
-### Use a widget on a page
-
-In page front matter:
-
-```yaml
----
-widget: pagespeed-checker
-widgetEyebrow: Free site audit
-widgetTitle: How fast is your site, really?
-widgetLede: Drop your URL. We’ll run a live PageSpeed check.
-widgetMeta: Live · powered by Google PSI
-hasPagespeedWidget: true   # loads pagespeed-widget.js
----
-{% include "partials/widget-slot.njk" %}
-```
-
-### Add a new widget
-
-1. Drop a new `.njk` file in `src/_includes/widgets/your-widget.njk` (markup only, scoped under `.eureka-widget`).
-2. Add the matching branch in `src/_includes/partials/widget-slot.njk`:
-   ```njk
-   {% elif widget == "your-widget" %}
-     {% include "widgets/your-widget.njk" %}
-   ```
-3. If the widget needs JS, drop it in `src/assets/js/your-widget.js` and add a conditional script tag in `src/_includes/layouts/base.njk`.
+| Helper | Use |
+|---|---|
+| `{{section "name"}}` | `"partials/name"` — used for dynamic partials |
+| `{{#if (eq a b)}}` | Equality |
+| `{{#if (gt a b)}}` / `(lte a b)` | Number comparisons |
+| `{{add @index 1}}` | Numeric add |
+| `{{currentYear}}` | The current year (footer) |
+| `{{readableDate date}}` | "May 17, 2026" |
+| `{{isoDate date}}` | ISO 8601 string |
+| `{{slug "Some Title"}}` | URL-safe slug |
+| `{{{raw value}}}` | Output unescaped (alias for triple-stash) |
 
 ## Forms
 
-The home page and contact page both ship a form with:
+Home page and contact page both ship a form with:
 
 - **Honeypot field** (`.hp-field` + `name="hp-field"`) — hidden via CSS, dropped on submit if filled
-- **Cloudflare Turnstile placeholder** — div with `class="cf-turnstile"` and `data-sitekey="{{ site.turnstileSiteKey }}"`. Set the key in `site.json` to enable; the script tag is loaded conditionally on pages with `hasContactForm: true`.
+- **Cloudflare Turnstile placeholder** — div with `class="cf-turnstile"` and `data-sitekey="{{site.turnstileSiteKey}}"`. Set the key in `site.json` to enable; the script tag loads conditionally on pages with `hasContactForm: true`.
 - **Client-side honeypot check** in `src/assets/js/contact-form.js`
-- **Submit target**: not wired yet. Bind `/api/contact` (a Cloudflare Worker is the natural fit) before going live.
+- **Submit target**: not wired yet. Bind to `/api/contact` (a Cloudflare Worker is the natural fit) before going live.
+
+## Adding a new widget
+
+1. Drop a new `.hbs` file in `src/_includes/widgets/your-widget.hbs` (markup only, scoped under `.eureka-widget`).
+2. Add the matching branch in `src/_includes/partials/widget-slot.hbs`:
+   ```hbs
+   {{else if (eq widget "your-widget")}}
+     {{> widgets/your-widget}}
+   ```
+3. If the widget needs JS, drop it in `src/assets/js/your-widget.js` and add a conditional script tag in `src/_includes/layouts/base.hbs`.
+4. On a page, set `widget: your-widget` in frontmatter and add `widget-slot` to the sections list.
 
 ## Decap CMS
 
@@ -242,9 +326,9 @@ Custom domain? Drop a `CNAME` file in `src/static/` and unset `PATH_PREFIX` in t
 
 1. Click **Use this template** on GitHub (or `gh repo create my-client --template devinegger/eureka-starter`).
 2. Edit `src/_data/site.json` — name, brand mark, contact info, address, theme.
-3. Replace content in `src/_data/services.json`, `serviceAreas.json`, `testimonials.json`, `industries.json`, and the section files (`hero.json`, `pitch.json`, `differentiator.json`, `finalCta.json`).
-4. Add 2-3 starter blog posts in `src/pages/blog/`.
-5. If the client wants a different accent color, add a `[data-brand="client-name"] { … }` block to `tokens.css` and set `brand` in `site.json`.
+3. Replace content in `src/_data/services.json`, `serviceAreas.json`, `testimonials.json`, `industries.json`, and the section files (`hero.json`, `pitch.json`, `differentiator.json`, `finalCta.json`, `about.json`).
+4. Add 2-3 starter blog posts as `.md` in `src/pages/blog/`.
+5. If the client wants a different accent, add a `[data-brand="client-name"]` block to `tokens.css` and set `brand` in `site.json`.
 6. Run `npm run build`, push, enable Pages.
 
 About 30 minutes if the client has their copy ready.
