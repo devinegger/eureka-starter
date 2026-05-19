@@ -1,0 +1,26 @@
+{
+  "name": "Eureka",
+  "brandMark": "E",
+  "tagline": "Digital marketing built for trades businesses.",
+  "description": "Eureka builds high-converting websites and ad programs for HVAC, plumbing, pest control and other trades. Direct, measurable, ROI-first.",
+  "theme": "dark",
+  "brand": "default",
+  "url": "https://eureka.example.com",
+  "phone": "(888) 555-0144",
+  "phoneTel": "+18885550144",
+  "email": "hello@eureka.agency",
+  "address": {
+    "street": "412 W Main St, Suite 220",
+    "city": "Boise",
+    "state": "ID",
+    "zip": "83702"
+  },
+  "tagline_footer": "Built in Boise. Booking nationwide.",
+  "social": {
+    "twitter": "",
+    "linkedin": "",
+    "instagram": ""
+  },
+  "turnstileSiteKey": "",
+  "psiApiKey": ""
+}

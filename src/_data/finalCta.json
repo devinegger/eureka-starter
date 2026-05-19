@@ -1,0 +1,12 @@
+{
+  "eyebrow": "Let’s talk numbers",
+  "title": "Show us your funnel.<br/><em>We’ll show you the leak.</em>",
+  "body": "Twenty minutes on the phone. We’ll pull your current data live, flag the three biggest issues, and tell you straight whether we’re a fit. No deck, no pitch, no sales rep.",
+  "buttons": [
+    { "label": "Call (888) 555-0144", "url": "tel:+18885550144", "style": "primary" },
+    { "label": "Run the free audit first", "url": "/#audit", "style": "ghost" }
+  ],
+  "form": {
+    "title": "// Book a 20-min call"
+  }
+}

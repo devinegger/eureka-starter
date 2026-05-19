@@ -1,0 +1,58 @@
+[
+  {
+    "slug": "boise",
+    "city": "Boise",
+    "state": "ID",
+    "tagline": "Digital marketing for Boise trades businesses",
+    "intro": "We’re headquartered here in Boise, and we’ve helped contractors across the Treasure Valley shave thousands off their cost-per-lead. From the North End to Meridian, we know the search behavior, the seasonality, and the competition.",
+    "highlights": [
+      "Service area pages that target Boise, Meridian, Nampa, Eagle, and Kuna",
+      "Local Service Ads dispute management against Treasure Valley competitors",
+      "Google Business Profile optimized for the Boise metro",
+      "Citation cleanup across Idaho-specific directories"
+    ],
+    "localTestimonial": "DK"
+  },
+  {
+    "slug": "spokane",
+    "city": "Spokane",
+    "state": "WA",
+    "tagline": "Digital marketing for Spokane trades businesses",
+    "intro": "Spokane and Coeur d’Alene contractors face two-state competition for the same Inland Northwest searches. We build campaigns that show up across both markets without burning your budget on the wrong zip codes.",
+    "highlights": [
+      "Multi-state ad geo-targeting (WA + ID)",
+      "Year-round campaigns that account for the winter HVAC spike",
+      "Service area pages targeting both Spokane and Coeur d’Alene",
+      "Tracking that separates leads by state for tax reporting"
+    ],
+    "localTestimonial": "RM"
+  },
+  {
+    "slug": "portland",
+    "city": "Portland",
+    "state": "OR",
+    "tagline": "Digital marketing for Portland trades businesses",
+    "intro": "Portland is a dense, competitive trades market with high search intent and high cost-per-click. We focus on the channels that work for owner-operators here — LSAs, organic local pack, and tightly geo-fenced Search campaigns.",
+    "highlights": [
+      "LSA management with Portland-specific dispute templates",
+      "Service area pages for Beaverton, Hillsboro, Gresham, and Vancouver",
+      "Competitor ranking benchmarks against the top 5 in your trade",
+      "Bilingual landing page support (Spanish)"
+    ],
+    "localTestimonial": "TS"
+  },
+  {
+    "slug": "salt-lake-city",
+    "city": "Salt Lake City",
+    "state": "UT",
+    "tagline": "Digital marketing for Salt Lake City trades businesses",
+    "intro": "SLC and the broader Wasatch Front have some of the lowest CPCs in the western US — if you target them right. We build campaigns that capitalize on the growth without overspending on suburbs that don’t convert.",
+    "highlights": [
+      "Wasatch Front geo-targeting (SLC, Provo, Ogden, Park City)",
+      "Seasonal HVAC campaigns tied to the inversion / valley smog cycle",
+      "Mormon-corridor-aware content tone (matters more than you’d think)",
+      "Tracking integration with ServiceTitan and Housecall Pro"
+    ],
+    "localTestimonial": "DK"
+  }
+]

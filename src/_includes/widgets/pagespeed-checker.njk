@@ -1,0 +1,52 @@
+{# PageSpeed checker widget. Parent template must set `hasPagespeedWidget: true`
+   in front matter so base.njk loads pagespeed-widget.js. #}
+<div class="eureka-widget" id="pagespeedWidget" data-widget="pagespeed">
+  <form class="ps__form" id="psForm" novalidate>
+    <label class="sr-only" for="psUrl">Website URL</label>
+    <div class="ps__field">
+      <span class="ps__field-prefix" aria-hidden="true">https://</span>
+      <input type="text" id="psUrl" name="url" placeholder="your-business.com" autocomplete="url" inputmode="url" spellcheck="false" required>
+      <div class="ps__strategy">
+        <label class="sr-only" for="psStrategy">Device</label>
+        <select id="psStrategy" name="strategy">
+          <option value="mobile">Mobile</option>
+          <option value="desktop">Desktop</option>
+        </select>
+      </div>
+    </div>
+    <button type="submit" class="btn btn--primary btn--lg" id="psSubmit">
+      Run audit
+      <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+  </form>
+
+  <div class="ps__status" id="psStatus" data-state="idle" role="status" aria-live="polite">
+    <span class="ps__spinner" aria-hidden="true"></span>
+    <span id="psStatusText">Idle — enter a URL and run the audit</span>
+  </div>
+
+  <div class="ps__empty" id="psEmpty">
+    <div class="ps__empty-icon">// Results will render here</div>
+    <p style="margin:0; font-size:14px;">We use Google PageSpeed Insights for an honest, third-party measurement. No login, no data stored.</p>
+  </div>
+
+  <div class="ps__result is-hidden" id="psResult">
+    <div class="ps__dial" id="psDial" style="--score: 0;">
+      <div class="ps__dial-inner">
+        <div class="ps__score" id="psScore">--</div>
+        <div class="ps__score-label">/ 100</div>
+      </div>
+    </div>
+    <div class="ps__interpretation">
+      <h3 class="ps__verdict" id="psVerdict">
+        <span class="grade">--</span> &middot; <span id="psVerdictLabel">awaiting result</span>
+      </h3>
+      <p class="ps__detail" id="psDetail">Run the audit to see a one-line diagnosis here.</p>
+      <div class="ps__metrics" id="psMetrics" aria-label="Core Web Vitals"></div>
+    </div>
+    <div class="ps__cta">
+      <a href="/contact/" class="btn btn--primary btn--lg">We can fix this</a>
+      <div class="ps__cta-note">Free strategy call · 20 min</div>
+    </div>
+  </div>
+</div>

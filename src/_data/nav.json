@@ -1,0 +1,24 @@
+{
+  "primary": [
+    { "label": "Services",    "url": "/services/" },
+    { "label": "Service areas", "url": "/service-areas/" },
+    { "label": "About",       "url": "/about/" },
+    { "label": "Blog",        "url": "/blog/" },
+    { "label": "Free audit",  "url": "/#audit" },
+    { "label": "Contact",     "url": "/contact/" }
+  ],
+  "footer": {
+    "explore": [
+      { "label": "Services",     "url": "/services/" },
+      { "label": "Service areas", "url": "/service-areas/" },
+      { "label": "About",        "url": "/about/" },
+      { "label": "Free audit",   "url": "/#audit" },
+      { "label": "Blog",         "url": "/blog/" }
+    ],
+    "legal": [
+      { "label": "Privacy policy",     "url": "/privacy/" },
+      { "label": "Terms of service",   "url": "/terms/" },
+      { "label": "Accessibility",      "url": "/accessibility/" }
+    ]
+  }
+}

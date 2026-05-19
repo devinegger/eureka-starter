@@ -1,0 +1,22 @@
+{
+  "eyebrow": "About Eureka",
+  "title": "A small team that ships, measures, and owns the number.",
+  "lede": "We’re not a creative agency that picked up a few trades clients. We were built for owner-operators who care about cost-per-lead, not awards.",
+  "items": [
+    {
+      "num": "01 / Who we work with",
+      "title": "Owner-operators in the trades.",
+      "body": "HVAC, plumbing, pest, electrical, body shops. Companies doing $1M–$25M who want a marketing partner that talks in booked jobs, not impressions."
+    },
+    {
+      "num": "02 / How we think",
+      "title": "Data first, opinions second.",
+      "body": "Every decision starts in the analytics. If we can’t measure it within 30 days, we don’t spend your money on it. Period."
+    },
+    {
+      "num": "03 / What we value",
+      "title": "Plain talk. Real reports.",
+      "body": "No jargon. No fake dashboards. You get monthly reports a contractor can read in five minutes, and a number to call when something breaks."
+    }
+  ]
+}

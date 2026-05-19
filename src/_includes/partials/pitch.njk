@@ -1,0 +1,18 @@
+{# Three-column intro band. Consumes _data/pitch.json. #}
+<section class="section section--warm pitch" id="about" aria-labelledby="pitchTitle">
+  <div class="container">
+    <p class="eyebrow">{{ pitch.eyebrow }}</p>
+    <h2 class="section-title" id="pitchTitle">{{ pitch.title }}</h2>
+    <p class="section-lede">{{ pitch.lede }}</p>
+
+    <div class="pitch__grid">
+      {% for item in pitch.items %}
+        <div class="pitch__item">
+          <div class="pitch__num">{{ item.num }}</div>
+          <h3 class="pitch__title">{{ item.title }}</h3>
+          <p class="pitch__body">{{ item.body }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

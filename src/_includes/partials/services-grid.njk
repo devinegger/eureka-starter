@@ -1,0 +1,27 @@
+{#
+  Services grid. Defaults to the four-up compact card layout from the home page.
+  Pass `expanded=true` to use a wider two-up layout (services overview page).
+  Consumes _data/services.json by default; override with `items=[...]`.
+#}
+{% set _items = items if items else services %}
+
+<section class="section services" id="services" aria-labelledby="servicesTitle">
+  <div class="container">
+    <p class="eyebrow">{{ servicesEyebrow | default("Services") }}</p>
+    <h2 class="section-title" id="servicesTitle">{{ servicesTitle | default("Built for the way trades businesses actually grow.") }}</h2>
+    {% if servicesLede %}<p class="section-lede">{{ servicesLede }}</p>{% endif %}
+
+    <div class="services__grid{% if expanded %} services__grid--expanded{% endif %}">
+      {% for s in _items %}
+        <article class="service-card">
+          <div class="service-card__index">/ {{ s.index }}</div>
+          <h3 class="service-card__title">{{ s.title }}</h3>
+          <p class="service-card__body">{{ s.summary }}</p>
+          <a href="/services/{{ s.slug }}/" class="service-card__cta">
+            Learn more <span class="arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>

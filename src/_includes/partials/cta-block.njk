@@ -1,0 +1,43 @@
+{#
+  Final CTA section with embedded mini contact form. Consumes _data/finalCta.json.
+  Include on any page that should end on a conversion. The form sets a flag
+  via `hasContactForm` so the parent layout loads contact-form.js + Turnstile.
+#}
+<section class="section final-cta" id="contact" aria-labelledby="finalCtaTitle">
+  <div class="container final-cta__inner">
+    <div>
+      <p class="eyebrow">{{ finalCta.eyebrow }}</p>
+      <h2 class="final-cta__title" id="finalCtaTitle">{{ finalCta.title | safe }}</h2>
+      <p class="final-cta__body">{{ finalCta.body }}</p>
+      <div class="final-cta__buttons">
+        {% for b in finalCta.buttons %}
+          <a href="{{ b.url }}" class="btn btn--{{ b.style }} btn--lg">{{ b.label }}</a>
+        {% endfor %}
+      </div>
+    </div>
+
+    <form class="contact-mini" id="contactForm" novalidate>
+      <p class="contact-mini__title">{{ finalCta.form.title }}</p>
+      <label class="sr-only" for="cfName">Name</label>
+      <input id="cfName" name="name" type="text" placeholder="Your name" autocomplete="name" required>
+      <label class="sr-only" for="cfEmail">Email</label>
+      <input id="cfEmail" name="email" type="email" placeholder="Work email" autocomplete="email" required>
+      <label class="sr-only" for="cfBiz">Business</label>
+      <input id="cfBiz" name="business" type="text" placeholder="Business name &amp; trade" autocomplete="organization" required>
+      <label class="sr-only" for="cfNotes">What you want help with</label>
+      <textarea id="cfNotes" name="notes" placeholder="One sentence: what’s the goal?"></textarea>
+
+      <label class="hp-field" aria-hidden="true" tabindex="-1">
+        Leave this field empty
+        <input type="text" name="hp-field" tabindex="-1" autocomplete="off">
+      </label>
+
+      {# Cloudflare Turnstile mount. data-sitekey is empty until provisioned. #}
+      <div class="contact-mini__turnstile cf-turnstile" id="turnstileMount" data-sitekey="{{ site.turnstileSiteKey }}">
+        {% if not site.turnstileSiteKey %}// turnstile loads here{% endif %}
+      </div>
+
+      <button type="submit" class="btn btn--primary contact-mini__submit">Request my call</button>
+    </form>
+  </div>
+</section>

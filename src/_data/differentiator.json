@@ -1,0 +1,21 @@
+{
+  "eyebrow": "The Eureka Method",
+  "title": "We sell jobs booked, not “brand impressions.”",
+  "lede": "Most trades agencies hide behind reach metrics because they can’t tie spend to revenue. We start the other way around: pick the number that pays the bills, then work back.",
+  "ctaLabel": "See how it would work for you",
+  "ctaUrl": "/contact/",
+  "items": [
+    {
+      "head": "Lock the metric before the contract.",
+      "body": "Cost-per-booked-job is the only KPI on our dashboards. Everything else is diagnostic."
+    },
+    {
+      "head": "Instrument before we optimize.",
+      "body": "Call tracking, form attribution, CRM sync — in place month one, or we don’t turn on ads."
+    },
+    {
+      "head": "Quarterly cleanup, no contract lock-in.",
+      "body": "Month-to-month after the first 90 days. If the number isn’t moving, you walk — we keep the tracking we built."
+    }
+  ]
+}

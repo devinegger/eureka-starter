@@ -1,0 +1,18 @@
+{# Process steps. Consumes _data/process.json. #}
+<section class="section process" id="process" aria-labelledby="processTitle">
+  <div class="container">
+    <p class="eyebrow">{{ process.eyebrow }}</p>
+    <h2 class="section-title" id="processTitle">{{ process.title }}</h2>
+    <p class="section-lede">{{ process.lede }}</p>
+
+    <ol class="process__steps">
+      {% for step in process.steps %}
+        <li class="process__step{% if step.active %} process__step--active{% endif %}">
+          <div class="process__step-num">{{ step.num }}</div>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.body }}</p>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>

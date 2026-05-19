@@ -1,0 +1,23 @@
+{# Testimonials. Consumes _data/testimonials.json. #}
+<section class="section testimonials" aria-labelledby="testimonialsTitle">
+  <div class="container">
+    <p class="eyebrow">What clients say</p>
+    <h2 class="section-title" id="testimonialsTitle">Owners who stopped guessing.</h2>
+
+    <div class="testimonials__grid">
+      {% for t in testimonials %}
+        <figure class="quote-card">
+          <div class="quote-card__mark" aria-hidden="true">&ldquo;</div>
+          <blockquote class="quote-card__body">{{ t.quote }}</blockquote>
+          <figcaption class="quote-card__attr">
+            <div class="quote-card__avatar" aria-hidden="true">{{ t.initials }}</div>
+            <div class="quote-card__attr-info">
+              <span class="quote-card__name">{{ t.name }}</span>
+              <span class="quote-card__role">{{ t.role }}</span>
+            </div>
+          </figcaption>
+        </figure>
+      {% endfor %}
+    </div>
+  </div>
+</section>

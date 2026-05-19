@@ -1,0 +1,25 @@
+{
+  "eyebrow": "How it works",
+  "title": "Three steps. About twenty-one days.",
+  "lede": "From first call to first booked job through the new system — here’s the standard path.",
+  "steps": [
+    {
+      "num": "01",
+      "title": "Audit & benchmark",
+      "body": "We pull your current numbers, run a tech audit, and benchmark against three local competitors. Free, no obligation, you keep the report.",
+      "active": true
+    },
+    {
+      "num": "02",
+      "title": "Plan & instrument",
+      "body": "We agree on the cost-per-job target, then wire up call tracking, attribution, and the dashboards before any spend goes live.",
+      "active": false
+    },
+    {
+      "num": "03",
+      "title": "Ship & iterate",
+      "body": "Site goes live, ads turn on, and we meet weekly for the first month. After that, monthly check-ins and a one-page report.",
+      "active": false
+    }
+  ]
+}
