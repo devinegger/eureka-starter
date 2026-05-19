@@ -1,0 +1,61 @@
+---
+layout: layouts/base.hbs
+---
+{{!--
+  Service-area detail layout. Used by src/pages/service-areas/area.md, which
+  paginates over _data/serviceAreas.json and exposes the current item as `area`.
+--}}
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">{{area.state}} · {{area.city}}</p>
+    <h1 class="page-hero__title">Digital marketing for {{area.city}} trades businesses.</h1>
+    <p class="page-hero__sub">{{area.intro}}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="differentiator__grid">
+      <div>
+        <p class="eyebrow">What we do here</p>
+        <h2 class="section-title">{{area.city}}-specific approach.</h2>
+        <p class="section-lede">Every market has its own quirks. Here's how we adapt for {{area.city}} contractors:</p>
+      </div>
+      <div>
+        <ul class="feature-list">
+          {{#each area.highlights}}
+            <li>{{this}}</li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{> partials/widget-slot}}
+
+<section class="section section--warm testimonials">
+  <div class="container">
+    <p class="eyebrow">Local proof</p>
+    <h2 class="section-title">{{area.city}} contractors who stopped guessing.</h2>
+    <div class="testimonials__grid">
+      {{#each testimonials}}
+        {{#if (lte @index 1)}}
+          <figure class="quote-card">
+            <div class="quote-card__mark" aria-hidden="true">&ldquo;</div>
+            <blockquote class="quote-card__body">{{this.quote}}</blockquote>
+            <figcaption class="quote-card__attr">
+              <div class="quote-card__avatar" aria-hidden="true">{{this.initials}}</div>
+              <div class="quote-card__attr-info">
+                <span class="quote-card__name">{{this.name}}</span>
+                <span class="quote-card__role">{{this.role}}</span>
+              </div>
+            </figcaption>
+          </figure>
+        {{/if}}
+      {{/each}}
+    </div>
+  </div>
+</section>
+
+{{> partials/cta-block}}

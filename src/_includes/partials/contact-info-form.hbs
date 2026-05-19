@@ -1,0 +1,65 @@
+{{!--
+  Full contact form (used on /contact/). Honeypot + Turnstile placeholder +
+  basic validation. Parent page must set `hasContactForm: true` in frontmatter.
+--}}
+<section class="section">
+  <div class="container">
+    <div class="differentiator__grid">
+      <div>
+        <p class="eyebrow">Three ways to reach us</p>
+        <h2 class="section-title">Pick the one that suits.</h2>
+        <p class="section-lede">All three go to the same humans. The phone is fastest during business hours; the form is best for after-hours.</p>
+
+        <ul class="feature-list" style="margin-top: var(--space-6);">
+          <li><div><strong style="display:block;">Call us</strong><a href="tel:{{site.phoneTel}}" style="color: var(--accent-default);">{{site.phone}}</a> · Mon–Fri 8a–6p MT</div></li>
+          <li><div><strong style="display:block;">Email</strong><a href="mailto:{{site.email}}" style="color: var(--accent-default);">{{site.email}}</a></div></li>
+          <li><div><strong style="display:block;">Visit</strong>{{site.address.street}}<br>{{site.address.city}}, {{site.address.state}} {{site.address.zip}}</div></li>
+        </ul>
+      </div>
+
+      <div>
+        <form class="contact-form" id="contactFormFull" novalidate>
+          <div class="contact-form__row">
+            <div class="contact-form__field">
+              <label for="ccName">Name</label>
+              <input id="ccName" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="contact-form__field">
+              <label for="ccBusiness">Business</label>
+              <input id="ccBusiness" name="business" type="text" autocomplete="organization" required>
+            </div>
+          </div>
+
+          <div class="contact-form__row">
+            <div class="contact-form__field">
+              <label for="ccPhone">Phone</label>
+              <input id="ccPhone" name="phone" type="tel" autocomplete="tel" pattern="[0-9\-\+\(\)\s\.]{10,}" required>
+            </div>
+            <div class="contact-form__field">
+              <label for="ccEmail">Email</label>
+              <input id="ccEmail" name="email" type="email" autocomplete="email" required>
+            </div>
+          </div>
+
+          <div class="contact-form__field">
+            <label for="ccMessage">What can we help with?</label>
+            <textarea id="ccMessage" name="message" required></textarea>
+          </div>
+
+          <label class="hp-field" aria-hidden="true" tabindex="-1">
+            Leave this field empty
+            <input type="text" name="hp-field" tabindex="-1" autocomplete="off">
+          </label>
+
+          {{!-- Cloudflare Turnstile mount. data-sitekey provisioned via site.json. --}}
+          <div class="cf-turnstile" data-sitekey="{{site.turnstileSiteKey}}">
+            {{#unless site.turnstileSiteKey}}<div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); padding: var(--space-3); text-align: center; border: 1px dashed var(--border-subtle); border-radius: var(--radius-sm);">// turnstile loads here (add sitekey)</div>{{/unless}}
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--lg">Send message</button>
+          <p class="text-xs text-muted">By submitting you agree to receive a response from our team. We never sell or share your information.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

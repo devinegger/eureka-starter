@@ -1,0 +1,18 @@
+{{!--
+  About-page values grid. Reads `values` from _data/about.json.
+  Each value: { title, body }.
+--}}
+<section class="section section--warm">
+  <div class="container">
+    <p class="eyebrow">What we value</p>
+    <h2 class="section-title">{{about.values.title}}</h2>
+    <div class="values-grid">
+      {{#each about.values.items}}
+        <div class="value-card">
+          <h3>{{this.title}}</h3>
+          <p>{{this.body}}</p>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</section>

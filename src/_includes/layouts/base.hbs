@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" data-theme="{{#if site.theme}}{{site.theme}}{{else}}dark{{/if}}" data-brand="{{#if site.brand}}{{site.brand}}{{else}}default{{/if}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="{{#if site.theme}}{{site.theme}}{{else}}dark{{/if}}">
+
+  <title>{{#if title}}{{title}} — {{site.name}}{{else}}{{site.name}} — {{site.tagline}}{{/if}}</title>
+  <meta name="description" content="{{#if description}}{{description}}{{else}}{{site.description}}{{/if}}">
+
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  {{#if hasContactForm}}
+    {{!-- TODO: replace placeholder data-sitekey when CF Turnstile is provisioned. --}}
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  {{/if}}
+
+  <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+  <link rel="canonical" href="{{site.url}}{{page.url}}">
+
+  <meta property="og:title" content="{{#if title}}{{title}}{{else}}{{site.name}} — {{site.tagline}}{{/if}}">
+  <meta property="og:description" content="{{#if description}}{{description}}{{else}}{{site.description}}{{/if}}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{site.url}}{{page.url}}">
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+{{> partials/nav}}
+
+<main id="main">
+  {{{content}}}
+</main>
+
+{{> partials/footer}}
+
+<script src="/assets/js/nav-mobile.js" defer></script>
+{{#if hasPagespeedWidget}}<script src="/assets/js/pagespeed-widget.js" defer></script>{{/if}}
+{{#if hasContactForm}}<script src="/assets/js/contact-form.js" defer></script>{{/if}}
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+---
+layout: layouts/base.hbs
+---
+{{!--
+  Landing layout — iterates the page's `sections` array and renders each
+  matching partial from src/_includes/partials/<name>.hbs.
+
+  The special sentinel `body` renders the page's markdown body at that point.
+  This lets a page mix declarative sections with custom prose:
+
+      ---
+      layout: layouts/landing.hbs
+      sections:
+        - about-hero
+        - body          # ← markdown body renders here
+        - about-values
+        - cta-block
+      ---
+
+      ## Custom prose
+      Goes here, between sections.
+
+  Pages can omit the `body` sentinel; the markdown body simply won't render.
+--}}
+{{#each sections}}
+  {{#if (eq this "body")}}
+    {{#if @root.content}}
+    <section class="section">
+      <div class="container">
+        <div class="prose">
+          {{{@root.content}}}
+        </div>
+      </div>
+    </section>
+    {{/if}}
+  {{else}}
+    {{!-- Pass @root explicitly so partials see the full page scope, not
+         the current loop iteration's string value. --}}
+    {{> (section this) @root}}
+  {{/if}}
+{{/each}}

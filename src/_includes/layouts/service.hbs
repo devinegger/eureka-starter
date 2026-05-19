@@ -1,0 +1,58 @@
+---
+layout: layouts/base.hbs
+---
+{{!--
+  Service detail layout. Used by src/pages/services/service.md, which
+  paginates over _data/services.json and exposes the current item as `service`.
+--}}
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">Service / {{service.index}}</p>
+    <h1 class="page-hero__title">{{service.hero}}</h1>
+    <p class="page-hero__sub">{{service.lede}}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="differentiator__grid">
+      <div>
+        <p class="eyebrow">What's included</p>
+        <h2 class="section-title">Everything you get with {{service.shortName}}.</h2>
+        <p class="section-lede">Scoped, flat-fee, no surprise add-ons. Anything not on this list is out of scope until we both agree to add it.</p>
+      </div>
+      <div>
+        <ul class="feature-list">
+          {{#each service.includes}}
+            <li>{{this}}</li>
+          {{/each}}
+        </ul>
+
+        <div class="pricing-band">
+          <div class="pricing-band__label">{{service.pricing.label}}</div>
+          <div class="pricing-band__amount">{{service.pricing.amount}}</div>
+          <p class="pricing-band__note">{{service.pricing.note}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{> partials/process-steps}}
+
+<section class="section section--warm">
+  <div class="container">
+    <p class="eyebrow">Common questions</p>
+    <h2 class="section-title">Things owners always ask.</h2>
+    <div class="faq-list">
+      {{#each service.faq}}
+        <details class="faq-item">
+          <summary>{{this.q}}</summary>
+          <div class="faq-item__body">{{this.a}}</div>
+        </details>
+      {{/each}}
+    </div>
+  </div>
+</section>
+
+{{> partials/cta-block}}

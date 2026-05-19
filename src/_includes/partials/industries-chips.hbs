@@ -1,14 +1,14 @@
-{# Industries chip cloud. Consumes _data/industries.json. #}
+{{!-- Industries chip cloud. Consumes _data/industries.json. --}}
 <section class="section section--warm industries" id="industries" aria-labelledby="industriesTitle">
   <div class="container">
     <p class="eyebrow">Industries served</p>
     <h2 class="section-title" id="industriesTitle">Trades-first, by design.</h2>
-    <p class="section-lede">We’ve built campaigns for almost every trade vertical. If you book jobs by the hour or by the truckload, we know your funnel.</p>
+    <p class="section-lede">We've built campaigns for almost every trade vertical. If you book jobs by the hour or by the truckload, we know your funnel.</p>
 
     <div class="industries__chips" role="list">
-      {% for i in industries %}
-        <span class="chip" role="listitem">{{ i.label }}</span>
-      {% endfor %}
+      {{#each industries}}
+        <span class="chip" role="listitem">{{this.label}}</span>
+      {{/each}}
       <span class="chip chip--more" role="listitem">+ your trade</span>
     </div>
   </div>

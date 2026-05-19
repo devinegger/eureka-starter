@@ -1,18 +1,18 @@
 <header class="site-header">
   <div class="container site-header__inner">
-    <a href="/" class="brand" aria-label="{{ site.name }} home">
-      <span class="brand__mark" aria-hidden="true">{{ site.brandMark }}</span>
-      <span>{{ site.name }}</span>
+    <a href="/" class="brand" aria-label="{{site.name}} home">
+      <span class="brand__mark" aria-hidden="true">{{site.brandMark}}</span>
+      <span>{{site.name}}</span>
     </a>
 
     <nav class="primary-nav" aria-label="Primary">
-      {% for item in nav.primary %}
-        <a href="{{ item.url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>{{ item.label }}</a>
-      {% endfor %}
+      {{#each nav.primary}}
+        <a href="{{this.url}}"{{#if (eq @root.page.url this.url)}} aria-current="page"{{/if}}>{{this.label}}</a>
+      {{/each}}
     </nav>
 
     <div class="header-actions">
-      <a href="tel:{{ site.phoneTel }}" class="header-phone" aria-label="Call {{ site.name }}">{{ site.phone }}</a>
+      <a href="tel:{{site.phoneTel}}" class="header-phone" aria-label="Call {{site.name}}">{{site.phone}}</a>
       <a href="/contact/" class="btn btn--primary btn--sm">Get Free Audit</a>
       <button class="menu-toggle" type="button" aria-label="Open menu" aria-controls="mobileSheet" aria-expanded="false" id="menuBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
@@ -22,9 +22,9 @@
     </div>
   </div>
   <div class="mobile-sheet" id="mobileSheet" hidden>
-    {% for item in nav.primary %}
-      <a href="{{ item.url }}">{{ item.label }}</a>
-    {% endfor %}
-    <a href="tel:{{ site.phoneTel }}" class="header-phone">{{ site.phone }}</a>
+    {{#each nav.primary}}
+      <a href="{{this.url}}">{{this.label}}</a>
+    {{/each}}
+    <a href="tel:{{site.phoneTel}}" class="header-phone">{{site.phone}}</a>
   </div>
 </header>

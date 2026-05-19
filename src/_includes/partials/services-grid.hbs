@@ -1,0 +1,25 @@
+{{!--
+  Services grid. Defaults to the four-up compact card layout from the home
+  page. Pages can override by setting `servicesEyebrow`, `servicesTitle`,
+  `servicesLede`, or `expandedGrid: true` in their frontmatter.
+--}}
+<section class="section services" id="services" aria-labelledby="servicesTitle">
+  <div class="container">
+    <p class="eyebrow">{{#if servicesEyebrow}}{{servicesEyebrow}}{{else}}Services{{/if}}</p>
+    <h2 class="section-title" id="servicesTitle">{{#if servicesTitle}}{{servicesTitle}}{{else}}Built for the way trades businesses actually grow.{{/if}}</h2>
+    {{#if servicesLede}}<p class="section-lede">{{servicesLede}}</p>{{/if}}
+
+    <div class="services__grid{{#if expandedGrid}} services__grid--expanded{{/if}}">
+      {{#each services}}
+        <article class="service-card">
+          <div class="service-card__index">/ {{this.index}}</div>
+          <h3 class="service-card__title">{{this.title}}</h3>
+          <p class="service-card__body">{{this.summary}}</p>
+          <a href="/services/{{this.slug}}/" class="service-card__cta">
+            Learn more <span class="arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

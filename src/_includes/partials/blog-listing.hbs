@@ -1,0 +1,31 @@
+{{!--
+  Blog index listing. Pulls collections.post, newest first.
+  Eleventy provides collections via the standard data cascade; access via
+  the root scope since this partial is rendered inside a {{#each sections}}
+  iteration on landing.hbs.
+--}}
+<section class="section">
+  <div class="container">
+    {{#if collections.post.length}}
+      <ul class="post-list">
+        {{#each collections.post}}
+          <li>
+            <a class="post-card" href="{{this.url}}">
+              <div class="post-card__meta">
+                <span>{{readableDate this.date}}</span>
+                {{#if this.data.author}}<span>· {{this.data.author}}</span>{{/if}}
+              </div>
+              <h2 class="post-card__title">{{this.data.title}}</h2>
+              <p class="post-card__excerpt">{{this.data.description}}</p>
+            </a>
+          </li>
+        {{/each}}
+      </ul>
+    {{else}}
+      <div class="ps__empty">
+        <div class="ps__empty-icon">// No posts yet</div>
+        <p style="margin:0; font-size:14px;">Drop a markdown file in <code>src/pages/blog/</code> and it'll show up here.</p>
+      </div>
+    {{/if}}
+  </div>
+</section>

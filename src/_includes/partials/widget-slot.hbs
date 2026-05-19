@@ -1,0 +1,46 @@
+{{!--
+  Widget slot. Renders a section wrapper (consistent padding, eyebrow, heading,
+  meta line) and a single child widget. Choose the widget per-page via front
+  matter:
+
+    ---
+    layout: layouts/landing.hbs
+    sections:
+      - widget-slot
+    widget: pagespeed-checker
+    widgetEyebrow: Free site audit
+    widgetTitle: How fast is your site, really?
+    widgetLede: Drop your URL. We'll run a live PSI check.
+    widgetMeta: Live · powered by Google PSI
+    hasPagespeedWidget: true
+    ---
+
+  Available widgets are .hbs files under src/_includes/widgets/.
+--}}
+<section class="section widget-slot" id="audit" aria-labelledby="widgetTitle">
+  <div class="container">
+    <div class="widget-slot__header">
+      <div>
+        {{#if widgetEyebrow}}<p class="eyebrow">{{widgetEyebrow}}</p>{{/if}}
+        <h2 class="section-title widget-slot__title" id="widgetTitle">{{widgetTitle}}</h2>
+        {{#if widgetLede}}<p class="section-lede">{{widgetLede}}</p>{{/if}}
+      </div>
+      {{#if widgetMeta}}
+      <div class="widget-slot__meta">
+        <span class="dot" aria-hidden="true"></span>
+        <span>{{widgetMeta}}</span>
+      </div>
+      {{/if}}
+    </div>
+
+    {{#if (eq widget "pagespeed-checker")}}
+      {{> widgets/pagespeed-checker}}
+    {{else if (eq widget "roi-calculator")}}
+      {{> widgets/roi-calculator}}
+    {{else}}
+      <div class="ps__empty">
+        <div class="ps__empty-icon">// Unknown widget: "{{widget}}"</div>
+      </div>
+    {{/if}}
+  </div>
+</section>

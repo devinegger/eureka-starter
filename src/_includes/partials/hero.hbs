@@ -1,0 +1,58 @@
+{{!-- Home-page hero. Consumes _data/hero.json. --}}
+<section class="hero" aria-labelledby="heroTitle">
+  <div class="container">
+    <div class="hero__grid">
+      <div class="hero__copy">
+        {{#if hero.signal}}
+        <div class="hero__signal">
+          <span class="hero__signal-dot" aria-hidden="true"></span>
+          <span>{{hero.signal}}</span>
+        </div>
+        {{/if}}
+
+        <h1 class="hero__title" id="heroTitle">{{{hero.title}}}</h1>
+
+        <p class="hero__sub">{{hero.sub}}</p>
+
+        <div class="hero__ctas">
+          <a href="{{hero.primaryCta.url}}" class="btn btn--primary btn--lg">
+            {{hero.primaryCta.label}}
+            <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="{{hero.ghostCta.url}}" class="btn btn--ghost btn--lg">{{hero.ghostCta.label}}</a>
+        </div>
+
+        <div class="hero__proof">
+          {{#each hero.proof}}
+            <div class="hero__proof-item">
+              <span class="hero__proof-num">{{this.num}}</span>
+              <span class="hero__proof-label">{{this.label}}</span>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+
+      <aside class="hero__visual" aria-label="Site health preview">
+        <div class="health-card" role="img" aria-label="Example site health report showing failing performance">
+          <div class="health-card__head">
+            <div class="health-card__url">{{hero.healthCard.url}}</div>
+            <div class="health-card__time">{{hero.healthCard.time}}</div>
+          </div>
+
+          {{#each hero.healthCard.rows}}
+            <div class="health-card__row">
+              <div class="health-card__label">{{this.label}}</div>
+              <div class="health-card__bar bar--{{this.grade}}"><i style="width: {{this.value}}%"></i></div>
+              <div class="health-card__val val--{{this.grade}}">{{this.value}}</div>
+            </div>
+          {{/each}}
+
+          <div class="health-card__note">
+            <span aria-hidden="true" style="font-family: var(--font-mono); font-weight: 700; color: var(--status-danger);">!</span>
+            <span>{{{hero.healthCard.note}}}</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>

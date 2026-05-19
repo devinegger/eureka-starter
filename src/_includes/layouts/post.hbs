@@ -1,0 +1,22 @@
+---
+layout: layouts/base.hbs
+---
+<article>
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">{{readableDate page.date}}{{#if author}} · {{author}}{{/if}}</p>
+      <h1 class="page-hero__title">{{title}}</h1>
+      {{#if description}}<p class="page-hero__sub">{{description}}</p>{{/if}}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="prose">
+        {{{content}}}
+      </div>
+    </div>
+  </section>
+</article>
+
+{{> partials/cta-block}}

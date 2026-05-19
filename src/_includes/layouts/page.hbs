@@ -1,0 +1,21 @@
+---
+layout: layouts/base.hbs
+---
+{{!-- Generic interior page: hero + prose body + closing CTA. --}}
+<section class="page-hero">
+  <div class="container">
+    {{#if eyebrow}}<p class="eyebrow">{{eyebrow}}</p>{{/if}}
+    <h1 class="page-hero__title">{{title}}</h1>
+    {{#if description}}<p class="page-hero__sub">{{description}}</p>{{/if}}
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="prose">
+      {{{content}}}
+    </div>
+  </div>
+</section>
+
+{{> partials/cta-block}}

@@ -1,0 +1,15 @@
+{{!--
+  Generic page hero for interior pages. Reads `pageHero` from frontmatter:
+    pageHero:
+      eyebrow: About
+      title: A small team that ships, measures, and owns the number.
+      sub: Optional secondary paragraph.
+  Falls back to `title` / `description` if `pageHero` isn't set.
+--}}
+<section class="page-hero">
+  <div class="container">
+    {{#if pageHero.eyebrow}}<p class="eyebrow">{{pageHero.eyebrow}}</p>{{/if}}
+    <h1 class="page-hero__title">{{#if pageHero.title}}{{{pageHero.title}}}{{else}}{{title}}{{/if}}</h1>
+    {{#if pageHero.sub}}<p class="page-hero__sub">{{pageHero.sub}}</p>{{else if description}}<p class="page-hero__sub">{{description}}</p>{{/if}}
+  </div>
+</section>
