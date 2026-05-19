@@ -1,128 +1,258 @@
 # Eureka Starter
 
-A minimal [Eleventy (11ty)](https://www.11ty.dev/) starter for a Markdown-first site.
+The agency template used to spin up a new client site in 30 minutes. Built with [Eleventy (11ty)](https://www.11ty.dev/), zero JavaScript frameworks, and a token-based design system that swaps between dark and light themes and per-brand accent palettes from a single line of CSS.
 
-Use this as a GitHub template to spin up new 11ty sites with a consistent shape:
+## What ships in the box
 
-- folders become sections
-- `index.md` files become pages
-- nested folders become nested URLs
-- a shared Liquid layout provides the site shell
-- content stays in Markdown — no traditional CMS
+- **Complete dark/light design system** — a two-layer token architecture (primitive colors, spacing, type → semantic surfaces, text, accents) defined in [tokens.css](src/assets/css/tokens.css). Components reference semantic tokens only; new brands override 4 lines of CSS.
+- **10 production page templates** — home (landing), about, services overview + paginated detail, service-areas overview + paginated detail, contact (with honeypot + Turnstile slot), blog index + posts, 404.
+- **Modular section partials** — hero, pitch, services-grid, differentiator, process-steps, industries-chips, testimonials, cta-block, widget-slot, plus nav and footer.
+- **A widget slot pattern** — drop any self-contained widget into a consistent section wrapper. Includes a live PageSpeed Insights checker out of the box and a stub ROI calculator ready to flesh out.
+- **Decap CMS** wired at `/admin` with editorial workflow and collections for site config, services, service-areas, testimonials, and blog posts.
+- **Responsive image pipeline** via [@11ty/eleventy-img](https://www.11ty.dev/docs/plugins/image/) (AVIF/WebP/fallback at 400/800/1280 widths).
+- **GitHub Pages deploy** via Actions (already wired up).
+- **Page scaffolders** — `npm run new-page`, `new-folder`, `convert-page`.
 
-This stays intentionally close to stock 11ty so it's easy to read, easy to edit, and easy to extend.
-
-## Use This Template
-
-Click **Use this template → Create a new repository** on GitHub, or:
-
-```bash
-gh repo create my-new-site --template devinegger/eureka-starter --public --clone
-cd my-new-site
-npm install
-npm run serve
-```
-
-## What's Included
-
-- shared layout at `_includes/base.liquid`
-- root page at `index.md`
-- worked example at `demo-project/` (a folder landing page with one nested child)
-- stylesheet template at `styles.css.liquid`
-- `static/` for raw assets (favicons, OG images, downloads — kept as-is)
-- `images/` for content images that should be optimized into responsive `<picture>` elements
-- GitHub Pages deploy workflow at `.github/workflows/deploy.yml`
-
-## Local Development
-
-Install dependencies:
+## Quick start
 
 ```bash
 npm install
-```
-
-Start the local dev server (watches and rebuilds on change):
-
-```bash
 npm run serve
+# open http://localhost:8080
 ```
 
-Then open <http://localhost:8080/>.
-
-To run a one-time static build:
+One-shot build to `_site/`:
 
 ```bash
 npm run build
 ```
 
-Generated output is written to `_site/`.
+## Folder structure
 
-## Content Conventions
-
-- Give any folder that should be a page an `index.md`.
-- Use subfolders when a page needs its own nested URL.
-- Add links to new child pages from the relevant parent `index.md`.
-- Use front matter for page metadata (`title`, `description`, `layout`).
-
-### Scaffolding a new page
-
-Quick stub a page with the right folder shape and front matter:
-
-```bash
-npm run new-page <path> "<title>"
-# examples
-npm run new-page services/ant-control "Ant Control"
-npm run new-page about "About Us"
-npm run new-page services/ant-control/diy-tips "DIY Ant Tips"
+```
+.
+├── design-reference/              # canonical design source (HTML + README); never deleted
+├── eleventy.config.mjs            # 11ty config, ESM
+├── scripts/                       # page scaffolders
+├── src/
+│   ├── _data/                     # site config + content for partials
+│   │   ├── site.json              # brand, contact, theme, brand variant
+│   │   ├── nav.json               # primary + footer menus
+│   │   ├── services.json          # 4 services, used by grid + paginated detail pages
+│   │   ├── serviceAreas.json      # cities, used by paginated detail pages
+│   │   ├── industries.json        # chip cloud
+│   │   ├── testimonials.json
+│   │   ├── hero.json              # home page hero content + health-card mock
+│   │   ├── pitch.json
+│   │   ├── differentiator.json
+│   │   ├── process.json
+│   │   └── finalCta.json          # final CTA block + mini contact form
+│   ├── _includes/
+│   │   ├── layouts/               # base, page, post, landing
+│   │   ├── partials/              # section components (nav, footer, hero, etc.)
+│   │   └── widgets/               # pagespeed-checker, roi-calculator
+│   ├── admin/                     # Decap CMS shell + config.yml
+│   ├── assets/
+│   │   ├── css/                   # tokens / base / components / utilities (+ main.css imports them)
+│   │   └── js/                    # nav-mobile, pagespeed-widget, contact-form
+│   ├── images/                    # source content images (processed responsive)
+│   ├── pages/                     # all routable pages
+│   │   ├── index.njk              # /
+│   │   ├── about.njk
+│   │   ├── contact.njk
+│   │   ├── 404.njk
+│   │   ├── services/
+│   │   │   ├── index.njk          # /services/
+│   │   │   └── service.njk        # /services/[slug]/ (paginated)
+│   │   ├── service-areas/
+│   │   │   ├── index.njk
+│   │   │   └── area.njk           # paginated
+│   │   └── blog/
+│   │       ├── blog.json          # directory-data: layout + post tag
+│   │       ├── index.njk
+│   │       └── *.md               # one file per post
+│   └── static/                    # raw passthrough (favicons, OG images, uploads)
+└── _site/                         # build output, git-ignored
 ```
 
-Refuses if the page already exists. After it runs, fill in the body and add a link from the parent `index.md`.
+## The design system
 
-Example:
+### Two-layer tokens
+
+**Primitives** (`src/assets/css/tokens.css`) are raw values: color ramps, the 4-based spacing scale, font sizes, radii. They never appear in component code.
+
+**Semantic tokens** are meaning-based aliases that point at primitives. Components reference these only:
+
+```css
+.btn--primary {
+  background: var(--accent-default);
+  color: var(--accent-contrast);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-md);
+}
+```
+
+The semantic layer is bound twice — once for the dark theme (default), once for light:
+
+```css
+:root, [data-theme="dark"] {
+  --surface-base: var(--color-neutral-950);
+  --text-primary: var(--color-foreground);
+  --accent-default: var(--color-teal-500);
+  /* ... */
+}
+
+[data-theme="light"] {
+  --surface-base: var(--color-neutral-0);
+  --text-primary: var(--color-ink-dark);
+  --accent-default: var(--color-teal-500);
+  /* ... */
+}
+```
+
+Legacy aliases (`--paper`, `--ink`, `--teal`, etc.) match the original design-reference names so any markup you copy from `design-reference/` still works.
+
+### Theming a site
+
+Set `theme` in `src/_data/site.json`:
+
+```json
+{ "theme": "dark" }   // or "light"
+```
+
+That writes `data-theme="dark"` onto the root `<html>` element. To override per-section, wrap with `data-theme="light"` on any element.
+
+### Per-brand accent override
+
+A new portfolio brand only needs to override the four accent semantic tokens. Add to `src/assets/css/tokens.css`:
+
+```css
+[data-brand="brand-b"] {
+  --accent-default:  #C2410C;        /* terracotta */
+  --accent-hover:    #EA580C;
+  --accent-contrast: var(--color-neutral-0);
+  --accent-glow:     rgba(194, 65, 12, 0.20);
+}
+```
+
+Then set `"brand": "brand-b"` in `site.json`. The whole site re-accent without touching a single component.
+
+## Pages and partials
+
+Every page is data-driven — edit JSON in `src/_data/` and the templates update. The home page (`src/pages/index.njk`) is the canonical example: it composes 9 partials in sequence and pulls all copy from data files.
+
+### Adding a service
+
+Append an object to `src/_data/services.json`. A new `/services/<slug>/` page is generated automatically (paginated via `src/pages/services/service.njk`) and a new card appears on the home and services index pages.
+
+### Adding a service area
+
+Same pattern — append to `src/_data/serviceAreas.json`.
+
+### Adding a blog post
+
+Drop a `.md` file in `src/pages/blog/`:
 
 ```md
 ---
-title: Example Page
-description: Short summary for the page hero area.
-layout: base.liquid
+title: Post title
+description: One-line summary, shown on the index card.
+date: 2026-05-17
+author: Eureka team
 ---
 
-# Example Page
-
-Page content goes here.
+Post body in Markdown.
 ```
 
-## Project Structure
+It'll appear on `/blog/` automatically (most recent first) and at `/blog/<slug>/`.
 
-```text
-.
-|-- .github/workflows/deploy.yml
-|-- _includes/
-|   `-- base.liquid
-|-- demo-project/
-|   |-- index.md
-|   |-- meeting-notes/
-|   |   `-- index.md
-|   `-- newpage.md
-|-- images/
-|-- static/
-|-- eleventy.config.mjs
-|-- index.md
-|-- styles.css.liquid
-`-- package.json
+### Adding a new top-level page
+
+Quickest: use the scaffolder.
+
+```bash
+npm run new-page services/diagnostics "Free Diagnostics"
+npm run new-page about-the-team "About The Team"
 ```
 
-## Deploying To GitHub Pages
+Then add a nav entry in `src/_data/nav.json` if you want it in the menu.
 
-Every site cloned from this template ships with a Pages deploy workflow. To turn it on for a new site:
+## The widget slot
+
+A widget is any self-contained interactive element that drops into a section with consistent padding, eyebrow, heading, and meta line.
+
+### Use a widget on a page
+
+In page front matter:
+
+```yaml
+---
+widget: pagespeed-checker
+widgetEyebrow: Free site audit
+widgetTitle: How fast is your site, really?
+widgetLede: Drop your URL. We’ll run a live PageSpeed check.
+widgetMeta: Live · powered by Google PSI
+hasPagespeedWidget: true   # loads pagespeed-widget.js
+---
+{% include "partials/widget-slot.njk" %}
+```
+
+### Add a new widget
+
+1. Drop a new `.njk` file in `src/_includes/widgets/your-widget.njk` (markup only, scoped under `.eureka-widget`).
+2. Add the matching branch in `src/_includes/partials/widget-slot.njk`:
+   ```njk
+   {% elif widget == "your-widget" %}
+     {% include "widgets/your-widget.njk" %}
+   ```
+3. If the widget needs JS, drop it in `src/assets/js/your-widget.js` and add a conditional script tag in `src/_includes/layouts/base.njk`.
+
+## Forms
+
+The home page and contact page both ship a form with:
+
+- **Honeypot field** (`.hp-field` + `name="hp-field"`) — hidden via CSS, dropped on submit if filled
+- **Cloudflare Turnstile placeholder** — div with `class="cf-turnstile"` and `data-sitekey="{{ site.turnstileSiteKey }}"`. Set the key in `site.json` to enable; the script tag is loaded conditionally on pages with `hasContactForm: true`.
+- **Client-side honeypot check** in `src/assets/js/contact-form.js`
+- **Submit target**: not wired yet. Bind `/api/contact` (a Cloudflare Worker is the natural fit) before going live.
+
+## Decap CMS
+
+Visit `/admin/` to edit content. Collections:
+
+- **Site settings** — brand, theme, contact info, addresses
+- **Services** — full list with pricing, FAQ, included items
+- **Service areas** — cities and local highlights
+- **Testimonials**
+- **Blog posts** — folder-based collection with editor
+
+Auth uses [DecapBridge](https://decapbridge.com) (free starter). When traffic justifies, swap to a self-hosted Cloudflare Worker handling GitHub OAuth — drop in the new `auth_endpoint` in `src/admin/config.yml` and remove the bridge script tag from `src/admin/index.html`.
+
+## Deploying to GitHub Pages
+
+The workflow is already wired (`.github/workflows/deploy.yml`):
 
 1. Push to `main`.
-2. Go to **Settings → Pages → Build and deployment** and set **Source** to **GitHub Actions**.
-3. The next push (or a manual run of the workflow) will build with Eleventy and publish `_site/` to Pages.
+2. **Settings → Pages → Source → GitHub Actions**.
+3. Site builds with `PATH_PREFIX=/<repo-name>/` and publishes.
+
+Custom domain? Drop a `CNAME` file in `src/static/` and unset `PATH_PREFIX` in the workflow.
+
+## Spinning up a new client site
+
+1. Click **Use this template** on GitHub (or `gh repo create my-client --template devinegger/eureka-starter`).
+2. Edit `src/_data/site.json` — name, brand mark, contact info, address, theme.
+3. Replace content in `src/_data/services.json`, `serviceAreas.json`, `testimonials.json`, `industries.json`, and the section files (`hero.json`, `pitch.json`, `differentiator.json`, `finalCta.json`).
+4. Add 2-3 starter blog posts in `src/pages/blog/`.
+5. If the client wants a different accent color, add a `[data-brand="client-name"] { … }` block to `tokens.css` and set `brand` in `site.json`.
+6. Run `npm run build`, push, enable Pages.
+
+About 30 minutes if the client has their copy ready.
 
 ## Notes
 
-- `AGENTS.md` contains the conventions and guardrails to keep this starter coherent over time.
-- After cloning, replace `demo-project/` with your real content and update the root `index.md` to link to your sections.
-- Drop favicons, OG images, and other raw assets into `static/`. Reference them as `/static/foo.png`. They are passed through unchanged.
-- Drop content images (hero photos, inline figures) into `images/`. Reference them in markdown the normal way: `![alt text](/images/hero.jpg)`. They get auto-transformed at build time into responsive `<picture>` elements with AVIF/WebP/fallback at 400/800/1280 widths via [`@11ty/eleventy-img`](https://www.11ty.dev/docs/plugins/image/).
+- Lighthouse target: 95+ on mobile out of the box. No web fonts, system font stack, lazy-loaded responsive images.
+- Reduced-motion respected in `base.css`.
+- Skip-to-main link, ARIA labels, semantic landmarks throughout.
+- The `design-reference/` folder is the canonical source of truth for the visual language. It's git-tracked and ignored by 11ty (see `.eleventyignore`). Don't delete it — future template work compares against it for consistency.
+- `AGENTS.md` is the longer-form notes for keeping this template coherent over time.
