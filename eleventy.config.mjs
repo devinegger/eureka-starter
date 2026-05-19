@@ -1,9 +1,115 @@
 import { HtmlBasePlugin } from "@11ty/eleventy";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
+import Handlebars from "handlebars";
+import { readFile, readdir } from "node:fs/promises";
+import { join, relative, extname } from "node:path";
+import { fileURLToPath } from "node:url";
 
-export default function (eleventyConfig) {
-  // Responsive image transform on output HTML. Source paths resolve from
-  // project root so /images/foo.jpg → src/images/foo.jpg works.
+// ----------------------------------------------------------------------------
+// Handlebars setup
+//
+// 11ty v3 removed Handlebars as a built-in engine. We register it as a custom
+// template engine via addExtension, register all .hbs files in _includes/ as
+// partials, and add a few helpers used by layouts and partials.
+// ----------------------------------------------------------------------------
+
+const INCLUDES_DIR = fileURLToPath(new URL("./src/_includes/", import.meta.url));
+
+/**
+ * Walk a directory and yield every file path (absolute).
+ */
+async function* walk(dir) {
+  for (const entry of await readdir(dir, { withFileTypes: true })) {
+    const full = join(dir, entry.name);
+    if (entry.isDirectory()) yield* walk(full);
+    else yield full;
+  }
+}
+
+/**
+ * Register every .hbs file under src/_includes/ as a Handlebars partial.
+ * Partial name = path relative to _includes/, without extension, using
+ * forward slashes. So src/_includes/partials/nav.hbs → "partials/nav".
+ */
+async function registerPartials() {
+  for await (const file of walk(INCLUDES_DIR)) {
+    if (extname(file) !== ".hbs") continue;
+    const name = relative(INCLUDES_DIR, file)
+      .replace(/\\/g, "/")
+      .replace(/\.hbs$/, "");
+    const source = await readFile(file, "utf8");
+    Handlebars.registerPartial(name, source);
+  }
+}
+
+// ----------------------------------------------------------------------------
+// Helpers — kept small and orthogonal.
+// ----------------------------------------------------------------------------
+
+// {{section "hero"}} → "partials/hero" — used with dynamic partials:
+//   {{#each sections}}{{> (section this)}}{{/each}}
+Handlebars.registerHelper("section", (name) => `partials/${name}`);
+
+// {{#if (eq foo "bar")}} ... {{/if}}
+Handlebars.registerHelper("eq", (a, b) => a === b);
+
+// {{#if (gt loop.index 2)}} etc.
+Handlebars.registerHelper("gt",  (a, b) => a > b);
+Handlebars.registerHelper("lte", (a, b) => a <= b);
+
+// Numeric add: {{add @index 1}}
+Handlebars.registerHelper("add", (a, b) => Number(a) + Number(b));
+
+// {{currentYear}} — used by the footer.
+Handlebars.registerHelper("currentYear", () => new Date().getFullYear());
+
+// {{readableDate page.date}}
+Handlebars.registerHelper("readableDate", (d) =>
+  new Date(d).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  })
+);
+Handlebars.registerHelper("isoDate", (d) => new Date(d).toISOString());
+
+// {{slug "Some Title"}} for URL fragments.
+Handlebars.registerHelper("slug", (s) =>
+  String(s)
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+);
+
+// {{{raw value}}} — output a string without HTML-escaping. Handlebars already
+// does this with triple-stash, so this is a convenience alias for clarity.
+Handlebars.registerHelper("raw", (s) => new Handlebars.SafeString(s ?? ""));
+
+// ----------------------------------------------------------------------------
+// 11ty config
+// ----------------------------------------------------------------------------
+
+export default async function (eleventyConfig) {
+  // Register partials before any template compiles.
+  await registerPartials();
+
+  // Custom template engine for .hbs files. Front-matter is parsed by 11ty
+  // before reaching this compile() function — `data` contains the merged
+  // page/global/data-file scope, and `str` is the template body.
+  eleventyConfig.addExtension("hbs", {
+    outputFileExtension: "html",
+    compile: function (str) {
+      const template = Handlebars.compile(str);
+      return function (data) {
+        return template(data);
+      };
+    },
+  });
+
+  // Responsive image transform on output HTML.
   eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
     extensions: "html",
     formats: ["avif", "webp", "auto"],
@@ -15,7 +121,7 @@ export default function (eleventyConfig) {
     },
   });
 
-  // pathPrefix rewriter — added after image plugin so it sees final URLs.
+  // pathPrefix rewriter — must run after the image plugin.
   eleventyConfig.addPlugin(HtmlBasePlugin);
 
   // Passthroughs (paths relative to project root).
@@ -23,13 +129,11 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
   eleventyConfig.addPassthroughCopy({ "src/admin": "admin" });
 
-  // Treat .md files as Nunjucks so we can use partials in Markdown too.
-  eleventyConfig.setTemplateFormats(["njk", "md", "html"]);
-
   // Watch CSS so the dev server reloads on style changes.
   eleventyConfig.addWatchTarget("./src/assets/");
 
-  // Date helper used by templates.
+  // Filter equivalents for Markdown — exposed so .md frontmatter can call
+  // {{ page.date | readableDate }} if needed. We mirror the helpers above.
   eleventyConfig.addFilter("isoDate", (d) => new Date(d).toISOString());
   eleventyConfig.addFilter("readableDate", (d) =>
     new Date(d).toLocaleDateString("en-US", {
@@ -39,16 +143,6 @@ export default function (eleventyConfig) {
     })
   );
 
-  // Slug helper for paginated URLs.
-  eleventyConfig.addFilter("slug", (s) =>
-    String(s)
-      .toLowerCase()
-      .trim()
-      .replace(/[^a-z0-9\s-]/g, "")
-      .replace(/\s+/g, "-")
-      .replace(/-+/g, "-")
-  );
-
   return {
     dir: {
       input: "src",
@@ -56,9 +150,9 @@ export default function (eleventyConfig) {
       data: "_data",
       output: "_site",
     },
-    templateFormats: ["njk", "md", "html"],
-    markdownTemplateEngine: "njk",
-    htmlTemplateEngine: "njk",
+    templateFormats: ["hbs", "md", "html"],
+    markdownTemplateEngine: "hbs",
+    htmlTemplateEngine: "hbs",
     pathPrefix: process.env.PATH_PREFIX || "/",
   };
 }
