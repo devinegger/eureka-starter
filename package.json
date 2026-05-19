@@ -5,6 +5,7 @@
   "scripts": {
     "build": "eleventy",
     "serve": "eleventy --serve",
+    "clean": "rm -rf _site",
     "new-page": "node scripts/new-page.mjs",
     "new-folder": "node scripts/new-folder.mjs",
     "convert-page": "node scripts/convert-page.mjs"

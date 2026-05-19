@@ -2,9 +2,8 @@ import { HtmlBasePlugin } from "@11ty/eleventy";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 
 export default function (eleventyConfig) {
-  // Auto-transform <img src="..."> in output HTML into responsive <picture>
-  // tags with AVIF/WebP/fallback at multiple widths. Source images can live
-  // anywhere the path resolves (e.g. images/, static/).
+  // Responsive image transform on output HTML. Source paths resolve from
+  // project root so /images/foo.jpg → src/images/foo.jpg works.
   eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
     extensions: "html",
     formats: ["avif", "webp", "auto"],
@@ -16,17 +15,50 @@ export default function (eleventyConfig) {
     },
   });
 
-  // Rewrites absolute URLs in output (incl. <img>, <source srcset>, <link>,
-  // <a href>) to include pathPrefix. Must be added AFTER the image plugin so
-  // it sees the final image URLs.
+  // pathPrefix rewriter — added after image plugin so it sees final URLs.
   eleventyConfig.addPlugin(HtmlBasePlugin);
 
-  // Raw passthrough for assets that should keep their exact filenames
-  // (favicons, OG images, downloads). Responsive content images should go
-  // somewhere else (e.g. images/) and be referenced normally.
-  eleventyConfig.addPassthroughCopy("static");
+  // Passthroughs (paths relative to project root).
+  eleventyConfig.addPassthroughCopy({ "src/static": "static" });
+  eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
+  eleventyConfig.addPassthroughCopy({ "src/admin": "admin" });
+
+  // Treat .md files as Nunjucks so we can use partials in Markdown too.
+  eleventyConfig.setTemplateFormats(["njk", "md", "html"]);
+
+  // Watch CSS so the dev server reloads on style changes.
+  eleventyConfig.addWatchTarget("./src/assets/");
+
+  // Date helper used by templates.
+  eleventyConfig.addFilter("isoDate", (d) => new Date(d).toISOString());
+  eleventyConfig.addFilter("readableDate", (d) =>
+    new Date(d).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })
+  );
+
+  // Slug helper for paginated URLs.
+  eleventyConfig.addFilter("slug", (s) =>
+    String(s)
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9\s-]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-")
+  );
 
   return {
+    dir: {
+      input: "src",
+      includes: "_includes",
+      data: "_data",
+      output: "_site",
+    },
+    templateFormats: ["njk", "md", "html"],
+    markdownTemplateEngine: "njk",
+    htmlTemplateEngine: "njk",
     pathPrefix: process.env.PATH_PREFIX || "/",
   };
 }
