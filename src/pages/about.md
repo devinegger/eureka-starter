@@ -6,7 +6,7 @@ permalink: /about/
 layout: layouts/landing.hbs
 pageHero:
   eyebrow: About
-  title: A small team that ships, measures, and owns the number.
+  title: A small team that ships, measures, and owns.
   sub: We're not a creative agency that picked up a few trades clients. Eureka was
     built from the ground up for owner-operators who care about cost-per-lead.
 sections:
