@@ -42,7 +42,12 @@ auth:
 media_folder: "src/static/uploads"
 public_folder: "/static/uploads"
 
-publish_mode: editorial_workflow
+# Switched from editorial_workflow → simple to diagnose a PAT-permission
+# error ("Resource not accessible by personal access token"). Editorial
+# workflow needs Contents + Pull requests + Issues write on the PAT;
+# simple only needs Contents write. If saves work in simple mode, the
+# PAT is missing PR/Issues permissions — fix the PAT and flip this back.
+publish_mode: simple
 
 site_url: https://eureka-starter-handlebars-woy47.kinsta.page
 display_url: https://eureka-starter-handlebars-woy47.kinsta.page
