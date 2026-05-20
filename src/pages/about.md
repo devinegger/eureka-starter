@@ -1,13 +1,15 @@
 ---
-layout: layouts/landing.hbs
 title: About Eureka
-description: A small team that ships, measures, and owns the number. Built for owner-operators in the trades.
+description: A small team that ships, measures, and owns the number. Built for
+  owner-operators
 permalink: /about/
-hasContactForm: true
+layout: layouts/landing.hbs
 pageHero:
   eyebrow: About
   title: A small team that ships, measures, and owns the number.
-  sub: We're not a creative agency that picked up a few trades clients. Eureka was built from the ground up for owner-operators who care about cost-per-lead more than awards.
+  sub: We're not a creative agency that picked up a few trades clients. Eureka was
+    built from the ground up for owner-operators who care about cost-per-lead
+    more than awards.
 sections:
   - page-hero
   - body
@@ -15,6 +17,7 @@ sections:
   - process-steps
   - testimonials
   - cta-block
+hasContactForm: true
 ---
 
 ## The story
