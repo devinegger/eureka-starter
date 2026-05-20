@@ -83,20 +83,22 @@ const blocks = [
     ],
   },
 
-  // Marker blocks (no inline fields; content comes from shared data)
-  { name: "hero",                                                   label: "Hero (home, content in 'Hero' singleton)",   fields: [] },
-  { name: "pitch",                                                  label: "Three-column pitch (content in singleton)",  fields: [] },
-  { name: "differentiator",                                         label: "Differentiator (content in singleton)",      fields: [] },
-  { name: "process_steps",      nameOverride: "process-steps",      label: "Process steps (content in singleton)",       fields: [] },
-  { name: "industries_chips",   nameOverride: "industries-chips",   label: "Industries chip cloud",                       fields: [] },
-  { name: "testimonials",                                           label: "Testimonials",                                fields: [] },
-  { name: "cta_block",          nameOverride: "cta-block",          label: "Final CTA + mini form",                       fields: [] },
-  { name: "about_values",       nameOverride: "about-values",       label: "About values grid",                           fields: [] },
-  { name: "service_areas_grid", nameOverride: "service-areas-grid", label: "Service-areas grid",                          fields: [] },
-  { name: "blog_listing",       nameOverride: "blog-listing",       label: "Blog post list",                              fields: [] },
-  { name: "contact_info_form",  nameOverride: "contact-info-form",  label: "Contact info + full form",                    fields: [] },
-  { name: "error_404",          nameOverride: "error-404",          label: "404 error page",                              fields: [] },
-  { name: "body",                                                   label: "Markdown body of this page",                  fields: [] },
+  // Marker blocks — content comes from shared singleton data files.
+  // GraphQL requires at least one field per type, so each has an optional
+  // `note` annotation field. It's never read by Handlebars partials.
+  { name: "hero",                nameOverride: undefined,             label: "Hero (home)",                fields: [{ type: "string" as const, name: "note", label: "Editor note" }] },
+  { name: "pitch",               nameOverride: undefined,             label: "Three-column pitch",         fields: [{ type: "string" as const, name: "note", label: "Editor note" }] },
+  { name: "differentiator",      nameOverride: undefined,             label: "Differentiator",             fields: [{ type: "string" as const, name: "note", label: "Editor note" }] },
+  { name: "process_steps",       nameOverride: "process-steps",       label: "Process steps",              fields: [{ type: "string" as const, name: "note", label: "Editor note" }] },
+  { name: "industries_chips",    nameOverride: "industries-chips",    label: "Industries chip cloud",      fields: [{ type: "string" as const, name: "note", label: "Editor note" }] },
+  { name: "testimonials",        nameOverride: undefined,             label: "Testimonials",               fields: [{ type: "string" as const, name: "note", label: "Editor note" }] },
+  { name: "cta_block",           nameOverride: "cta-block",           label: "Final CTA + mini form",      fields: [{ type: "string" as const, name: "note", label: "Editor note" }] },
+  { name: "about_values",        nameOverride: "about-values",        label: "About values grid",          fields: [{ type: "string" as const, name: "note", label: "Editor note" }] },
+  { name: "service_areas_grid",  nameOverride: "service-areas-grid",  label: "Service-areas grid",         fields: [{ type: "string" as const, name: "note", label: "Editor note" }] },
+  { name: "blog_listing",        nameOverride: "blog-listing",        label: "Blog post list",             fields: [{ type: "string" as const, name: "note", label: "Editor note" }] },
+  { name: "contact_info_form",   nameOverride: "contact-info-form",   label: "Contact info + full form",   fields: [{ type: "string" as const, name: "note", label: "Editor note" }] },
+  { name: "error_404",           nameOverride: "error-404",           label: "404 error page",             fields: [{ type: "string" as const, name: "note", label: "Editor note" }] },
+  { name: "body",                nameOverride: undefined,             label: "Markdown body of this page", fields: [{ type: "string" as const, name: "note", label: "Editor note" }] },
 ];
 
 // Small helper for repeated string field shapes.
