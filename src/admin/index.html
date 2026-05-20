@@ -9,11 +9,20 @@
 </head>
 <body>
   <!--
-    Decap CMS shell. Loads the editor bundle from a CDN.
-    Auth: PKCE flow via DecapBridge (no separate OAuth bridge script needed;
-    PKCE is handled natively by Decap). Backend config lives in config.yml.
-    See https://decapbridge.com and https://decapcms.org/docs/backends-overview/
+    Sveltia CMS shell.
+
+    Sveltia is a modern, drop-in replacement for Decap CMS — it reads the
+    same config.yml schema, talks to the same git-gateway backend, and
+    keeps the same DecapBridge PKCE auth. The only difference is the
+    script tag below: better UI, faster, better lists/repeaters, real
+    image handling, mobile-friendly.
+
+    To revert to Decap: swap the script src back to
+      https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js
+    No other changes needed — same config.yml works for both editors.
+
+    See https://github.com/sveltia/sveltia-cms
   -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script type="module" src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
 </body>
 </html>
