@@ -1,14 +1,8 @@
 ---
-title: About Eureka
-description: A small team that ships, measures, and owns the number. Built for
-  owner-operators
-permalink: /about/
-layout: layouts/landing.hbs
 pageHero:
   eyebrow: About
-  title: A small team that ships, measures, and owns.
-  sub: We're not a creative agency that picked up a few trades clients. Eureka was
-    built from the ground up for owner-operators who care about cost-per-lead.
+  title: 'A small team that ships, measures, and owns.'
+  sub: We're not a creative agency that picked up a few trades clients. Eureka was built from the ground up for owner-operators who care about cost-per-lead.
 sections:
   - page-hero
   - body
@@ -16,6 +10,10 @@ sections:
   - process-steps
   - testimonials
   - cta-block
+title: About Eureka
+description: 'A small team that ships, measures, and owns the number. Built for owner-operators'
+permalink: /about/
+layout: layouts/landing.hbs
 hasContactForm: true
 ---
 
@@ -27,4 +25,4 @@ Today we work with 47 active trades clients across the western United States. We
 
 ## What we believe
 
-The trades have been milked by marketing agencies for two decades. Vague reports, locked-in contracts, fake dashboards, and quarterly recommendations to “invest more in brand.” We don't do any of that. We sell jobs booked, measured weekly, in plain English.
+The trades have been milked by marketing agencies for two decades. Vague reports, locked-in contracts, fake dashboards, and quarterly recommendations to “invest more in brand.” We don't do any of that. We sell jobs booked, measured weekly, in plain English, please!
