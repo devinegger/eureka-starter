@@ -6,6 +6,7 @@
     "build": "node scripts/build.mjs",
     "build:site": "eleventy",
     "build:tina": "tinacms build",
+    "sync-tina": "tinacms build --skip-cloud-checks && git checkout -- src/admin/index.html",
     "serve": "tinacms dev -c \"eleventy --serve\"",
     "serve:site": "eleventy --serve",
     "clean": "rm -rf _site src/admin tina/__generated__",
