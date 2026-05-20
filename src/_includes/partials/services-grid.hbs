@@ -12,7 +12,6 @@
     <div class="services__grid{{#if expandedGrid}} services__grid--expanded{{/if}}">
       {{#each services}}
         <article class="service-card">
-          <div class="service-card__index">/ {{this.index}}</div>
           <h3 class="service-card__title">{{this.title}}</h3>
           <p class="service-card__body">{{this.summary}}</p>
           <a href="/services/{{this.slug}}/" class="service-card__cta">
