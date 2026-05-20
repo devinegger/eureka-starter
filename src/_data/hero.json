@@ -1,22 +1,53 @@
 {
   "signal": "Booking new clients · Q3 2026",
   "title": "More booked jobs. <em>Less guesswork.</em>",
-  "sub": "Eureka is the digital marketing partner for trades businesses that are tired of vague reports and slow websites. We ship sites that load fast, rank, and turn clicks into work orders.",
-  "primaryCta": { "label": "Get Your Free Site Audit", "url": "/#audit" },
-  "ghostCta":   { "label": "Explore Services", "url": "/services/" },
+  "sub": "Eureka is the digital marketing partner for trades businesses that are tired of vague reports and slow websites. We ship sites that load fast, rank, and turn clicks into business.",
+  "primaryCta": {
+    "label": "Get Your Free Site Audit",
+    "url": "/#audit"
+  },
+  "ghostCta": {
+    "label": "Explore Services",
+    "url": "/services/"
+  },
   "proof": [
-    { "num": "+212%", "label": "Avg. booked jobs · YoY" },
-    { "num": "3.4×",  "label": "ROAS across paid" },
-    { "num": "47",    "label": "Trades clients · active" }
+    {
+      "num": "+212%",
+      "label": "Avg. booked jobs · YoY"
+    },
+    {
+      "num": "3.4×",
+      "label": "ROAS across paid"
+    },
+    {
+      "num": "47",
+      "label": "Trades clients · active"
+    }
   ],
   "healthCard": {
     "url": "competitor-plumbing.com",
     "time": "Live · 0.4s ago",
     "rows": [
-      { "label": "Performance",   "value": 38, "grade": "bad"  },
-      { "label": "SEO",           "value": 64, "grade": "warn" },
-      { "label": "Accessibility", "value": 71, "grade": "warn" },
-      { "label": "Lead capture",  "value": 22, "grade": "bad"  }
+      {
+        "label": "Performance",
+        "value": 38,
+        "grade": "bad"
+      },
+      {
+        "label": "SEO",
+        "value": 64,
+        "grade": "warn"
+      },
+      {
+        "label": "Accessibility",
+        "value": 71,
+        "grade": "warn"
+      },
+      {
+        "label": "Lead capture",
+        "value": 22,
+        "grade": "bad"
+      }
     ],
     "note": "<strong>4.7s</strong> to first contentful paint — you’re losing roughly <strong>1 in 3 visitors</strong> before the page renders."
   }
