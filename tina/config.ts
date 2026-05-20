@@ -180,218 +180,28 @@ export default defineConfig({
         ],
       },
 
-      // ----- SINGLETON DATA FILES ----------------------------------------
+      // ----- FREQUENTLY EDITED CONTENT ------------------------------------
+      // Testimonials, services, areas, industries, nav — clients touch these
+      // regularly. Brand & contact is set once. Section copy is set-and-forget.
 
       {
-        name: "siteSettings",
-        label: "Site settings",
+        name: "testimonials",
+        label: "Testimonials",
         path: "src/_data",
-        match: { include: "site" },
+        match: { include: "testimonials" },
         format: "json",
         ui: { allowedActions: { create: false, delete: false } },
         fields: [
-          s("name", "Site name"),
-          s("brandMark", "Brand mark (1–2 chars)"),
-          s("tagline", "Tagline"),
-          s("description", "Meta description", { textarea: true }),
-          s("theme", "Default theme", { options: [{ value: "dark", label: "Dark" }, { value: "light", label: "Light" }] }),
-          s("brand", "Brand variant slug"),
-          s("url", "Canonical site URL"),
-          s("phone", "Display phone"),
-          s("phoneTel", "tel: link (E.164)"),
-          s("email", "Email"),
-          {
-            type: "object" as const,
-            name: "address",
-            label: "Office address",
-            fields: [s("street", "Street"), s("city", "City"), s("state", "State"), s("zip", "ZIP")],
-          },
-          s("tagline_footer", "Footer tagline"),
-          s("turnstileSiteKey", "Cloudflare Turnstile site key"),
-          s("psiApiKey", "PageSpeed Insights API key"),
-        ],
-      },
-
-      {
-        name: "heroData",
-        label: "Hero (home)",
-        path: "src/_data",
-        match: { include: "hero" },
-        format: "json",
-        ui: { allowedActions: { create: false, delete: false } },
-        fields: [
-          s("signal", "Signal pill text"),
-          s("title", "Headline (HTML allowed)", { textarea: true }),
-          s("sub", "Sub-headline", { textarea: true }),
-          { type: "object" as const, name: "primaryCta", label: "Primary CTA", fields: [s("label", "Label"), s("url", "URL")] },
-          { type: "object" as const, name: "ghostCta", label: "Secondary CTA", fields: [s("label", "Label"), s("url", "URL")] },
-          {
-            type: "object" as const,
-            name: "proof",
-            label: "Proof points",
-            list: true,
-            ui: { itemProps: (i: { num?: string }) => ({ label: i?.num ?? "—" }) },
-            fields: [s("num", "Number"), s("label", "Caption")],
-          },
-          {
-            type: "object" as const,
-            name: "healthCard",
-            label: "Health card",
-            fields: [
-              s("url", "Pretend domain"),
-              s("time", "Timestamp text"),
-              {
-                type: "object" as const,
-                name: "rows",
-                label: "Score rows",
-                list: true,
-                ui: { itemProps: (i: { label?: string }) => ({ label: i?.label ?? "—" }) },
-                fields: [
-                  s("label", "Row label"),
-                  { type: "number" as const, name: "value", label: "Score (0–100)" },
-                  s("grade", "Grade", { options: [{ value: "good", label: "Good" }, { value: "warn", label: "Warning" }, { value: "bad", label: "Bad" }] }),
-                ],
-              },
-              s("note", "Note (HTML allowed)", { textarea: true }),
-            ],
-          },
-        ],
-      },
-
-      {
-        name: "pitchData",
-        label: "Pitch (home)",
-        path: "src/_data",
-        match: { include: "pitch" },
-        format: "json",
-        ui: { allowedActions: { create: false, delete: false } },
-        fields: [
-          s("eyebrow", "Eyebrow"),
-          s("title", "Heading"),
-          s("lede", "Lede", { textarea: true }),
           {
             type: "object" as const,
             name: "items",
-            label: "Columns",
+            label: "Testimonials",
             list: true,
-            ui: { itemProps: (i: { title?: string }) => ({ label: i?.title ?? "—" }) },
-            fields: [s("num", "Eyebrow label"), s("title", "Title"), s("body", "Body", { textarea: true })],
+            ui: { itemProps: (i: { name?: string }) => ({ label: i?.name ?? "—" }) },
+            fields: [s("quote", "Quote", { textarea: true }), s("name", "Name"), s("role", "Role / company"), s("initials", "Avatar initials")],
           },
         ],
       },
-
-      {
-        name: "differentiatorData",
-        label: "Differentiator (home)",
-        path: "src/_data",
-        match: { include: "differentiator" },
-        format: "json",
-        ui: { allowedActions: { create: false, delete: false } },
-        fields: [
-          s("eyebrow", "Eyebrow"),
-          s("title", "Heading"),
-          s("lede", "Lede", { textarea: true }),
-          s("ctaLabel", "CTA button label"),
-          s("ctaUrl", "CTA button URL"),
-          {
-            type: "object" as const,
-            name: "items",
-            label: "Numbered points",
-            list: true,
-            ui: { itemProps: (i: { head?: string }) => ({ label: i?.head ?? "—" }) },
-            fields: [s("head", "Point headline"), s("body", "Point body", { textarea: true })],
-          },
-        ],
-      },
-
-      {
-        name: "processData",
-        label: "Process",
-        path: "src/_data",
-        match: { include: "process" },
-        format: "json",
-        ui: { allowedActions: { create: false, delete: false } },
-        fields: [
-          s("eyebrow", "Eyebrow"),
-          s("title", "Heading"),
-          s("lede", "Lede", { textarea: true }),
-          {
-            type: "object" as const,
-            name: "steps",
-            label: "Steps",
-            list: true,
-            ui: { itemProps: (i: { title?: string }) => ({ label: i?.title ?? "—" }) },
-            fields: [
-              s("num", "Step number"),
-              s("title", "Step title"),
-              s("body", "Step body", { textarea: true }),
-              { type: "boolean" as const, name: "active", label: "Highlighted" },
-            ],
-          },
-        ],
-      },
-
-      {
-        name: "finalCtaData",
-        label: "Final CTA",
-        path: "src/_data",
-        match: { include: "finalCta" },
-        format: "json",
-        ui: { allowedActions: { create: false, delete: false } },
-        fields: [
-          s("eyebrow", "Eyebrow"),
-          s("title", "Headline (HTML allowed)", { textarea: true }),
-          s("body", "Body paragraph", { textarea: true }),
-          {
-            type: "object" as const,
-            name: "buttons",
-            label: "Buttons",
-            list: true,
-            ui: { itemProps: (i: { label?: string }) => ({ label: i?.label ?? "—" }) },
-            fields: [
-              s("label", "Label"),
-              s("url", "URL"),
-              s("style", "Style", { options: [{ value: "primary", label: "Primary" }, { value: "ghost", label: "Ghost" }] }),
-            ],
-          },
-          { type: "object" as const, name: "form", label: "Mini form", fields: [s("title", "Form title")] },
-        ],
-      },
-
-      {
-        name: "aboutData",
-        label: "About page content",
-        path: "src/_data",
-        match: { include: "about" },
-        format: "json",
-        ui: { allowedActions: { create: false, delete: false } },
-        fields: [
-          {
-            type: "object" as const,
-            name: "story",
-            label: "Story header",
-            fields: [s("eyebrow", "Eyebrow"), s("title", "Heading"), s("sub", "Sub-heading", { textarea: true })],
-          },
-          {
-            type: "object" as const,
-            name: "values",
-            label: "Values grid",
-            fields: [
-              s("title", "Section title"),
-              {
-                type: "object" as const,
-                name: "items",
-                label: "Values",
-                list: true,
-                ui: { itemProps: (i: { title?: string }) => ({ label: i?.title ?? "—" }) },
-                fields: [s("title", "Value title"), s("body", "Value body", { textarea: true })],
-              },
-            ],
-          },
-        ],
-      },
-
-      // ----- ITEMS-LIST SINGLETONS (services, areas, testimonials, industries)
 
       {
         name: "services",
@@ -462,25 +272,6 @@ export default defineConfig({
       },
 
       {
-        name: "testimonials",
-        label: "Testimonials",
-        path: "src/_data",
-        match: { include: "testimonials" },
-        format: "json",
-        ui: { allowedActions: { create: false, delete: false } },
-        fields: [
-          {
-            type: "object" as const,
-            name: "items",
-            label: "Testimonials",
-            list: true,
-            ui: { itemProps: (i: { name?: string }) => ({ label: i?.name ?? "—" }) },
-            fields: [s("quote", "Quote", { textarea: true }), s("name", "Name"), s("role", "Role / company"), s("initials", "Avatar initials")],
-          },
-        ],
-      },
-
-      {
         name: "industries",
         label: "Industries",
         path: "src/_data",
@@ -501,7 +292,7 @@ export default defineConfig({
 
       {
         name: "nav",
-        label: "Navigation",
+        label: "Navigation & menus",
         path: "src/_data",
         match: { include: "nav" },
         format: "json",
@@ -540,6 +331,222 @@ export default defineConfig({
           },
         ],
       },
+
+      // ----- BRAND & SITE SETTINGS ----------------------------------------
+
+      {
+        name: "siteSettings",
+        label: "Brand & contact",
+        path: "src/_data",
+        match: { include: "site" },
+        format: "json",
+        ui: { allowedActions: { create: false, delete: false } },
+        fields: [
+          s("name", "Site name"),
+          s("brandMark", "Brand mark (1–2 chars)"),
+          s("tagline", "Tagline"),
+          s("description", "Meta description", { textarea: true }),
+          s("theme", "Default theme", { options: [{ value: "dark", label: "Dark" }, { value: "light", label: "Light" }] }),
+          s("brand", "Brand variant slug"),
+          s("url", "Canonical site URL"),
+          s("phone", "Display phone"),
+          s("phoneTel", "tel: link (E.164)"),
+          s("email", "Email"),
+          {
+            type: "object" as const,
+            name: "address",
+            label: "Office address",
+            fields: [s("street", "Street"), s("city", "City"), s("state", "State"), s("zip", "ZIP")],
+          },
+          s("tagline_footer", "Footer tagline"),
+          s("turnstileSiteKey", "Cloudflare Turnstile site key"),
+          s("psiApiKey", "PageSpeed Insights API key"),
+        ],
+      },
+
+      {
+        name: "heroData",
+        label: "Home — hero",
+        path: "src/_data",
+        match: { include: "hero" },
+        format: "json",
+        ui: { allowedActions: { create: false, delete: false } },
+        fields: [
+          s("signal", "Signal pill text"),
+          s("title", "Headline (HTML allowed)", { textarea: true }),
+          s("sub", "Sub-headline", { textarea: true }),
+          { type: "object" as const, name: "primaryCta", label: "Primary CTA", fields: [s("label", "Label"), s("url", "URL")] },
+          { type: "object" as const, name: "ghostCta", label: "Secondary CTA", fields: [s("label", "Label"), s("url", "URL")] },
+          {
+            type: "object" as const,
+            name: "proof",
+            label: "Proof points",
+            list: true,
+            ui: { itemProps: (i: { num?: string }) => ({ label: i?.num ?? "—" }) },
+            fields: [s("num", "Number"), s("label", "Caption")],
+          },
+          {
+            type: "object" as const,
+            name: "healthCard",
+            label: "Health card",
+            fields: [
+              s("url", "Pretend domain"),
+              s("time", "Timestamp text"),
+              {
+                type: "object" as const,
+                name: "rows",
+                label: "Score rows",
+                list: true,
+                ui: { itemProps: (i: { label?: string }) => ({ label: i?.label ?? "—" }) },
+                fields: [
+                  s("label", "Row label"),
+                  { type: "number" as const, name: "value", label: "Score (0–100)" },
+                  s("grade", "Grade", { options: [{ value: "good", label: "Good" }, { value: "warn", label: "Warning" }, { value: "bad", label: "Bad" }] }),
+                ],
+              },
+              s("note", "Note (HTML allowed)", { textarea: true }),
+            ],
+          },
+        ],
+      },
+
+      {
+        name: "pitchData",
+        label: "Home — intro columns",
+        path: "src/_data",
+        match: { include: "pitch" },
+        format: "json",
+        ui: { allowedActions: { create: false, delete: false } },
+        fields: [
+          s("eyebrow", "Eyebrow"),
+          s("title", "Heading"),
+          s("lede", "Lede", { textarea: true }),
+          {
+            type: "object" as const,
+            name: "items",
+            label: "Columns",
+            list: true,
+            ui: { itemProps: (i: { title?: string }) => ({ label: i?.title ?? "—" }) },
+            fields: [s("num", "Eyebrow label"), s("title", "Title"), s("body", "Body", { textarea: true })],
+          },
+        ],
+      },
+
+      {
+        name: "differentiatorData",
+        label: "Home — methodology",
+        path: "src/_data",
+        match: { include: "differentiator" },
+        format: "json",
+        ui: { allowedActions: { create: false, delete: false } },
+        fields: [
+          s("eyebrow", "Eyebrow"),
+          s("title", "Heading"),
+          s("lede", "Lede", { textarea: true }),
+          s("ctaLabel", "CTA button label"),
+          s("ctaUrl", "CTA button URL"),
+          {
+            type: "object" as const,
+            name: "items",
+            label: "Numbered points",
+            list: true,
+            ui: { itemProps: (i: { head?: string }) => ({ label: i?.head ?? "—" }) },
+            fields: [s("head", "Point headline"), s("body", "Point body", { textarea: true })],
+          },
+        ],
+      },
+
+      {
+        name: "processData",
+        label: "Our process",
+        path: "src/_data",
+        match: { include: "process" },
+        format: "json",
+        ui: { allowedActions: { create: false, delete: false } },
+        fields: [
+          s("eyebrow", "Eyebrow"),
+          s("title", "Heading"),
+          s("lede", "Lede", { textarea: true }),
+          {
+            type: "object" as const,
+            name: "steps",
+            label: "Steps",
+            list: true,
+            ui: { itemProps: (i: { title?: string }) => ({ label: i?.title ?? "—" }) },
+            fields: [
+              s("num", "Step number"),
+              s("title", "Step title"),
+              s("body", "Step body", { textarea: true }),
+              { type: "boolean" as const, name: "active", label: "Highlighted" },
+            ],
+          },
+        ],
+      },
+
+      {
+        name: "finalCtaData",
+        label: "Footer call to action",
+        path: "src/_data",
+        match: { include: "finalCta" },
+        format: "json",
+        ui: { allowedActions: { create: false, delete: false } },
+        fields: [
+          s("eyebrow", "Eyebrow"),
+          s("title", "Headline (HTML allowed)", { textarea: true }),
+          s("body", "Body paragraph", { textarea: true }),
+          {
+            type: "object" as const,
+            name: "buttons",
+            label: "Buttons",
+            list: true,
+            ui: { itemProps: (i: { label?: string }) => ({ label: i?.label ?? "—" }) },
+            fields: [
+              s("label", "Label"),
+              s("url", "URL"),
+              s("style", "Style", { options: [{ value: "primary", label: "Primary" }, { value: "ghost", label: "Ghost" }] }),
+            ],
+          },
+          { type: "object" as const, name: "form", label: "Mini form", fields: [s("title", "Form title")] },
+        ],
+      },
+
+      {
+        name: "aboutData",
+        label: "About — story & values",
+        path: "src/_data",
+        match: { include: "about" },
+        format: "json",
+        ui: { allowedActions: { create: false, delete: false } },
+        fields: [
+          {
+            type: "object" as const,
+            name: "story",
+            label: "Story header",
+            fields: [s("eyebrow", "Eyebrow"), s("title", "Heading"), s("sub", "Sub-heading", { textarea: true })],
+          },
+          {
+            type: "object" as const,
+            name: "values",
+            label: "Values grid",
+            fields: [
+              s("title", "Section title"),
+              {
+                type: "object" as const,
+                name: "items",
+                label: "Values",
+                list: true,
+                ui: { itemProps: (i: { title?: string }) => ({ label: i?.title ?? "—" }) },
+                fields: [s("title", "Value title"), s("body", "Value body", { textarea: true })],
+              },
+            ],
+          },
+        ],
+      },
+
+      // ----- SECTION COPY — set once, rarely changed -----------------------
+      // These drive the shared section partials (hero, pitch, etc.).
+      // Clients editing page content generally don't need to touch these.
+
     ],
   },
 });
