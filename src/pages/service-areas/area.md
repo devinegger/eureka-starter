@@ -1,7 +1,7 @@
 ---
 layout: layouts/area.hbs
 pagination:
-  data: serviceAreas
+  data: serviceAreas.items
   size: 1
   alias: area
 permalink: "/service-areas/{{ area.slug }}/"

@@ -39,7 +39,7 @@ layout: layouts/base.hbs
     <p class="eyebrow">Local proof</p>
     <h2 class="section-title">{{area.city}} contractors who stopped guessing.</h2>
     <div class="testimonials__grid">
-      {{#each testimonials}}
+      {{#each testimonials.items}}
         {{#if (lte @index 1)}}
           <figure class="quote-card">
             <div class="quote-card__mark" aria-hidden="true">&ldquo;</div>

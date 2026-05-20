@@ -5,6 +5,11 @@ node_modules/
 _site/
 .cache/
 
+# Tina — generated client SDK + admin bundle (rebuilt on every build)
+tina/__generated__/
+src/admin/
+!src/admin/.gitkeep
+
 # Logs
 npm-debug.log*
 yarn-debug.log*

@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "eleventy",
-    "serve": "eleventy --serve",
-    "clean": "rm -rf _site",
+    "build": "node scripts/build.mjs",
+    "build:site": "eleventy",
+    "build:tina": "tinacms build",
+    "serve": "tinacms dev -c \"eleventy --serve\"",
+    "serve:site": "eleventy --serve",
+    "clean": "rm -rf _site src/admin tina/__generated__",
     "new-page": "node scripts/new-page.mjs",
     "new-folder": "node scripts/new-folder.mjs",
     "convert-page": "node scripts/convert-page.mjs"
@@ -13,6 +16,8 @@
   "devDependencies": {
     "@11ty/eleventy": "^3.1.5",
     "@11ty/eleventy-img": "^6.0.4",
-    "handlebars": "^4.7.9"
+    "@tinacms/cli": "^2.3.1",
+    "handlebars": "^4.7.9",
+    "tinacms": "^3.8.1"
   }
 }

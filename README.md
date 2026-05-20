@@ -4,23 +4,29 @@ The agency template used to spin up a new client site in 30 minutes. Built with 
 
 ## The shape
 
-- **Every page is a `.md` file** under `src/pages/`. Frontmatter declares which layout to use and what sections to compose.
+- **Every page is a `.md` file** under `src/pages/`. Frontmatter declares which layout to use and which blocks (sections) compose the page.
 - **Layouts and partials are `.hbs`** under `src/_includes/`. Content editors never open one.
 - **All copy lives in `src/_data/*.json`.** A new client site is mostly JSON edits.
-- **Pages compose by declaring a section list**, not by editing templates:
+- **CMS:** [TinaCMS](https://tina.io) with block-based composition, auth via Tina Cloud (free tier).
+- **Pages compose by declaring blocks**, drag-to-reorder in the CMS:
 
   ```yaml
   ---
   layout: layouts/landing.hbs
-  sections:
-    - page-hero
-    - body          # ← markdown body renders here
-    - about-values
-    - cta-block
+  blocks:
+    - _template: page-hero
+      eyebrow: About
+      title: A small team that ships.
+      sub: Built for owner-operators.
+    - _template: body            # ← markdown body renders here
+    - _template: about-values
+    - _template: cta-block
   ---
 
   ## Markdown body
   ```
+
+  Legacy pages can still use the bare `sections: [name, name]` array — both formats render via the same layout. Tina edits emit the block form.
 
 ## What ships in the box
 
@@ -28,7 +34,7 @@ The agency template used to spin up a new client site in 30 minutes. Built with 
 - **10 production page templates** — home, about, services overview + paginated detail, service-areas overview + paginated detail, contact (with honeypot + Turnstile slot), blog index + posts, 404. All driven from data files.
 - **18 section partials** — `hero`, `pitch`, `services-grid`, `differentiator`, `process-steps`, `industries-chips`, `widget-slot`, `testimonials`, `cta-block`, `page-hero`, `about-values`, `contact-info-form`, `service-areas-grid`, `blog-listing`, `error-404`, plus shared `nav` and `footer`.
 - **Widget slot pattern** — drop any self-contained widget into a consistent section wrapper. PageSpeed Insights checker functional out of the box, ROI calculator stub ready to flesh out.
-- **Decap CMS** wired at `/admin` with editorial workflow and collections for site config, services, service-areas, testimonials, and blog posts.
+- **TinaCMS** at `/admin/` with block-based page composition, collections for every data file, and Git-based content (no separate database). Auth via Tina Cloud.
 - **Responsive image pipeline** via [@11ty/eleventy-img](https://www.11ty.dev/docs/plugins/image/) (AVIF/WebP/fallback at 400/800/1280 widths).
 - **GitHub Pages deploy** via Actions.
 - **Page scaffolders** — `npm run new-page`, `new-folder`, `convert-page`.
@@ -300,17 +306,36 @@ Home page and contact page both ship a form with:
 3. If the widget needs JS, drop it in `src/assets/js/your-widget.js` and add a conditional script tag in `src/_includes/layouts/base.hbs`.
 4. On a page, set `widget: your-widget` in frontmatter and add `widget-slot` to the sections list.
 
-## Decap CMS
+## TinaCMS
 
-Visit `/admin/` to edit content. Collections:
+Content is edited through [TinaCMS](https://tina.io) at `/admin/`. The editor reads/writes the same Git-tracked files Eleventy builds from — no separate database. Blocks (Tina's term for sections) appear as a drag-to-reorder list with a visual selector showing previews. Each block maps to a Handlebars partial under `src/_includes/partials/`.
 
-- **Site settings** — brand, theme, contact info, addresses
-- **Services** — full list with pricing, FAQ, included items
-- **Service areas** — cities and local highlights
-- **Testimonials**
-- **Blog posts** — folder-based collection with editor
+### Tina Cloud setup
 
-Auth uses [DecapBridge](https://decapbridge.com) (free starter). When traffic justifies, swap to a self-hosted Cloudflare Worker handling GitHub OAuth — drop in the new `auth_endpoint` in `src/admin/config.yml` and remove the bridge script tag from `src/admin/index.html`.
+1. Sign in at [app.tina.io](https://app.tina.io) with GitHub
+2. Create a new project, connect this repo
+3. Copy the **Client ID** and a **Read-Only Token** from project settings
+4. Locally: copy `.env.example` to `.env`, paste in the values
+5. In Sevalla (or your host): add `TINA_CLIENT_ID` and `TINA_TOKEN` as build env vars
+6. Trigger a fresh build — Tina's admin bundle is generated into `src/admin/` and passed through to `/admin/` on the live site
+
+Until those credentials are set, `npm run build` skips the Tina admin build and just runs Eleventy. The site works; the editor doesn't.
+
+### Schema
+
+Edit `tina/config.ts` to add/modify collections or block templates. Common changes:
+
+- **Add a new block template** — append to the `blocks` array. Each block's `name` (and `nameOverride` for kebab-case) must match a partial filename in `src/_includes/partials/`.
+- **Add a new collection** — append a new entry to `schema.collections`. Use `path` + `match.include` for singletons, plain `path` for folder collections.
+- **Add an image upload field** — set `type: "image"` on any field; Tina handles upload to `src/static/uploads/`.
+
+### Local development
+
+```bash
+npm run serve
+```
+
+Runs `tinacms dev` alongside `eleventy --serve`. Open `http://localhost:4001/admin/` to access the editor (works in local mode without Tina Cloud credentials — content edits commit straight to your working tree, no auth required).
 
 ## Deploying to GitHub Pages
 
