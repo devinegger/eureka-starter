@@ -88,6 +88,18 @@ Handlebars.registerHelper("slug", (s) =>
 // does this with triple-stash, so this is a convenience alias for clarity.
 Handlebars.registerHelper("raw", (s) => new Handlebars.SafeString(s ?? ""));
 
+// {{sectionName item}} — resolves a section list entry to a partial name.
+// Supports both formats so existing pages keep working and Decap can emit
+// the structured form:
+//   sections: [hero, pitch]                  → strings, returned as-is
+//   sections: [{name: hero}, {name: pitch}]  → objects, returns .name
+// This lets the editor schema use a list-of-objects (Decap's natural shape
+// when each list item has a select widget) without forcing a content
+// migration on existing markdown files.
+Handlebars.registerHelper("sectionName", (item) =>
+  typeof item === "string" ? item : item?.name
+);
+
 // ----------------------------------------------------------------------------
 // 11ty config
 // ----------------------------------------------------------------------------

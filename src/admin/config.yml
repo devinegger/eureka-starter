@@ -36,6 +36,9 @@ auth:
   last_name_claim: last_name
   avatar_url_claim: avatar_url
 
+# Media library — uploads go to src/static/uploads/ which Eleventy passes
+# through to /static/uploads/ in the build. Editors reference images as
+# /static/uploads/<filename> in any markdown body or image field.
 media_folder: "src/static/uploads"
 public_folder: "/static/uploads"
 
@@ -45,115 +48,515 @@ site_url: https://eureka-starter-handlebars-woy47.kinsta.page
 display_url: https://eureka-starter-handlebars-woy47.kinsta.page
 logo_url: https://decapbridge.com/decapcms-with-bridge.svg
 
+# Shared YAML anchors for things reused across collections.
+# (Decap respects YAML anchors; this keeps the file under control.)
+
 collections:
 
-  # ---- Site config (single file) -----------------------------------------
-  - name: "settings"
-    label: "Site settings"
-    files:
-      - file: "src/_data/site.json"
-        label: "Global site config"
-        name: "site"
+  # ==========================================================================
+  # PAGES — Folder collection over src/pages/.
+  #
+  # Editors can create new pages from scratch or edit existing ones. The
+  # `sections` field is a re-orderable list of section partials. The schema
+  # produces objects like `{ name: "hero" }` which the landing layout's
+  # `sectionName` helper transparently handles alongside the legacy
+  # string-only format.
+  # ==========================================================================
+  - name: "pages"
+    label: "Pages"
+    label_singular: "Page"
+    folder: "src/pages"
+    extension: md
+    format: frontmatter
+    create: true
+    delete: false
+    slug: "{{slug}}"
+    summary: "{{title}} ({{permalink}})"
+    nested:
+      depth: 3
+    fields:
+
+      - name: title
+        label: "Page title"
+        widget: string
+        hint: "Used in the browser tab and meta tags. Leave blank on the home page to fall through to site name + tagline."
+        required: false
+
+      - name: description
+        label: "Meta description"
+        widget: text
+        hint: "Used by search engines and social previews. 150–160 characters is the sweet spot."
+        required: false
+
+      - name: permalink
+        label: "URL path"
+        widget: string
+        hint: "Where this page lives. Must start and end with /. Example: /about/ or /services/diagnostics/."
+        pattern: ['^/.*/$|^/$|^/404\.html$', "Must start and end with / (or be /404.html)"]
+        required: true
+
+      - name: layout
+        label: "Layout"
+        widget: select
+        default: "layouts/landing.hbs"
+        hint: "Use 'landing' for marketing pages with sections, 'page' for prose, 'post' for blog posts."
+        options:
+          - { label: "Landing (sections-based)",  value: "layouts/landing.hbs" }
+          - { label: "Page (interior, prose)",     value: "layouts/page.hbs" }
+          - { label: "Post (blog)",                value: "layouts/post.hbs" }
+          - { label: "Service detail (paginated)", value: "layouts/service.hbs" }
+          - { label: "Area detail (paginated)",    value: "layouts/area.hbs" }
+
+      # ---------- Page hero (used by the page-hero section) -----------------
+      - name: pageHero
+        label: "Page hero (interior pages)"
+        widget: object
+        required: false
+        collapsed: true
+        hint: "Used when 'Page hero' is in the sections list. Skip on the home page (which uses the dedicated 'Hero' section)."
         fields:
-          - { name: name,        label: "Site name",        widget: string }
-          - { name: brandMark,   label: "Brand mark (1-2 chars)", widget: string, pattern: ['^.{1,2}$', "1-2 characters"] }
-          - { name: tagline,     label: "Tagline",          widget: string }
-          - { name: description, label: "Meta description", widget: text }
-          - name: theme
-            label: "Default theme"
-            widget: select
-            options: ["dark", "light"]
-            default: "dark"
-          - { name: brand,       label: "Brand variant slug", widget: string, default: "default", hint: "Matches [data-brand=...] in tokens.css for accent overrides." }
-          - { name: url,         label: "Canonical site URL", widget: string }
-          - { name: phone,       label: "Display phone",    widget: string }
-          - { name: phoneTel,    label: "Tel: link phone",  widget: string, hint: "E.164 e.g. +18885550144" }
-          - { name: email,       label: "Email",            widget: string }
-          - name: address
-            label: "Office address"
+          - { name: eyebrow, label: "Eyebrow",     widget: string, required: false, hint: "Small label above the headline (e.g. 'About')." }
+          - { name: title,   label: "Headline",    widget: string, required: false, hint: "HTML allowed for highlights (e.g. <em>like this</em>)." }
+          - { name: sub,     label: "Sub-headline", widget: text,   required: false }
+
+      # ---------- Sections (the composition spine) --------------------------
+      - name: sections
+        label: "Sections (in order)"
+        widget: list
+        required: false
+        hint: "The sections that make up this page, top to bottom. Drag to reorder."
+        field:
+          name: name
+          label: "Section"
+          widget: select
+          options:
+            - { label: "Hero (home only, with health-card visual)", value: "hero" }
+            - { label: "Page hero (interior pages)",                value: "page-hero" }
+            - { label: "Three-column pitch",                         value: "pitch" }
+            - { label: "Services grid (cards)",                      value: "services-grid" }
+            - { label: "Differentiator (methodology block)",         value: "differentiator" }
+            - { label: "Process steps (three-step stepper)",         value: "process-steps" }
+            - { label: "Industries chips",                           value: "industries-chips" }
+            - { label: "Widget slot (configure widget below)",       value: "widget-slot" }
+            - { label: "Testimonials",                               value: "testimonials" }
+            - { label: "Final CTA + mini contact form",              value: "cta-block" }
+            - { label: "Markdown body of this page",                 value: "body" }
+            - { label: "About values grid",                          value: "about-values" }
+            - { label: "Service-areas grid",                         value: "service-areas-grid" }
+            - { label: "Contact info + full form",                   value: "contact-info-form" }
+            - { label: "Blog post list",                             value: "blog-listing" }
+            - { label: "404 error page",                             value: "error-404" }
+
+      # ---------- Widget slot config (used when widget-slot is in sections) -
+      - name: widget
+        label: "Widget (for widget-slot)"
+        widget: select
+        required: false
+        default: ""
+        hint: "Which widget to load inside the widget-slot section."
+        options:
+          - { label: "(none)",                value: "" }
+          - { label: "PageSpeed checker",     value: "pagespeed-checker" }
+          - { label: "ROI calculator (stub)", value: "roi-calculator" }
+
+      - name: hasPagespeedWidget
+        label: "Load PageSpeed widget script"
+        widget: boolean
+        default: false
+        required: false
+        hint: "Set ON when 'PageSpeed checker' is selected above."
+
+      - name: widgetEyebrow
+        label: "Widget eyebrow"
+        widget: string
+        required: false
+        hint: "Small label above the widget heading."
+
+      - name: widgetTitle
+        label: "Widget heading"
+        widget: string
+        required: false
+
+      - name: widgetLede
+        label: "Widget lede"
+        widget: text
+        required: false
+
+      - name: widgetMeta
+        label: "Widget meta (right-aligned)"
+        widget: string
+        required: false
+
+      # ---------- Services grid overrides ----------------------------------
+      - name: servicesEyebrow
+        label: "Services eyebrow (override)"
+        widget: string
+        required: false
+
+      - name: servicesTitle
+        label: "Services heading (override)"
+        widget: string
+        required: false
+
+      - name: servicesLede
+        label: "Services lede (override)"
+        widget: text
+        required: false
+
+      - name: expandedGrid
+        label: "Expanded services grid (2-up wide)"
+        widget: boolean
+        default: false
+        required: false
+
+      # ---------- Forms + collection flags ---------------------------------
+      - name: hasContactForm
+        label: "Loads a contact form"
+        widget: boolean
+        default: false
+        required: false
+        hint: "Turn ON for any page that includes 'cta-block' or 'contact-info-form'. Loads the Turnstile + form scripts."
+
+      - name: eleventyExcludeFromCollections
+        label: "Exclude from collections"
+        widget: boolean
+        default: false
+        required: false
+        hint: "Set ON for 404 and other utility pages that shouldn't appear in lists."
+
+      # ---------- Pagination (advanced) ------------------------------------
+      - name: pagination
+        label: "Pagination (advanced — paginated detail pages only)"
+        widget: object
+        required: false
+        collapsed: true
+        hint: "Used by service.md and area.md to generate one page per item in a data file. Leave blank for normal pages."
+        fields:
+          - { name: data,  label: "Data source", widget: string, required: false, hint: "Name of the _data file, e.g. 'services'." }
+          - { name: size,  label: "Items per page", widget: number, required: false, default: 1 }
+          - { name: alias, label: "Alias",       widget: string, required: false, hint: "Variable name for the current item, e.g. 'service'." }
+
+      # ---------- Markdown body --------------------------------------------
+      - name: body
+        label: "Page body (markdown)"
+        widget: markdown
+        required: false
+        hint: "Add 'Markdown body of this page' to the sections list to control where this renders."
+
+  # ==========================================================================
+  # HOME PAGE CONTENT — one collection grouping the home-page section data
+  # files together so editors find them all in one place.
+  # ==========================================================================
+  - name: "home"
+    label: "Home page content"
+    delete: false
+    files:
+
+      - file: "src/_data/hero.json"
+        label: "Hero (top of homepage)"
+        name: "hero"
+        fields:
+          - { name: signal, label: "Signal pill text", widget: string, required: false, hint: "Small pill at top of hero, e.g. 'Booking new clients · Q3 2026'." }
+          - { name: title,  label: "Headline",         widget: string, hint: "HTML allowed for emphasis: <em>...</em> renders with a teal highlight." }
+          - { name: sub,    label: "Sub-headline",     widget: text }
+          - name: primaryCta
+            label: "Primary CTA button"
             widget: object
             fields:
-              - { name: street, label: Street, widget: string }
-              - { name: city,   label: City,   widget: string }
-              - { name: state,  label: State,  widget: string }
-              - { name: zip,    label: ZIP,    widget: string }
-          - { name: tagline_footer, label: "Footer tagline", widget: string, required: false }
-          - { name: turnstileSiteKey, label: "Cloudflare Turnstile site key", widget: string, required: false }
-          - { name: psiApiKey,        label: "PageSpeed Insights API key",    widget: string, required: false }
+              - { name: label, label: "Button label", widget: string }
+              - { name: url,   label: "Button URL",   widget: string, hint: "Use /#audit for the on-page widget anchor or /contact/ for the contact page." }
+          - name: ghostCta
+            label: "Secondary CTA button"
+            widget: object
+            fields:
+              - { name: label, label: "Button label", widget: string }
+              - { name: url,   label: "Button URL",   widget: string }
+          - name: proof
+            label: "Proof points (right under CTAs)"
+            widget: list
+            hint: "Big number + small label. 2–4 items recommended."
+            fields:
+              - { name: num,   label: "Number",      widget: string, hint: "e.g. '+212%', '3.4×', '47'." }
+              - { name: label, label: "Caption",     widget: string }
+          - name: healthCard
+            label: "Health card (right side of hero)"
+            widget: object
+            hint: "The 'competitor site health' mock. This is a visual element — keep entries to 3–5 rows."
+            fields:
+              - { name: url,   label: "Pretend domain",  widget: string }
+              - { name: time,  label: "Timestamp text", widget: string }
+              - name: rows
+                label: "Score rows"
+                widget: list
+                fields:
+                  - { name: label, label: "Row label", widget: string }
+                  - { name: value, label: "Score (0–100)", widget: number, min: 0, max: 100 }
+                  - name: grade
+                    label: "Grade"
+                    widget: select
+                    options:
+                      - { label: "Good (green)",   value: "good" }
+                      - { label: "Warning (amber)", value: "warn" }
+                      - { label: "Bad (red)",      value: "bad" }
+              - { name: note, label: "Note below scores", widget: text, hint: "HTML allowed; use <strong> for emphasis." }
 
-  # ---- Services -----------------------------------------------------------
+      - file: "src/_data/pitch.json"
+        label: "Pitch (three-column 'about us' band)"
+        name: "pitch"
+        fields:
+          - { name: eyebrow, label: "Eyebrow", widget: string }
+          - { name: title,   label: "Section heading", widget: string }
+          - { name: lede,    label: "Section lede",    widget: text }
+          - name: items
+            label: "Three pitch columns"
+            widget: list
+            min: 2
+            max: 4
+            hint: "Best with exactly three items."
+            fields:
+              - { name: num,   label: "Eyebrow label", widget: string, hint: "Small label above the title, e.g. 'Who we work with'." }
+              - { name: title, label: "Column title",  widget: string }
+              - { name: body,  label: "Column body",   widget: text }
+
+      - file: "src/_data/differentiator.json"
+        label: "Differentiator (methodology block)"
+        name: "differentiator"
+        fields:
+          - { name: eyebrow,  label: "Eyebrow",       widget: string }
+          - { name: title,    label: "Heading",       widget: string }
+          - { name: lede,     label: "Lede",          widget: text }
+          - { name: ctaLabel, label: "CTA button label", widget: string }
+          - { name: ctaUrl,   label: "CTA button URL",   widget: string }
+          - name: items
+            label: "Numbered points"
+            widget: list
+            hint: "Best with exactly three items."
+            fields:
+              - { name: head, label: "Point headline", widget: string }
+              - { name: body, label: "Point body",     widget: text }
+
+      - file: "src/_data/process.json"
+        label: "Process steps"
+        name: "process"
+        fields:
+          - { name: eyebrow, label: "Eyebrow", widget: string }
+          - { name: title,   label: "Heading", widget: string }
+          - { name: lede,    label: "Lede",    widget: text }
+          - name: steps
+            label: "Steps"
+            widget: list
+            min: 1
+            max: 5
+            hint: "Best with three steps."
+            fields:
+              - { name: num,    label: "Step number",  widget: string, hint: "e.g. '01', '02', '03'." }
+              - { name: title,  label: "Step title",   widget: string }
+              - { name: body,   label: "Step body",    widget: text }
+              - { name: active, label: "Highlighted",  widget: boolean, default: false, hint: "Only one step should be highlighted." }
+
+      - file: "src/_data/finalCta.json"
+        label: "Final CTA (bottom-of-page)"
+        name: "finalCta"
+        fields:
+          - { name: eyebrow, label: "Eyebrow", widget: string }
+          - { name: title,   label: "Headline (HTML allowed)", widget: text, hint: "<br/> for line break, <em>...</em> for teal emphasis." }
+          - { name: body,    label: "Body paragraph", widget: text }
+          - name: buttons
+            label: "Buttons"
+            widget: list
+            min: 1
+            max: 3
+            fields:
+              - { name: label, label: "Button label", widget: string }
+              - { name: url,   label: "Button URL",   widget: string }
+              - name: style
+                label: "Style"
+                widget: select
+                options:
+                  - { label: "Primary (filled teal)", value: "primary" }
+                  - { label: "Ghost (outline)",       value: "ghost" }
+          - name: form
+            label: "Mini contact form"
+            widget: object
+            fields:
+              - { name: title, label: "Form title text", widget: string, hint: "Small label above the form, e.g. '// Book a 20-min call'." }
+
+  # ==========================================================================
+  # ABOUT PAGE
+  # ==========================================================================
+  - name: "about"
+    label: "About page content"
+    delete: false
+    files:
+      - file: "src/_data/about.json"
+        label: "About — values grid + story header"
+        name: "about"
+        fields:
+          - name: story
+            label: "Story header"
+            widget: object
+            fields:
+              - { name: eyebrow, label: "Eyebrow", widget: string }
+              - { name: title,   label: "Heading", widget: string }
+              - { name: sub,     label: "Sub-heading", widget: text }
+          - name: values
+            label: "Values grid"
+            widget: object
+            fields:
+              - { name: title, label: "Section title", widget: string }
+              - name: items
+                label: "Values"
+                widget: list
+                min: 2
+                max: 6
+                fields:
+                  - { name: title, label: "Value title", widget: string }
+                  - { name: body,  label: "Value body",  widget: text }
+
+  # ==========================================================================
+  # SERVICES (used as cards on home + paginated detail pages)
+  # ==========================================================================
   - name: "services"
     label: "Services"
     label_singular: "Service"
     files:
       - file: "src/_data/services.json"
-        label: "Services list"
+        label: "All services"
         name: "services"
         fields:
           - name: services
             label: "Services"
             label_singular: "Service"
             widget: list
+            summary: "{{fields.title}} ({{fields.pricing.amount}})"
             fields:
-              - { name: slug,    label: "URL slug",        widget: string }
-              - { name: index,   label: "Index (01, 02)",  widget: string }
-              - { name: title,   label: "Title",           widget: string }
-              - { name: shortName, label: "Short name",    widget: string }
-              - { name: summary, label: "Card summary",    widget: text }
-              - { name: hero,    label: "Detail-page hero headline", widget: string }
-              - { name: lede,    label: "Detail-page lede",          widget: text }
-              - { name: includes, label: "What's included", widget: list, field: { name: item, label: Item, widget: string } }
+              - { name: slug,      label: "URL slug",     widget: string, pattern: ['^[a-z0-9-]+$', "Lowercase letters, numbers, and hyphens only"], hint: "Goes into /services/<slug>/." }
+              - { name: index,     label: "Index (01, 02, …)", widget: string, hint: "Used for the small card label." }
+              - { name: title,     label: "Service title",     widget: string }
+              - { name: shortName, label: "Short name",        widget: string, hint: "Used in body copy e.g. 'everything you get with [short name].'" }
+              - { name: summary,   label: "One-line summary (for cards)", widget: text }
+              - { name: hero,      label: "Detail page headline", widget: string }
+              - { name: lede,      label: "Detail page lede",     widget: text }
+              - name: includes
+                label: "What's included (bulleted list)"
+                widget: list
+                field: { name: item, label: "Item", widget: string }
               - name: pricing
-                label: "Pricing"
+                label: "Pricing band"
                 widget: object
                 fields:
-                  - { name: label,  label: Label,  widget: string, default: "From" }
-                  - { name: amount, label: Amount, widget: string }
-                  - { name: note,   label: Note,   widget: text }
+                  - { name: label,  label: "Label",  widget: string, default: "From" }
+                  - { name: amount, label: "Amount (display)", widget: string, hint: "e.g. '$8,400' or '$1,950 / mo'." }
+                  - { name: note,   label: "Note",   widget: text }
               - name: faq
                 label: "FAQ"
                 widget: list
                 fields:
-                  - { name: q, label: Question, widget: string }
-                  - { name: a, label: Answer,   widget: text }
+                  - { name: q, label: "Question", widget: string }
+                  - { name: a, label: "Answer",   widget: text }
 
-  # ---- Service areas ------------------------------------------------------
+  # ==========================================================================
+  # SERVICE AREAS (paginated detail pages)
+  # ==========================================================================
   - name: "service-areas"
     label: "Service areas"
     files:
       - file: "src/_data/serviceAreas.json"
-        label: "Service areas list"
+        label: "All service areas"
         name: "serviceAreas"
         fields:
           - name: areas
             label: "Areas"
             widget: list
+            summary: "{{fields.city}}, {{fields.state}}"
             fields:
-              - { name: slug,    label: "URL slug",  widget: string }
+              - { name: slug,    label: "URL slug", widget: string, pattern: ['^[a-z0-9-]+$', "Lowercase letters, numbers, and hyphens only"] }
               - { name: city,    label: "City",      widget: string }
-              - { name: state,   label: "State",     widget: string }
-              - { name: tagline, label: "Tagline",   widget: string }
-              - { name: intro,   label: "Intro paragraph", widget: text }
-              - { name: highlights, label: "Highlights bullets", widget: list, field: { name: item, label: Item, widget: string } }
+              - { name: state,   label: "State (2-letter)", widget: string, pattern: ['^[A-Z]{2}$', "Two uppercase letters"] }
+              - { name: tagline, label: "Tagline (card)",    widget: string }
+              - { name: intro,   label: "Intro paragraph",   widget: text }
+              - name: highlights
+                label: "Highlights (bulleted list)"
+                widget: list
+                field: { name: item, label: "Item", widget: string }
 
-  # ---- Testimonials -------------------------------------------------------
+  # ==========================================================================
+  # TESTIMONIALS
+  # ==========================================================================
   - name: "testimonials"
     label: "Testimonials"
     files:
       - file: "src/_data/testimonials.json"
-        label: "Testimonials list"
+        label: "All testimonials"
         name: "testimonials"
         fields:
           - name: items
             label: "Testimonials"
             widget: list
+            summary: "{{fields.name}} — {{fields.role}}"
             fields:
-              - { name: quote,    label: "Quote",    widget: text }
-              - { name: name,     label: "Name",     widget: string }
-              - { name: role,     label: "Role/company", widget: string }
-              - { name: initials, label: "Initials (avatar)", widget: string, pattern: ['^.{1,3}$', "1-3 characters"] }
+              - { name: quote,    label: "Quote",          widget: text }
+              - { name: name,     label: "Name",           widget: string }
+              - { name: role,     label: "Role / company", widget: string }
+              - { name: initials, label: "Avatar initials (1–3 chars)", widget: string, pattern: ['^.{1,3}$', "1–3 characters"] }
 
-  # ---- Blog posts ---------------------------------------------------------
+  # ==========================================================================
+  # INDUSTRIES (chip cloud on home)
+  # ==========================================================================
+  - name: "industries"
+    label: "Industries (chip cloud)"
+    files:
+      - file: "src/_data/industries.json"
+        label: "Industries list"
+        name: "industries"
+        fields:
+          - name: items
+            label: "Industries"
+            widget: list
+            summary: "{{fields.label}}"
+            fields:
+              - { name: label, label: "Display label", widget: string }
+              - { name: slug,  label: "URL slug",      widget: string, pattern: ['^[a-z0-9-]+$', "Lowercase letters, numbers, and hyphens only"] }
+
+  # ==========================================================================
+  # NAVIGATION
+  # ==========================================================================
+  - name: "navigation"
+    label: "Navigation"
+    files:
+      - file: "src/_data/nav.json"
+        label: "Site navigation"
+        name: "nav"
+        fields:
+          - name: primary
+            label: "Primary nav (header)"
+            widget: list
+            summary: "{{fields.label}} → {{fields.url}}"
+            fields:
+              - { name: label, label: "Label", widget: string }
+              - { name: url,   label: "URL",   widget: string }
+          - name: footer
+            label: "Footer columns"
+            widget: object
+            fields:
+              - name: explore
+                label: "Explore column"
+                widget: list
+                summary: "{{fields.label}}"
+                fields:
+                  - { name: label, label: "Label", widget: string }
+                  - { name: url,   label: "URL",   widget: string }
+              - name: legal
+                label: "Legal column"
+                widget: list
+                summary: "{{fields.label}}"
+                fields:
+                  - { name: label, label: "Label", widget: string }
+                  - { name: url,   label: "URL",   widget: string }
+
+  # ==========================================================================
+  # BLOG POSTS
+  # ==========================================================================
   - name: "blog"
     label: "Blog posts"
     label_singular: "Blog post"
@@ -162,9 +565,47 @@ collections:
     slug: "{{slug}}"
     extension: md
     format: frontmatter
+    summary: "{{title}} — {{date | date('YYYY-MM-DD')}}"
     fields:
-      - { name: title,       label: Title,       widget: string }
-      - { name: description, label: Description, widget: text }
+      - { name: title,       label: "Title",       widget: string }
+      - { name: description, label: "Description", widget: text, hint: "Shown on the index card and in social previews." }
       - { name: date,        label: "Publish date", widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
-      - { name: author,      label: Author,      widget: string, default: "Eureka team" }
-      - { name: body,        label: Body,        widget: markdown }
+      - { name: author,      label: "Author",      widget: string, default: "Eureka team" }
+      - { name: heroImage,   label: "Hero image (optional)", widget: image, required: false, hint: "Uploaded to /static/uploads/. Not yet wired into the layout — TODO." }
+      - { name: body,        label: "Body",        widget: markdown }
+
+  # ==========================================================================
+  # SITE SETTINGS
+  # ==========================================================================
+  - name: "settings"
+    label: "Site settings"
+    files:
+      - file: "src/_data/site.json"
+        label: "Global site config"
+        name: "site"
+        fields:
+          - { name: name,         label: "Site name",         widget: string }
+          - { name: brandMark,    label: "Brand mark (1–2 chars)", widget: string, pattern: ['^.{1,2}$', "1–2 characters"] }
+          - { name: tagline,      label: "Tagline",           widget: string }
+          - { name: description,  label: "Meta description",  widget: text }
+          - name: theme
+            label: "Default theme"
+            widget: select
+            options: ["dark", "light"]
+            default: "dark"
+          - { name: brand,        label: "Brand variant slug", widget: string, default: "default", hint: "Matches [data-brand=...] in tokens.css for accent overrides." }
+          - { name: url,          label: "Canonical site URL", widget: string }
+          - { name: phone,        label: "Display phone",     widget: string }
+          - { name: phoneTel,     label: "tel: link phone",   widget: string, hint: "E.164 e.g. +18885550144" }
+          - { name: email,        label: "Email",             widget: string }
+          - name: address
+            label: "Office address"
+            widget: object
+            fields:
+              - { name: street, label: "Street", widget: string }
+              - { name: city,   label: "City",   widget: string }
+              - { name: state,  label: "State",  widget: string }
+              - { name: zip,    label: "ZIP",    widget: string }
+          - { name: tagline_footer,   label: "Footer tagline", widget: string, required: false }
+          - { name: turnstileSiteKey, label: "Cloudflare Turnstile site key", widget: string, required: false }
+          - { name: psiApiKey,        label: "PageSpeed Insights API key",    widget: string, required: false }

@@ -23,7 +23,7 @@ layout: layouts/base.hbs
   Pages can omit the `body` sentinel; the markdown body simply won't render.
 --}}
 {{#each sections}}
-  {{#if (eq this "body")}}
+  {{#if (eq (sectionName this) "body")}}
     {{#if @root.content}}
     <section class="section">
       <div class="container">
@@ -35,7 +35,9 @@ layout: layouts/base.hbs
     {{/if}}
   {{else}}
     {{!-- Pass @root explicitly so partials see the full page scope, not
-         the current loop iteration's string value. --}}
-    {{> (section this) @root}}
+         the current loop iteration's string value. The sectionName helper
+         accepts either a string (raw frontmatter) or { name: "..." }
+         object (what Decap emits when sections is edited via the CMS). --}}
+    {{> (section (sectionName this)) @root}}
   {{/if}}
 {{/each}}
