@@ -136,12 +136,11 @@ export default defineConfig({
         label: "Pages",
         path: "src/pages",
         format: "md",
-        ui: {
-          router: ({ document }) => {
-            const data = document?._values as { permalink?: string } | undefined;
-            return data?.permalink || `/${document?._sys?.relativePath?.replace(/\.md$/, "")}/`;
-          },
-        },
+        // No router — keeps Tina in standard form-editing mode.
+        // A router function would trigger visual editing mode (split panel)
+        // which requires Tina's React client on the site to bind fields.
+        // Our Handlebars site doesn't have that integration, so without a
+        // router the sidebar shows the full form editor as expected.
         fields: [
           s("title", "Page title"),
           s("description", "Meta description", { textarea: true }),
