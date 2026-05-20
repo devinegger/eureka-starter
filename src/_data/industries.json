@@ -1,10 +1,12 @@
-[
-  { "label": "HVAC",          "slug": "hvac" },
-  { "label": "Plumbing",      "slug": "plumbing" },
-  { "label": "Pest Control",  "slug": "pest-control" },
-  { "label": "Auto Repair",   "slug": "auto-repair" },
-  { "label": "Body Shops",    "slug": "body-shops" },
-  { "label": "Home Services", "slug": "home-services" },
-  { "label": "Electrical",    "slug": "electrical" },
-  { "label": "Roofing",       "slug": "roofing" }
-]
+{
+  "items": [
+    { "label": "HVAC",          "slug": "hvac" },
+    { "label": "Plumbing",      "slug": "plumbing" },
+    { "label": "Pest Control",  "slug": "pest-control" },
+    { "label": "Auto Repair",   "slug": "auto-repair" },
+    { "label": "Body Shops",    "slug": "body-shops" },
+    { "label": "Home Services", "slug": "home-services" },
+    { "label": "Electrical",    "slug": "electrical" },
+    { "label": "Roofing",       "slug": "roofing" }
+  ]
+}
