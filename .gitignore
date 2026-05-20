@@ -7,8 +7,9 @@ _site/
 
 # Tina — generated client SDK + admin bundle (rebuilt on every build)
 tina/__generated__/
-src/admin/
+src/admin/*
 !src/admin/.gitkeep
+!src/admin/index.html
 
 # Logs
 npm-debug.log*
