@@ -1,7 +1,7 @@
 ---
 layout: layouts/service.hbs
 pagination:
-  data: services
+  data: services.items
   size: 1
   alias: service
 permalink: "/services/{{ service.slug }}/"

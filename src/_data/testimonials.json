@@ -1,20 +1,22 @@
-[
-  {
-    "quote": "They cut our cost-per-lead almost in half in the first quarter. First agency we’ve had that actually picks up the phone.",
-    "name": "Ray Marquez",
-    "role": "Owner · Marquez HVAC",
-    "initials": "RM"
-  },
-  {
-    "quote": "I finally know what every marketing dollar does. The monthly report is one page. That alone is worth what we pay them.",
-    "name": "Tara Schultz",
-    "role": "GM · Schultz Plumbing & Drain",
-    "initials": "TS"
-  },
-  {
-    "quote": "Our new site loads before the old one’s logo even appeared. We’re booking jobs from organic search again. It works.",
-    "name": "Devon Klein",
-    "role": "Founder · Klein Pest Solutions",
-    "initials": "DK"
-  }
-]
+{
+  "items": [
+    {
+      "quote": "They cut our cost-per-lead almost in half in the first quarter. First agency we’ve had that actually picks up the phone.",
+      "name": "Ray Marquez",
+      "role": "Owner · Marquez HVAC",
+      "initials": "RM"
+    },
+    {
+      "quote": "I finally know what every marketing dollar does. The monthly report is one page. That alone is worth what we pay them.",
+      "name": "Tara Schultz",
+      "role": "GM · Schultz Plumbing & Drain",
+      "initials": "TS"
+    },
+    {
+      "quote": "Our new site loads before the old one’s logo even appeared. We’re booking jobs from organic search again. It works.",
+      "name": "Devon Klein",
+      "role": "Founder · Klein Pest Solutions",
+      "initials": "DK"
+    }
+  ]
+}

@@ -6,7 +6,7 @@
     <p class="section-lede">Don't see your city? We probably still serve it — get in touch.</p>
 
     <div class="services__grid services__grid--expanded">
-      {{#each serviceAreas}}
+      {{#each serviceAreas.items}}
         <a class="service-card" href="/service-areas/{{this.slug}}/">
           <div class="service-card__index">{{this.state}}</div>
           <h3 class="service-card__title">{{this.city}}</h3>

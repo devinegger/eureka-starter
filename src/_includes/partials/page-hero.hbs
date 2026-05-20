@@ -1,11 +1,13 @@
 {{!--
-  Generic page hero for interior pages. Reads `pageHero` from frontmatter:
-    pageHero:
-      eyebrow: About
-      title: A small team that ships, measures, and owns the number.
-      sub: Optional secondary paragraph.
-  Falls back to `title` / `description` if `pageHero` isn't set.
+  Page hero. Reads fields from either:
+    - This block's inline fields (when called from a Tina blocks dispatcher
+      with the block as data context): eyebrow / title / sub
+    - Page-level `pageHero` object (legacy sections-array pages):
+        pageHero: { eyebrow, title, sub }
+
+  Detects which by checking for the presence of `pageHero` on the context.
 --}}
+{{#if pageHero}}
 <section class="page-hero">
   <div class="container">
     {{#if pageHero.eyebrow}}<p class="eyebrow">{{pageHero.eyebrow}}</p>{{/if}}
@@ -13,3 +15,12 @@
     {{#if pageHero.sub}}<p class="page-hero__sub">{{pageHero.sub}}</p>{{else if description}}<p class="page-hero__sub">{{description}}</p>{{/if}}
   </div>
 </section>
+{{else}}
+<section class="page-hero">
+  <div class="container">
+    {{#if eyebrow}}<p class="eyebrow">{{eyebrow}}</p>{{/if}}
+    <h1 class="page-hero__title">{{#if title}}{{{title}}}{{else}}{{@root.title}}{{/if}}</h1>
+    {{#if sub}}<p class="page-hero__sub">{{sub}}</p>{{else if @root.description}}<p class="page-hero__sub">{{@root.description}}</p>{{/if}}
+  </div>
+</section>
+{{/if}}

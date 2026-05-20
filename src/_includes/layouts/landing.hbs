@@ -2,42 +2,76 @@
 layout: layouts/base.hbs
 ---
 {{!--
-  Landing layout — iterates the page's `sections` array and renders each
-  matching partial from src/_includes/partials/<name>.hbs.
+  Landing layout — renders a page's sections in order.
 
-  The special sentinel `body` renders the page's markdown body at that point.
-  This lets a page mix declarative sections with custom prose:
+  Supports two formats so old and new pages coexist during the Tina migration:
 
-      ---
-      layout: layouts/landing.hbs
+  1. `blocks` — Tina's block-based composition. An array of objects, each
+     with a `_template` key naming a partial under partials/, plus any
+     inline fields the block has.
+
+      blocks:
+        - _template: page-hero
+          eyebrow: About
+          title: ...
+          sub: ...
+        - _template: about-values
+        - _template: body
+        - _template: cta-block
+
+  2. `sections` — legacy bare-string list (still supported). Each entry
+     is a partial name; content for that section comes from singletons.
+
       sections:
-        - about-hero
-        - body          # ← markdown body renders here
-        - about-values
+        - page-hero
+        - body
         - cta-block
-      ---
 
-      ## Custom prose
-      Goes here, between sections.
+  Blocks with inline fields (page-hero, widget-slot, services-grid) get
+  `this` (the block) as their data context, so the partial reads its
+  fields directly. All other blocks get @root, so partials access the
+  shared singleton data they've always read.
 
-  Pages can omit the `body` sentinel; the markdown body simply won't render.
+  The special `body` sentinel renders the page's markdown body at that
+  point in the section flow.
 --}}
-{{#each sections}}
-  {{#if (eq (sectionName this) "body")}}
-    {{#if @root.content}}
-    <section class="section">
-      <div class="container">
-        <div class="prose">
-          {{{@root.content}}}
+{{#if blocks}}
+  {{#each blocks}}
+    {{#if (eq this._template "body")}}
+      {{#if @root.content}}
+      <section class="section">
+        <div class="container">
+          <div class="prose">
+            {{{@root.content}}}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      {{/if}}
+    {{else if (eq this._template "page-hero")}}
+      {{> partials/page-hero this}}
+    {{else if (eq this._template "widget-slot")}}
+      {{> partials/widget-slot this}}
+    {{else if (eq this._template "services-grid")}}
+      {{> partials/services-grid this}}
+    {{else}}
+      {{> (section this._template) @root}}
     {{/if}}
-  {{else}}
-    {{!-- Pass @root explicitly so partials see the full page scope, not
-         the current loop iteration's string value. The sectionName helper
-         accepts either a string (raw frontmatter) or { name: "..." }
-         object (what Decap emits when sections is edited via the CMS). --}}
-    {{> (section (sectionName this)) @root}}
-  {{/if}}
-{{/each}}
+  {{/each}}
+{{else}}
+  {{!-- Legacy sections array (bare strings or {name: "..."} objects) --}}
+  {{#each sections}}
+    {{#if (eq (sectionName this) "body")}}
+      {{#if @root.content}}
+      <section class="section">
+        <div class="container">
+          <div class="prose">
+            {{{@root.content}}}
+          </div>
+        </div>
+      </section>
+      {{/if}}
+    {{else}}
+      {{> (section (sectionName this)) @root}}
+    {{/if}}
+  {{/each}}
+{{/if}}

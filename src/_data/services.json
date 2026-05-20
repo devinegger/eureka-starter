@@ -1,146 +1,148 @@
-[
-  {
-    "slug": "conversion-websites",
-    "index": "01",
-    "title": "Conversion-first websites",
-    "shortName": "Websites",
-    "summary": "Fast, mobile-tuned sites that load in under two seconds and route every visitor toward a call or a form. No template look, no plugin pile.",
-    "hero": "Your site should book jobs while you sleep.",
-    "lede": "We design, build, and host a website that loads in under two seconds, ranks in your service area, and turns visitors into real phone calls.",
-    "includes": [
-      "Custom design — no template recycling",
-      "Built on 11ty for raw speed (Lighthouse 95+)",
-      "Mobile-first layouts that pass real-world thumb tests",
-      "Call tracking, form attribution, and CRM sync wired month one",
-      "Hosting, SSL, and uptime monitoring included",
-      "Quarterly content updates and a refresh sprint each year"
-    ],
-    "pricing": {
-      "label": "From",
-      "amount": "$8,400",
-      "note": "Flat-fee build + $480/mo hosting & care plan. Month-to-month after 90 days."
+{
+  "items": [
+    {
+      "slug": "conversion-websites",
+      "index": "01",
+      "title": "Conversion-first websites",
+      "shortName": "Websites",
+      "summary": "Fast, mobile-tuned sites that load in under two seconds and route every visitor toward a call or a form. No template look, no plugin pile.",
+      "hero": "Your site should book jobs while you sleep.",
+      "lede": "We design, build, and host a website that loads in under two seconds, ranks in your service area, and turns visitors into real phone calls.",
+      "includes": [
+        "Custom design — no template recycling",
+        "Built on 11ty for raw speed (Lighthouse 95+)",
+        "Mobile-first layouts that pass real-world thumb tests",
+        "Call tracking, form attribution, and CRM sync wired month one",
+        "Hosting, SSL, and uptime monitoring included",
+        "Quarterly content updates and a refresh sprint each year"
+      ],
+      "pricing": {
+        "label": "From",
+        "amount": "$8,400",
+        "note": "Flat-fee build + $480/mo hosting & care plan. Month-to-month after 90 days."
+      },
+      "faq": [
+        {
+          "q": "How long does the build take?",
+          "a": "From kickoff to live site, three to five weeks for a standard scope. We move faster if you already have content; slower if you want a custom photoshoot or copy from scratch."
+        },
+        {
+          "q": "Do I own the site when we’re done?",
+          "a": "Yes. The repo is yours, the domain is yours, and the analytics live in your Google account. If you ever leave, you take all of it."
+        },
+        {
+          "q": "What about WordPress?",
+          "a": "We don’t build on WordPress. The maintenance overhead, plugin sprawl, and load-time hit aren’t worth it for a marketing site. Our static stack gives you a faster, cheaper, more secure result."
+        }
+      ]
     },
-    "faq": [
-      {
-        "q": "How long does the build take?",
-        "a": "From kickoff to live site, three to five weeks for a standard scope. We move faster if you already have content; slower if you want a custom photoshoot or copy from scratch."
+    {
+      "slug": "local-seo",
+      "index": "02",
+      "title": "Local SEO that ranks",
+      "shortName": "Local SEO",
+      "summary": "We rebuild your Google Business Profile, fix citation drift, and target the service-area keywords that bring jobs — not vanity traffic.",
+      "hero": "Show up where your jobs come from.",
+      "lede": "Most trades agencies treat SEO like a content factory. We treat it like distribution. Rebuild the foundation, fix the citations, and target the keywords that book work.",
+      "includes": [
+        "Google Business Profile audit and rebuild",
+        "Citation cleanup across 40+ directories",
+        "Service-area page strategy and build-out",
+        "Local content calendar tied to seasonality",
+        "Monthly rank and call tracking in one report",
+        "Schema markup for services, areas, and reviews"
+      ],
+      "pricing": {
+        "label": "From",
+        "amount": "$1,950 / mo",
+        "note": "12-month commitment for the rebuild phase, month-to-month after."
       },
-      {
-        "q": "Do I own the site when we’re done?",
-        "a": "Yes. The repo is yours, the domain is yours, and the analytics live in your Google account. If you ever leave, you take all of it."
-      },
-      {
-        "q": "What about WordPress?",
-        "a": "We don’t build on WordPress. The maintenance overhead, plugin sprawl, and load-time hit aren’t worth it for a marketing site. Our static stack gives you a faster, cheaper, more secure result."
-      }
-    ]
-  },
-  {
-    "slug": "local-seo",
-    "index": "02",
-    "title": "Local SEO that ranks",
-    "shortName": "Local SEO",
-    "summary": "We rebuild your Google Business Profile, fix citation drift, and target the service-area keywords that bring jobs — not vanity traffic.",
-    "hero": "Show up where your jobs come from.",
-    "lede": "Most trades agencies treat SEO like a content factory. We treat it like distribution. Rebuild the foundation, fix the citations, and target the keywords that book work.",
-    "includes": [
-      "Google Business Profile audit and rebuild",
-      "Citation cleanup across 40+ directories",
-      "Service-area page strategy and build-out",
-      "Local content calendar tied to seasonality",
-      "Monthly rank and call tracking in one report",
-      "Schema markup for services, areas, and reviews"
-    ],
-    "pricing": {
-      "label": "From",
-      "amount": "$1,950 / mo",
-      "note": "12-month commitment for the rebuild phase, month-to-month after."
+      "faq": [
+        {
+          "q": "How long until I see results?",
+          "a": "First movement in the map pack within 30-60 days. Meaningful call volume around month four. Anyone promising faster is either lying or about to get you suspended."
+        },
+        {
+          "q": "Do you guarantee rankings?",
+          "a": "We guarantee the work and the reporting. Nobody who promises a specific keyword ranking knows what they’re doing — Google changes the algorithm every quarter."
+        },
+        {
+          "q": "What if I already have an SEO agency?",
+          "a": "Free audit, no obligation. If they’re doing the work, we’ll tell you. If they’re billing you for monthly reports and nothing else, we’ll show you."
+        }
+      ]
     },
-    "faq": [
-      {
-        "q": "How long until I see results?",
-        "a": "First movement in the map pack within 30-60 days. Meaningful call volume around month four. Anyone promising faster is either lying or about to get you suspended."
+    {
+      "slug": "paid-ads",
+      "index": "03",
+      "title": "Paid ads with a floor on ROAS",
+      "shortName": "Paid ads",
+      "summary": "Google Local Service Ads, Search, and Performance Max managed by humans who’ve booked HVAC jobs themselves. We set a return target and hold it.",
+      "hero": "Set the return target. We hold it.",
+      "lede": "Paid ads only work if someone is watching the number and adjusting weekly. We do that. We pick the floor on return-on-ad-spend, then defend it.",
+      "includes": [
+        "Google Local Service Ads management and dispute handling",
+        "Google Search and Performance Max campaigns",
+        "Bing Ads (often the highest-ROAS channel for trades)",
+        "Call tracking, transcription, and lead quality grading",
+        "Weekly check-in for the first month, monthly after",
+        "Flat management fee — no percent-of-spend kickback"
+      ],
+      "pricing": {
+        "label": "Management from",
+        "amount": "$1,400 / mo",
+        "note": "Flat fee independent of ad spend. Recommended ad budget starts at $3,500/mo."
       },
-      {
-        "q": "Do you guarantee rankings?",
-        "a": "We guarantee the work and the reporting. Nobody who promises a specific keyword ranking knows what they’re doing — Google changes the algorithm every quarter."
-      },
-      {
-        "q": "What if I already have an SEO agency?",
-        "a": "Free audit, no obligation. If they’re doing the work, we’ll tell you. If they’re billing you for monthly reports and nothing else, we’ll show you."
-      }
-    ]
-  },
-  {
-    "slug": "paid-ads",
-    "index": "03",
-    "title": "Paid ads with a floor on ROAS",
-    "shortName": "Paid ads",
-    "summary": "Google Local Service Ads, Search, and Performance Max managed by humans who’ve booked HVAC jobs themselves. We set a return target and hold it.",
-    "hero": "Set the return target. We hold it.",
-    "lede": "Paid ads only work if someone is watching the number and adjusting weekly. We do that. We pick the floor on return-on-ad-spend, then defend it.",
-    "includes": [
-      "Google Local Service Ads management and dispute handling",
-      "Google Search and Performance Max campaigns",
-      "Bing Ads (often the highest-ROAS channel for trades)",
-      "Call tracking, transcription, and lead quality grading",
-      "Weekly check-in for the first month, monthly after",
-      "Flat management fee — no percent-of-spend kickback"
-    ],
-    "pricing": {
-      "label": "Management from",
-      "amount": "$1,400 / mo",
-      "note": "Flat fee independent of ad spend. Recommended ad budget starts at $3,500/mo."
+      "faq": [
+        {
+          "q": "Do you require a long contract?",
+          "a": "90-day minimum to instrument and stabilize, then month-to-month. If the number isn’t moving, you walk."
+        },
+        {
+          "q": "What ROAS should I expect?",
+          "a": "3-5x average for HVAC and plumbing. Pest and electrical trend higher because the jobs close faster. We set the floor for your trade in the audit."
+        },
+        {
+          "q": "Will you spend my budget if you can’t hit the target?",
+          "a": "No. We pause campaigns that aren’t performing and tell you why, rather than burn budget to look busy."
+        }
+      ]
     },
-    "faq": [
-      {
-        "q": "Do you require a long contract?",
-        "a": "90-day minimum to instrument and stabilize, then month-to-month. If the number isn’t moving, you walk."
+    {
+      "slug": "reporting",
+      "index": "04",
+      "title": "Reporting you actually read",
+      "shortName": "Reporting",
+      "summary": "One page. Calls, forms, cost-per-lead, jobs booked. Sent the first Monday of every month with a short note on what changed and why.",
+      "hero": "One page. Five minutes. The whole story.",
+      "lede": "Most marketing reports are eight pages of vanity metrics and a recommendation to spend more. Ours is one page, four numbers, and a paragraph of plain English.",
+      "includes": [
+        "One-page monthly PDF, delivered first Monday",
+        "Calls, forms, cost-per-lead, and jobs booked — broken down by channel",
+        "Plain-English summary of what changed and why",
+        "Quarterly strategy review on Zoom (45 min)",
+        "Live dashboard you can check any time",
+        "On-demand: ad-hoc reports for ownership / banking"
+      ],
+      "pricing": {
+        "label": "Included",
+        "amount": "Free",
+        "note": "Bundled with any ongoing service (Local SEO or Paid Ads)."
       },
-      {
-        "q": "What ROAS should I expect?",
-        "a": "3-5x average for HVAC and plumbing. Pest and electrical trend higher because the jobs close faster. We set the floor for your trade in the audit."
-      },
-      {
-        "q": "Will you spend my budget if you can’t hit the target?",
-        "a": "No. We pause campaigns that aren’t performing and tell you why, rather than burn budget to look busy."
-      }
-    ]
-  },
-  {
-    "slug": "reporting",
-    "index": "04",
-    "title": "Reporting you actually read",
-    "shortName": "Reporting",
-    "summary": "One page. Calls, forms, cost-per-lead, jobs booked. Sent the first Monday of every month with a short note on what changed and why.",
-    "hero": "One page. Five minutes. The whole story.",
-    "lede": "Most marketing reports are eight pages of vanity metrics and a recommendation to spend more. Ours is one page, four numbers, and a paragraph of plain English.",
-    "includes": [
-      "One-page monthly PDF, delivered first Monday",
-      "Calls, forms, cost-per-lead, and jobs booked — broken down by channel",
-      "Plain-English summary of what changed and why",
-      "Quarterly strategy review on Zoom (45 min)",
-      "Live dashboard you can check any time",
-      "On-demand: ad-hoc reports for ownership / banking"
-    ],
-    "pricing": {
-      "label": "Included",
-      "amount": "Free",
-      "note": "Bundled with any ongoing service (Local SEO or Paid Ads)."
-    },
-    "faq": [
-      {
-        "q": "Can I see a sample report?",
-        "a": "Yes. Ask in the contact form and we’ll send one with the data scrubbed."
-      },
-      {
-        "q": "Will you sit on a monthly Zoom?",
-        "a": "If you want. Most clients prefer the PDF and call only when something changes."
-      },
-      {
-        "q": "What if I just want reporting and nothing else?",
-        "a": "We don’t sell it standalone. It’s only valuable when paired with the work being measured."
-      }
-    ]
-  }
-]
+      "faq": [
+        {
+          "q": "Can I see a sample report?",
+          "a": "Yes. Ask in the contact form and we’ll send one with the data scrubbed."
+        },
+        {
+          "q": "Will you sit on a monthly Zoom?",
+          "a": "If you want. Most clients prefer the PDF and call only when something changes."
+        },
+        {
+          "q": "What if I just want reporting and nothing else?",
+          "a": "We don’t sell it standalone. It’s only valuable when paired with the work being measured."
+        }
+      ]
+    }
+  ]
+}
