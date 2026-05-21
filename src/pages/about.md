@@ -11,7 +11,7 @@ sections:
   - testimonials
   - cta-block
 title: About Eureka
-description: 'A small team that ships, measures, and owns the number. Built for owner-operators'
+description: 'A small team that ships, measures, and owns the number. Built for people who are super busy and stuff'
 permalink: /about/
 layout: layouts/landing.hbs
 hasContactForm: true
