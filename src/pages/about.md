@@ -25,4 +25,11 @@ Today we work with 47 active trades clients across the western United States. We
 
 ## What we believe
 
-The trades have been milked by marketing agencies for two decades. Vague reports, locked-in contracts, fake dashboards, and quarterly recommendations to “invest more in brand.” We don't do any of that. We sell jobs booked, measured weekly, in plain English, please!
+The trades have been milked by marketing agencies for two decades. Vague reports, locked-in contracts, fake dashboards, and quarterly recommendations to “invest more in brand.” We don't do any of that. We sell jobs booked, measured weekly, make a whole bunch of changes now
+
+and add a new line and stuff
+
+### this an h3
+
+** this is bold **
+
